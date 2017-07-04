@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://barryleeweb.github.io/"/>
-  <updated>2017-07-04T14:35:37.141Z</updated>
+  <updated>2017-07-04T16:18:15.862Z</updated>
   <id>https://barryleeweb.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://barryleeweb.github.io/2017/07/04/MarkdownPad%E5%A6%82%E4%BD%95%E5%86%99%E5%8D%9A%E5%AE%A2/"/>
     <id>https://barryleeweb.github.io/2017/07/04/MarkdownPad如何写博客/</id>
     <published>2017-07-04T13:59:46.547Z</published>
-    <updated>2017-07-04T14:35:37.141Z</updated>
+    <updated>2017-07-04T16:18:15.862Z</updated>
     
     <content type="html"><![CDATA[<h2 id="1-标题"><a href="#1-标题" class="headerlink" title="1.标题"></a>1.标题</h2><p>&emsp;&emsp;标题是每篇文章都需要也是最常用的格式，在 Markdown 中，如果一段文字被定义为标题，只要在这段文字前加 # 号即可。</p>
 <h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><p>以此类推，总共六级标题，建议在井号后加一个空格，这是最标准的 Markdown 语法。</p>
@@ -91,6 +91,10 @@
     
     </summary>
     
+      <category term="Markdown" scheme="https://barryleeweb.github.io/categories/Markdown/"/>
+    
+    
+      <category term="Markdown" scheme="https://barryleeweb.github.io/tags/Markdown/"/>
     
   </entry>
   

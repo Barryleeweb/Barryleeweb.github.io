@@ -1,0 +1,816 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="3C0GPfQqnkheXgimbf5ySFQi6NgZ-44EBeJve7cAwmY" />
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTML_CSS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Task3:三栏式布局1.三栏式布局方法方法一：inline-block方法1234left,center,right&amp;#123; display：inline-block&amp;#125; /* 包裹作用，不会塌陷 */ left&amp;#123;width:200px&amp;#125;right&amp;#123;width:120px&amp;#125;center&amp;#123;width:calc(100%-200px-12">
+<meta property="og:type" content="article">
+<meta property="og:title" content="baidu_ife_小薇学院总结（二）">
+<meta property="og:url" content="https://barryleeweb.github.io/2017/07/11/baidu_ife_小薇学院总结（二）/index.html">
+<meta property="og:site_name" content="Front End">
+<meta property="og:description" content="Task3:三栏式布局1.三栏式布局方法方法一：inline-block方法1234left,center,right&amp;#123; display：inline-block&amp;#125; /* 包裹作用，不会塌陷 */ left&amp;#123;width:200px&amp;#125;right&amp;#123;width:120px&amp;#125;center&amp;#123;width:calc(100%-200px-12">
+<meta property="og:updated_time" content="2017-07-11T16:15:26.959Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="baidu_ife_小薇学院总结（二）">
+<meta name="twitter:description" content="Task3:三栏式布局1.三栏式布局方法方法一：inline-block方法1234left,center,right&amp;#123; display：inline-block&amp;#125; /* 包裹作用，不会塌陷 */ left&amp;#123;width:200px&amp;#125;right&amp;#123;width:120px&amp;#125;center&amp;#123;width:calc(100%-200px-12">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://barryleeweb.github.io/2017/07/11/baidu_ife_小薇学院总结（二）/"/>
+
+
+
+
+
+  <title>baidu_ife_小薇学院总结（二） | Front End</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Front End</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端爱好者</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://barryleeweb.github.io/2017/07/11/baidu_ife_小薇学院总结（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Barry Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Front End">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">baidu_ife_小薇学院总结（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-11T23:06:23+08:00">
+                2017-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/baidu-ife-xiaowei/" itemprop="url" rel="index">
+                    <span itemprop="name">baidu_ife_xiaowei</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/11/baidu_ife_小薇学院总结（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/11/baidu_ife_小薇学院总结（二）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Task3-三栏式布局"><a href="#Task3-三栏式布局" class="headerlink" title="Task3:三栏式布局"></a>Task3:三栏式布局</h1><h2 id="1-三栏式布局方法"><a href="#1-三栏式布局方法" class="headerlink" title="1.三栏式布局方法"></a>1.三栏式布局方法</h2><p>方法一：inline-block方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">left,center,right&#123; display：inline-block&#125; /* 包裹作用，不会塌陷 */ </div><div class="line">left&#123;width:200px&#125;</div><div class="line">right&#123;width:120px&#125;</div><div class="line">center&#123;width:calc(100%-200px-120px-40px)&#125; /* 动态计算中间盒子的宽度 */</div></pre></td></tr></table></figure></p>
+<p>方法二：float布局<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;left&quot;&gt;</div><div class="line">&lt;div class=&quot;right&quot;&gt;  /* 这里将right提到center前面 */</div><div class="line">&lt;div class=&quot;center&quot;&gt;</div><div class="line"></div><div class="line">.left&#123;float:left&#125;</div><div class="line">.center&#123; margin-left: 220px; margin-right: 140px; &#125;</div><div class="line">.right&#123;float: right;&#125;</div></pre></td></tr></table></figure></p>
+<p>方法三：Flex布局（新）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">.middle&#123;display: flex;&#125;</div><div class="line">.left,.right&#123;width: 100px;&#125;</div><div class="line">.right&#123;order: 2;&#125;</div><div class="line">.main&#123;</div><div class="line">    order: 1;</div><div class="line">    flex: 1; /*让所有弹性盒模型对象的子元素都有相同的长度，忽略它们内部的内容*/ </div><div class="line">    margin: 0 20px;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>方法四：圣杯和双飞翼布局（旧）<br>基本思路及区别：<br>1.两种布局的基本构思为：首先让中间层100%宽度占满同一高度的空间，在左右两层被挤出中间层所在区域时， 使用margin-left的负值将左右两个层拉回与中间层同一高度的空间，接下来调整左右两层到指定位置， 最后使用中间层的margin或padding属性使中间层的内容躲出左右两层占住的显示区。</p>
+<p>2.两种布局的主要区别在于：圣杯布局采用一个父层包含中间、左右三个子层，设置父层的padding值腾出左右两层的显示区， 并对左右两层使用relative和left、right值调整位置；双飞翼采用中间、左右三层并列，再在中间层里设置一个子层， 设置中间层子层的margin值腾出左右两层的显示区，对左右两层使用margin值即可调整位置；</p>
+<p>圣杯html结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">    &lt;div id=&quot;main&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div id=&quot;left&quot;&gt;&lt;/div&gt;</div><div class="line">    &lt;div id=&quot;right&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>圣杯css基本代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">#container&#123;</div><div class="line">    padding: 0px 120px 0 140px;/*腾出宽度*/</div><div class="line">    &#125;</div><div class="line">#main&#123;</div><div class="line">    width: 100%;</div><div class="line">    position: relative;</div><div class="line">    &#125;</div><div class="line">#left&#123;</div><div class="line">    width: 140px;</div><div class="line">    margin-left: -100%;/*将left层拉回main层所在高度区域*/</div><div class="line">    left: -140px;/*调整位置*/</div><div class="line">    position: relative;</div><div class="line">    &#125;</div><div class="line">#right&#123;</div><div class="line">    width: 120px;</div><div class="line">    margin-left: -120px;/*将right层拉回main层所在高度区域*/</div><div class="line">    right: -120px;/*调整位置*/</div><div class="line">    position: relative;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>双飞翼html结构：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id=&quot;main&quot;&gt;</div><div class="line">    &lt;div id=&quot;main-inner&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&quot;left&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;div id=&quot;right&quot;&gt;&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<p>双飞翼css基本代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">#main&#123;</div><div class="line">    width: 100%;</div><div class="line">    position: relative;</div><div class="line">    &#125;</div><div class="line">#main-inner&#123;</div><div class="line">    margin：0 120px 0 140px；</div><div class="line">    ｝</div><div class="line">#left&#123;</div><div class="line">    width: 140px;</div><div class="line">    margin-left: -100%;/*将left层拉回main层所在高度区域*/</div><div class="line">    &#125;</div><div class="line">#right&#123;</div><div class="line">    width: 120px;</div><div class="line">    margin-left: -120px;/*将right层拉回main层所在高度区域*/</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h2 id="2-box-sizing-属性"><a href="#2-box-sizing-属性" class="headerlink" title="2.box-sizing 属性"></a>2.box-sizing 属性</h2><p>取值说明</p>
+<ol>
+<li><p>content-box:此值为其默认值，其让元素维持W3C的标准Box Model，也就是说元素的宽度/高度（width/height）等于元素边框宽度（border）加上元素内边距（padding）加上元素内容宽度/高度（content width/height）即：Element Width/Height = border+padding+content width/height。</p>
+</li>
+<li><p>border-box:此值让元素维持IE传统的Box Model（IE6以下版本），也就是说元素的宽度/高度等于元素内容的宽度/高度。（从上面Box Model介绍可知，我们这里的content width/height包含了元素的border,padding,内容的width/height【此处的内容宽度/高度=width/height-border-padding】）。</p>
+</li>
+</ol>
+<h2 id="3-inline-block之间间距"><a href="#3-inline-block之间间距" class="headerlink" title="3.inline-block之间间距"></a>3.inline-block之间间距</h2><p>元素间留白间距出现的原因就是标签段之间的空格，因此，去掉HTML中的空格，自然间距就木有了。考虑到代码可读性，显然连成一行的写法是不可取的，我们可以：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;space&quot;&gt;</div><div class="line">    &lt;a href=&quot;##&quot;&gt;</div><div class="line">    惆怅&lt;/a&gt;&lt;a href=&quot;##&quot;&gt;</div><div class="line">    淡定&lt;/a&gt;&lt;a href=&quot;##&quot;&gt;</div><div class="line">    热血&lt;/a&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">或者是：</div><div class="line"></div><div class="line">&lt;div class=&quot;space&quot;&gt;</div><div class="line">    &lt;a href=&quot;##&quot;&gt;惆怅&lt;/a</div><div class="line">    &gt;&lt;a href=&quot;##&quot;&gt;淡定&lt;/a</div><div class="line">    &gt;&lt;a href=&quot;##&quot;&gt;热血&lt;/a&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">或者是借助HTML注释：</div><div class="line"></div><div class="line">&lt;div class=&quot;space&quot;&gt;</div><div class="line">    &lt;a href=&quot;##&quot;&gt;惆怅&lt;/a&gt;&lt;!--</div><div class="line">    --&gt;&lt;a href=&quot;##&quot;&gt;淡定&lt;/a&gt;&lt;!--</div><div class="line">    --&gt;&lt;a href=&quot;##&quot;&gt;热血&lt;/a&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure></p>
+<h1 id="Task4-定位和居中问题"><a href="#Task4-定位和居中问题" class="headerlink" title="Task4:定位和居中问题"></a>Task4:定位和居中问题</h1><h2 id="1-水平及上下居中"><a href="#1-水平及上下居中" class="headerlink" title="1.水平及上下居中"></a>1.水平及上下居中</h2><p>方法一：绝对定位的居中实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">position: absolute;</div><div class="line">top: 50%;</div><div class="line">left: 50%;</div><div class="line">transform: translate(-50%,-50%); /*x轴y轴各位移div盒子的一半*/</div></pre></td></tr></table></figure></p>
+<p>方法二：margin:auto实现绝对定位元素的居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">  position: absolute; left: 0; top: 0; right: 0; bottom: 0; </div><div class="line">  margin: auto; /* 有了这个就自动居中了 */</div><div class="line">```   	</div><div class="line">方法三：Flex布局方法：</div></pre></td></tr></table></figure></p>
+<p>  width:100%;<br>  height:100%;<br>  display: -webkit-flex;<br>  display: flex;<br>  justify-content:center;<br>  align-items:center;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">## 2.清除浮动</div><div class="line">方法一：overflow:hidden;（或者auto，hidden更好）</div><div class="line"></div><div class="line">方法二：清除浮动更好的方法是clearfix技巧</div><div class="line">“clearfix”技巧是基于在父元素上使用“:before”和“:after”两个伪类。使用这些伪类，我们可以在浮动元素的父容器前面和后面创建隐藏元素。“:before”伪类是用来防止子元素顶部的外边距塌陷，使用“display: table”创建一个匿名的“table-cell”元素。这也确保在IE6和IE7下具有一致性。“:after”伪类是用来防止子元素的底部的外边距塌陷，以及用来清除元素的浮动。</div><div class="line"></div><div class="line">一个常见的方法是将定义一个类名，把这个类名加到需要清除浮动的容器上。例如使用“clearfix”清除浮动，Dan Cederholm为容器设置了一个类名“group”。在需要清除浮动的容器上添加这个类名“group”。</div></pre></td></tr></table></figure></p>
+<p>.group:before,<br>.group:after {<br>  content: “”;<br>  display: table;<br>}<br>.group:after {<br>  clear: both;<br>}<br>.group {<br>  *zoom: 1;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">## 3.absolute定位初始位置</div><div class="line">在文档流中，定义为position:absolute的元素已经被删除了。</div><div class="line">那它的定位到底是相对于body，还是父级元素呢？</div><div class="line"></div><div class="line">结论如下：</div><div class="line">position:absolute是相对于他的包含块中第一个有position:absolute或relative及 fixed属性的父级元素，如果都没有，就是相对于body。</div><div class="line"></div><div class="line">## 4.border-radius属性</div><div class="line">border-radius属性其实可以分为四个其他的属性：</div><div class="line">border-radius-top-left         /*左上角*/</div><div class="line">border-radius-top-right       /*右上角*/</div><div class="line">border-radius-bottom-right /*右下角*/</div><div class="line">border-radius-bottom-left   /*左下角*/</div><div class="line">//提示：按顺时针方式</div><div class="line"></div><div class="line">制作半圆：</div></pre></td></tr></table></figure></p>
+<p>width:100px;<br>    height:50px;//高度是宽度的一半<br>    background-color:#000;<br>border-radius:50px 50px 0 0;//左上和右上至少为height值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">画实心圆</div></pre></td></tr></table></figure></p>
+<p>width:100px;<br>      height:100px;<br>    background-color:#cb18f8;<br>      border-radius:50px;<br>   （或者border-radius:50%）<br>```</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML-CSS/" rel="tag"># HTML_CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/11/baidu_ife_小薇学院总结（一）/" rel="next" title="baidu_ife_小薇学院总结（一）">
+                <i class="fa fa-chevron-left"></i> baidu_ife_小薇学院总结（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/12/baidu_ife_小薇学院总结（三）/" rel="prev" title="baidu_ife_小薇学院总结（三）">
+                baidu_ife_小薇学院总结（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Barry Lee" />
+          <p class="site-author-name" itemprop="name">Barry Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Barryleeweb" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Task3-三栏式布局"><span class="nav-number">1.</span> <span class="nav-text">Task3:三栏式布局</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-三栏式布局方法"><span class="nav-number">1.1.</span> <span class="nav-text">1.三栏式布局方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-box-sizing-属性"><span class="nav-number">1.2.</span> <span class="nav-text">2.box-sizing 属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-inline-block之间间距"><span class="nav-number">1.3.</span> <span class="nav-text">3.inline-block之间间距</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Task4-定位和居中问题"><span class="nav-number">2.</span> <span class="nav-text">Task4:定位和居中问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-水平及上下居中"><span class="nav-number">2.1.</span> <span class="nav-text">1.水平及上下居中</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Barry Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://barry.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://barryleeweb.github.io/2017/07/11/baidu_ife_小薇学院总结（二）/';
+          this.page.identifier = '2017/07/11/baidu_ife_小薇学院总结（二）/';
+          this.page.title = 'baidu_ife_小薇学院总结（二）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://barry.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

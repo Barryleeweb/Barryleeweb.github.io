@@ -1,0 +1,824 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="3C0GPfQqnkheXgimbf5ySFQi6NgZ-44EBeJve7cAwmY" />
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTML&CSS," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Task8:响应式网格（栅格化）1.目标：使用 HTML 与 CSS 实现类似 BootStrap 的响应式 12 栏网格布局，根据屏幕宽度，元素占的栏数不同。
+2.参考链接Creating Your Own CSS Grid System
+栅格化设计：1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta property="og:type" content="article">
+<meta property="og:title" content="baidu_ife_小薇学院总结（四）">
+<meta property="og:url" content="https://barryleeweb.github.io/2017/07/25/baidu_ife_小薇学院总结（四）/index.html">
+<meta property="og:site_name" content="Front End">
+<meta property="og:description" content="Task8:响应式网格（栅格化）1.目标：使用 HTML 与 CSS 实现类似 BootStrap 的响应式 12 栏网格布局，根据屏幕宽度，元素占的栏数不同。
+2.参考链接Creating Your Own CSS Grid System
+栅格化设计：1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta property="og:image" content="http://7xrp04.com1.z0.glb.clouddn.com/task_1_10_1.png">
+<meta property="og:updated_time" content="2017-07-25T16:22:19.115Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="baidu_ife_小薇学院总结（四）">
+<meta name="twitter:description" content="Task8:响应式网格（栅格化）1.目标：使用 HTML 与 CSS 实现类似 BootStrap 的响应式 12 栏网格布局，根据屏幕宽度，元素占的栏数不同。
+2.参考链接Creating Your Own CSS Grid System
+栅格化设计：1234567891011121314151617181920212223242526272829303132333435363738394041">
+<meta name="twitter:image" content="http://7xrp04.com1.z0.glb.clouddn.com/task_1_10_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://barryleeweb.github.io/2017/07/25/baidu_ife_小薇学院总结（四）/"/>
+
+
+
+
+
+  <title>baidu_ife_小薇学院总结（四） | Front End</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Front End</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端爱好者</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://barryleeweb.github.io/2017/07/25/baidu_ife_小薇学院总结（四）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Barry Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Front End">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">baidu_ife_小薇学院总结（四）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-25T23:59:57+08:00">
+                2017-07-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/baidu-ife-xiaowei/" itemprop="url" rel="index">
+                    <span itemprop="name">baidu_ife_xiaowei</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/25/baidu_ife_小薇学院总结（四）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/25/baidu_ife_小薇学院总结（四）/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Task8-响应式网格（栅格化）"><a href="#Task8-响应式网格（栅格化）" class="headerlink" title="Task8:响应式网格（栅格化）"></a>Task8:响应式网格（栅格化）</h1><h2 id="1-目标："><a href="#1-目标：" class="headerlink" title="1.目标："></a>1.目标：</h2><p><strong>使用 HTML 与 CSS 实现类似 BootStrap 的响应式 12 栏网格布局，根据屏幕宽度，元素占的栏数不同。</strong></p>
+<h2 id="2-参考链接"><a href="#2-参考链接" class="headerlink" title="2.参考链接"></a>2.参考链接</h2><p><a href="http://j4n.co/blog/Creating-your-own-css-grid-system" target="_blank" rel="external">Creating Your Own CSS Grid System</a></p>
+<p><strong>栅格化设计：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;IFE JavaScript Task 07&lt;/title&gt;</div><div class="line">    &lt;style type=&quot;text/css&quot;&gt;</div><div class="line">     *&#123;margin: 0px;padding: 0px;&#125;</div><div class="line">      </div><div class="line">      /*-- http://j4n.co/blog/Creating-your-own-css-grid-system  栅格化设计-- */ </div><div class="line"></div><div class="line">      /*-- The Container -- */ </div><div class="line">      .grid-container&#123;</div><div class="line">          width: 100%; </div><div class="line">          max-width: 1200px;   </div><div class="line">      &#125;</div><div class="line"></div><div class="line">      /*-- The Row -- */ </div><div class="line">      /*-- our cleafix hack -- */ </div><div class="line">      .row:before, </div><div class="line">      .row:after &#123;</div><div class="line">          content:&quot;&quot;;</div><div class="line">          display: table ;</div><div class="line">          clear:both;</div><div class="line">      &#125;</div><div class="line">       </div><div class="line">      /*-- The Column , Column Positioning , Column Widths , Column Gutters -- */ </div><div class="line">      .grid-container *&#123;</div><div class="line">          box-sizing: border-box;  /*-- setting border box on all elements inside the grid --*/</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      [class*=&apos;col-&apos;] &#123; /* a[src*=&quot;abc&quot;] 选择其 src 属性中包含 &quot;abc&quot; 子串的每个 &lt;a&gt; 元素。*/</div><div class="line">          float: left; </div><div class="line">          min-height: 1px; </div><div class="line">          width: 16.66%; </div><div class="line">          /*-- Column gutter -- */</div><div class="line">          padding: 12px; </div><div class="line">          background-color: #FFDCDC;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      .col-1&#123; width: 16.66%; &#125;</div><div class="line">      .col-2&#123; width: 33.33%; &#125;</div><div class="line">      .col-3&#123; width: 50%;    &#125;</div><div class="line">      .col-4&#123; width: 66.66%; &#125;</div><div class="line">      .col-5&#123; width: 83.33%; &#125;</div><div class="line">      .col-6&#123; width: 100%;   &#125;</div><div class="line"></div><div class="line">      .outline, .outline *&#123;</div><div class="line">          outline: 1px solid #F6A1A1; </div><div class="line">      &#125;</div><div class="line"></div><div class="line">      /*-- some extra column content styling --*/</div><div class="line">      [class*=&apos;col-&apos;] &gt; p &#123;</div><div class="line">       background-color: #FFC2C2; </div><div class="line">       padding: 0;</div><div class="line">       margin: 0;</div><div class="line">       text-align: center; </div><div class="line">       color: white; </div><div class="line">      &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div class=&quot;grid-container outline&quot;&gt;</div><div class="line">        &lt;div class=&quot;row&quot;&gt;</div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">        &lt;/div&gt; </div><div class="line">        &lt;div class=&quot;row&quot;&gt;</div><div class="line">            &lt;div class=&quot;col-2&quot;&gt;&lt;p&gt;col-2&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-2&quot;&gt;&lt;p&gt;col-2&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-2&quot;&gt;&lt;p&gt;col-2&lt;/p&gt;&lt;/div&gt; </div><div class="line">        &lt;/div&gt; </div><div class="line">        &lt;div class=&quot;row&quot;&gt;</div><div class="line">            &lt;div class=&quot;col-3&quot;&gt;&lt;p&gt;col-3&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-3&quot;&gt;&lt;p&gt;col-3&lt;/p&gt;&lt;/div&gt; </div><div class="line">        &lt;/div&gt; </div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p><strong>移动端响应式</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/*screens under 800px*/</div><div class="line">@media all and (max-width:800px)&#123;</div><div class="line">    .col-1&#123; width: 33.33%;    &#125;</div><div class="line">    .col-2&#123; width: 50%;        &#125;</div><div class="line">    .col-3&#123; width: 83.33%;    &#125;</div><div class="line">    .col-4&#123; width: 100%;    &#125;</div><div class="line">    .col-5&#123; width: 100%;    &#125;</div><div class="line">    .col-6&#123; width: 100%;      &#125;</div><div class="line"></div><div class="line">    .row .col-2:last-of-type&#123; /* p:last-of-type 选择属于其父元素的最后 &lt;p&gt; 元素的每个 &lt;p&gt; 元素。*/</div><div class="line">        width: 100%; </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    .row .col-5 ~ .col-1&#123;  /*p~ul 选择前面有 &lt;p&gt; 元素的每个 &lt;ul&gt; 元素。相同的父元素,但是 element2 不必直接紧随 element1*/</div><div class="line">        width: 100%; </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">/*screens under 650px*/</div><div class="line">@media all and (max-width:650px)&#123;</div><div class="line">    .col-1&#123; width: 50%;        &#125;</div><div class="line">    .col-2&#123; width: 100%;    &#125;</div><div class="line">    .col-3&#123; width: 100%;    &#125;</div><div class="line">    .col-4&#123; width: 100%;    &#125;</div><div class="line">    .col-5&#123; width: 100%;    &#125;</div><div class="line">    .col-6&#123; width: 100%;      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="3-响应式-12-栏网格布局"><a href="#3-响应式-12-栏网格布局" class="headerlink" title="3.响应式 12 栏网格布局"></a>3.响应式 12 栏网格布局</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@media all and (min-width:769px)&#123;</div><div class="line">	.col-md-1&#123; width: 8.33%; &#125;</div><div class="line">	.col-md-2&#123; width: 16.66%; &#125;</div><div class="line">	.col-md-3&#123; width: 25%;    &#125;</div><div class="line">	.col-md-4&#123; width: 33.33%; &#125;</div><div class="line">	.col-md-6&#123; width: 50%;   &#125;</div><div class="line">&#125;</div><div class="line">/*screens under 800px*/</div><div class="line">@media all and (max-width:768px)&#123;</div><div class="line">  .col-sm-2&#123; width: 16.66%;   &#125;</div><div class="line">  .col-sm-3&#123; width: 25%;      &#125;</div><div class="line">  .col-sm-6&#123; width: 50%;      &#125;</div><div class="line">  .col-sm-8&#123; width: 66.66%;   &#125;</div><div class="line">  .col-sm-12&#123; width: 100%;    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Task10-Flexbox-布局练习"><a href="#Task10-Flexbox-布局练习" class="headerlink" title="Task10:Flexbox 布局练习"></a>Task10:Flexbox 布局练习</h1><p><img src="http://7xrp04.com1.z0.glb.clouddn.com/task_1_10_1.png" alt="image"></p>
+<h2 id="1-Flex布局是什么？"><a href="#1-Flex布局是什么？" class="headerlink" title="1.Flex布局是什么？"></a>1.Flex布局是什么？</h2><p>W3C针对布局设计的新标准，相对float和position会更加灵活处理父元素和子元素之间布局关系，让布局更加直观和灵活简单。有效的针对不同屏幕宽度大小的情况下，让元素自动有效合理处理布局结构</p>
+<h2 id="2-Flexbox布局和网格布局的异同"><a href="#2-Flexbox布局和网格布局的异同" class="headerlink" title="2.Flexbox布局和网格布局的异同"></a>2.Flexbox布局和网格布局的异同</h2><p>弹性盒子布局主要适用于应用程序的组件及小规模的布局，而（新兴的）栅格布局则针对大规模的布局。</p>
+<h2 id="3-Flex容器属性"><a href="#3-Flex容器属性" class="headerlink" title="3.Flex容器属性"></a>3.Flex容器属性</h2><ul>
+<li>flex-direction: row | row-reverse | column column-reverse;主轴方向</li>
+<li>flex-wrap: nowrap | wrap | wrap-reverse;是否可以换行</li>
+<li>justify-content: flex-start | flex-end | center | space-between | space-around;主轴上的对齐方式</li>
+<li>align-items: flex-start | flex-end | center | baseline | stretch;交叉轴的对齐方式</li>
+<li>align-content: flex-start | flex-end | center | space-between | space-around | stretch;多行轴线的对齐方式<h2 id="4-Flex项目属性"><a href="#4-Flex项目属性" class="headerlink" title="4.Flex项目属性"></a>4.Flex项目属性</h2></li>
+<li>order<br>根据order的值定义项目排列顺序。数值越小，排列越靠前，默认为0</li>
+<li>align-self<br>定义单个项目在交叉轴的对齐方式，可覆盖align-items属性</li>
+<li>flex-grow<br>定义项目放大比例，默认为0，当容器有剩余空间时不放大.<br>重点在于，每个方块的 flex-grow 和其他方块的是成<strong>比例</strong>的。</li>
+<li>flex-shrink<br>定义项目缩小比例。默认为1，随着容器缩小而等比例缩小。<br>如果设置为0，项目将不缩小。</li>
+<li>flex-basis<br>定义项目占据的主轴空间（main size）,默认是auto.</li>
+<li>flex<br>flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<h2 id="5-屏幕宽度小于640px"><a href="#5-屏幕宽度小于640px" class="headerlink" title="5.屏幕宽度小于640px"></a>5.屏幕宽度小于640px</h2></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@media all and (max-width:640px)&#123;</div><div class="line">   .container&#123;align-items: flex-start;&#125;</div><div class="line">   .box1,.box2,.box3&#123;order: 1;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="6-Flex属性设置"><a href="#6-Flex属性设置" class="headerlink" title="6.Flex属性设置"></a>6.Flex属性设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">display: flex;</div><div class="line">justify-content: space-between;</div><div class="line">align-items: center;</div><div class="line">flex-direction: row;</div><div class="line">flex-wrap: wrap;  /*是否可以换行（默认不换行）*/</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML-CSS/" rel="tag"># HTML&CSS</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/12/baidu_ife_小薇学院总结（三）/" rel="next" title="baidu_ife_小薇学院总结（三）">
+                <i class="fa fa-chevron-left"></i> baidu_ife_小薇学院总结（三）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/26/观察者模式 (订阅者与发布者)/" rel="prev" title="观察者模式 (订阅者与发布者)">
+                观察者模式 (订阅者与发布者) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Barry Lee" />
+          <p class="site-author-name" itemprop="name">Barry Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Barryleeweb" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Task8-响应式网格（栅格化）"><span class="nav-number">1.</span> <span class="nav-text">Task8:响应式网格（栅格化）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-目标："><span class="nav-number">1.1.</span> <span class="nav-text">1.目标：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-参考链接"><span class="nav-number">1.2.</span> <span class="nav-text">2.参考链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-响应式-12-栏网格布局"><span class="nav-number">1.3.</span> <span class="nav-text">3.响应式 12 栏网格布局</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Task10-Flexbox-布局练习"><span class="nav-number">2.</span> <span class="nav-text">Task10:Flexbox 布局练习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-Flex布局是什么？"><span class="nav-number">2.1.</span> <span class="nav-text">1.Flex布局是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Flexbox布局和网格布局的异同"><span class="nav-number">2.2.</span> <span class="nav-text">2.Flexbox布局和网格布局的异同</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-Flex容器属性"><span class="nav-number">2.3.</span> <span class="nav-text">3.Flex容器属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-Flex项目属性"><span class="nav-number">2.4.</span> <span class="nav-text">4.Flex项目属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-屏幕宽度小于640px"><span class="nav-number">2.5.</span> <span class="nav-text">5.屏幕宽度小于640px</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-Flex属性设置"><span class="nav-number">2.6.</span> <span class="nav-text">6.Flex属性设置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Barry Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://barry.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://barryleeweb.github.io/2017/07/25/baidu_ife_小薇学院总结（四）/';
+          this.page.identifier = '2017/07/25/baidu_ife_小薇学院总结（四）/';
+          this.page.title = 'baidu_ife_小薇学院总结（四）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://barry.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

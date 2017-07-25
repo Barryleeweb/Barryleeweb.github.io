@@ -4,6 +4,382 @@
   
     
     <entry>
+      <title><![CDATA[字符串及数组操作]]></title>
+      <url>https://barryleeweb.github.io/2017/07/26/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/</url>
+      <content type="html"><![CDATA[<h2 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h2><h3 id="1-判断回文字符串"><a href="#1-判断回文字符串" class="headerlink" title="1.判断回文字符串"></a>1.判断回文字符串</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function palindrome(str)&#123;</div><div class="line">	// \W匹配任何非单词字符。等价于“[^A-Za-z0-9_]”。</div><div class="line">	var re = /[\W_]/g;</div><div class="line">	// 将字符串变成小写字符,并干掉除字母数字外的字符</div><div class="line">	var lowRegStr = str.toLowerCase().replace(re,&apos;&apos;);</div><div class="line">	// 如果字符串lowRegStr的length长度为0时，字符串即是palindrome</div><div class="line">	if(lowRegStr.length===0)</div><div class="line">		return true;</div><div class="line">	// 如果字符串的第一个和最后一个字符不相同，那么字符串就不是palindrome</div><div class="line">	if(lowRegStr[0]!=lowRegStr[lowRegStr.length-1])</div><div class="line">		return false;</div><div class="line">	//递归</div><div class="line">	return palindrome(lowRegStr.slice(1,lowRegStr.length-1));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="2-翻转字符串"><a href="#2-翻转字符串" class="headerlink" title="2.翻转字符串"></a>2.翻转字符串</h3><p><strong>反向遍历字符串</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function reverseString(str)&#123;</div><div class="line">	var tmp = &apos;&apos;;</div><div class="line">	for(var i=str.length-1;i&gt;=0;i--)</div><div class="line">		tmp += str[i];</div><div class="line">	return tmp</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><strong>转化成array操作</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">function reverseString2(str)&#123;</div><div class="line">	var arr = str.split(&quot;&quot;);</div><div class="line">	var i = 0,j = arr.length-1;</div><div class="line">	while(i&lt;j)&#123;</div><div class="line">	    tmp = arr[i];</div><div class="line">	    arr[i] = arr[j];</div><div class="line">	    arr[j] = tmp;</div><div class="line">	    i++;</div><div class="line">	    j--;</div><div class="line">	&#125;</div><div class="line">	return arr.join(&quot;&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>因为str[i]是只读的，不能str[0]=str[1]这样操作。</p>
+<p>如果允许用reverse()，也可以用’str’.split(‘’).reverse().join(‘’)实现。</p>
+<h3 id="3-生成指定长度随机字符串"><a href="#3-生成指定长度随机字符串" class="headerlink" title="3.生成指定长度随机字符串"></a>3.生成指定长度随机字符串</h3><p>配合模糊等效果可以生成个验证码- -<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function randomString(n)&#123;</div><div class="line">	var str = &apos;abcdefghijklmnopqrstuvwxyz0123456789&apos;;</div><div class="line">	var tmp = &apos;&apos;;</div><div class="line">	for(var i=0;i&lt;n;i++)</div><div class="line">	    tmp += str.charAt(Math.round(Math.random()*str.length));</div><div class="line">	return tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="4-统计字符串中次数最多字母"><a href="#4-统计字符串中次数最多字母" class="headerlink" title="4.统计字符串中次数最多字母"></a>4.统计字符串中次数最多字母</h3><p>利用Object中key的唯一性，利用key来进行筛选，然后计数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">function findMaxDuplicateChar(str) &#123;</div><div class="line">    if(str.length == 1) &#123;</div><div class="line">        return str;</div><div class="line">    &#125;</div><div class="line">    var charObj = &#123;&#125;;</div><div class="line">    for(var i = 0; i &lt; str.length; i++) &#123;</div><div class="line">        if(!charObj[str.charAt(i)]) &#123;</div><div class="line">            charObj[str.charAt(i)] = 1;</div><div class="line">        &#125; else &#123;</div><div class="line">            charObj[str.charAt(i)] += 1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    var maxChar = &apos;&apos;,</div><div class="line">        maxValue = 1;</div><div class="line">    for(var k in charObj) &#123;</div><div class="line">        if(charObj[k] &gt;= maxValue) &#123;</div><div class="line">            maxChar = k;</div><div class="line">            maxValue = charObj[k];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return maxChar + &apos;：&apos; + maxValue;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="数组操作"><a href="#数组操作" class="headerlink" title="数组操作"></a>数组操作</h2><h3 id="1-数组去重"><a href="#1-数组去重" class="headerlink" title="1.数组去重"></a>1.数组去重</h3><p>还是利用Object中key的唯一性，利用key来进行筛选。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function unique(arr)&#123;</div><div class="line">	var obj = &#123;&#125;</div><div class="line">	var data = []</div><div class="line">	for(var i in arr)&#123;</div><div class="line">	    if(!obj[arr[i]])&#123;</div><div class="line">	        obj[arr[i]] = true;</div><div class="line">	        data.push(arr[i]);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">	return data;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="2-Number数组中最大差值"><a href="#2-Number数组中最大差值" class="headerlink" title="2.Number数组中最大差值"></a>2.Number数组中最大差值</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">function getMaxProfit(arr)&#123;</div><div class="line">    var min = arr[0], max = arr[0];</div><div class="line">    for(var i=0;i&lt;arr.length;i++)&#123;</div><div class="line">        if(arr[i]&lt;min)</div><div class="line">            min = arr[i];</div><div class="line">		if(arr[i]&gt;max)</div><div class="line">		    max = arr[i];</div><div class="line">	&#125;</div><div class="line">	return max - min;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据结构&amp;算法 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 字符串 </tag>
+            
+            <tag> 数组 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[常见排序及查找算法]]></title>
+      <url>https://barryleeweb.github.io/2017/07/26/%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E5%8F%8A%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/</url>
+      <content type="html"><![CDATA[<h2 id="1-冒泡排序"><a href="#1-冒泡排序" class="headerlink" title="1.冒泡排序"></a>1.冒泡排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function bubbleSort(arr)&#123;</div><div class="line">	var i = j = 0;</div><div class="line">	for(i=1;i&lt;arr.length;i++)&#123;</div><div class="line">		for(j=0;j&lt;=arr.length-i;j++)&#123;</div><div class="line">			var temp = 0;</div><div class="line">			if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">				temp = arr[j];</div><div class="line">				arr[j] = arr[j+1];</div><div class="line">				arr[j+1] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="2-快速排序"><a href="#2-快速排序" class="headerlink" title="2.快速排序"></a>2.快速排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">function quickSort(arr,l,r)&#123;</div><div class="line">	if(l &lt; r)&#123;</div><div class="line">		var i = l, j = r, x = arr[i];</div><div class="line">		while(i&lt;j)&#123;</div><div class="line">			while(i&lt;j &amp;&amp; arr[j]&gt;x)</div><div class="line">				j--;</div><div class="line">			</div><div class="line">			if(i&lt;j)</div><div class="line">				//这里用i++，被换过来的必然比x小，赋值后直接让i自加，不用再比较，可以提高效率</div><div class="line">				arr[i++] = arr[j];</div><div class="line">			</div><div class="line">			while(i&lt;j &amp;&amp; arr[i]&lt;x)</div><div class="line">				i++;</div><div class="line">			</div><div class="line">			if(i&lt;j)</div><div class="line">				//这里用j--，被换过来的必然比x大，赋值后直接让j自减，不用再比较，可以提高效率</div><div class="line">				arr[j--] = arr[i];</div><div class="line">		&#125;</div><div class="line">		arr[i] = x;</div><div class="line">		</div><div class="line">		quickSort(arr, l, i-1);</div><div class="line">		quickSort(arr, i+1, r);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-二路归并"><a href="#3-二路归并" class="headerlink" title="3.二路归并"></a>3.二路归并</h2><p>将两个按值有序序列合并成一个按值有序序列，则称之为二路归并排序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">function merge(left, right) &#123;</div><div class="line">    var result = [],</div><div class="line">        il = 0,</div><div class="line">        ir = 0;</div><div class="line"></div><div class="line">    while (il &lt; left.length &amp;&amp; ir &lt; right.length) &#123;</div><div class="line">        if (left[il] &lt; right[ir]) &#123;</div><div class="line">            result.push(left[il++]);</div><div class="line">        &#125; else &#123;</div><div class="line">            result.push(right[ir++]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    while(left[il])&#123;</div><div class="line">        result.push(left[il++]);</div><div class="line">	&#125;</div><div class="line">    while(right[ir])&#123;</div><div class="line">        result.push(right[ir++]);</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="4-二分查找"><a href="#4-二分查找" class="headerlink" title="4.二分查找"></a>4.二分查找</h2><p>二分查找又称折半查找，是在有序数组查找中用到的较为频繁的一种算法，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。</p>
+<h3 id="非递归实现"><a href="#非递归实现" class="headerlink" title="非递归实现"></a>非递归实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function binary_search(arr, key) &#123;</div><div class="line">    var low = 0,</div><div class="line">        high = arr.length - 1;</div><div class="line">    while(low &lt;= high)&#123;</div><div class="line">        var mid = parseInt((high + low) / 2);</div><div class="line">        if(key == arr[mid])&#123;</div><div class="line">            return  mid;</div><div class="line">        &#125;else if(key &gt; arr[mid])&#123;</div><div class="line">            low = mid + 1;</div><div class="line">        &#125;else if(key &lt; arr[mid])&#123;</div><div class="line">            high = mid -1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return -1;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function binary_search2(arr, low, high, key) &#123;</div><div class="line">	if(low &gt; high)</div><div class="line">	    return -1;</div><div class="line">	var mid = parseInt((low + high)/2);</div><div class="line">	if(key == arr[mid])</div><div class="line">	    return mid;</div><div class="line">	else if(key &gt; arr[mid])</div><div class="line">	    return binary_search2(arr, mid+1, high, key);</div><div class="line">	else if(key &lt; arr[mid])</div><div class="line">        return binary_search2(arr, low, mid-1, key);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> 数据结构&amp;算法 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 排序 </tag>
+            
+            <tag> 查找 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[HTML5新特性]]></title>
+      <url>https://barryleeweb.github.io/2017/07/26/HTM5%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+      <content type="html"><![CDATA[<h1 id="HTML5新特性"><a href="#HTML5新特性" class="headerlink" title="HTML5新特性"></a>HTML5新特性</h1><p><strong>兼容问题</strong>：IE8/IE7/IE6支持通过document.createElement方法产生的标签，可以利用这一特性让这些浏览器支持HTML5新标签</p>
+<h2 id="1-绘画-canvas-元素"><a href="#1-绘画-canvas-元素" class="headerlink" title="1. 绘画 canvas 元素"></a>1. 绘画 canvas 元素</h2><h2 id="2-媒介回放的-video-和-audio-元素"><a href="#2-媒介回放的-video-和-audio-元素" class="headerlink" title="2.媒介回放的 video 和 audio 元素"></a>2.媒介回放的 video 和 audio 元素</h2><p> HTML5 规定了在网页上嵌入音频元素的标准，即使用 <audio> 元素。</audio></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;audiocontrols&gt;</div><div class="line">&lt;sourcesrc=&quot;horse.ogg&quot;type=&quot;audio/ogg&quot;&gt;</div><div class="line">&lt;sourcesrc=&quot;horse.mp3&quot;type=&quot;audio/mpeg&quot;&gt;</div><div class="line">您的浏览器不支持 audio 元素。</div><div class="line">&lt;/audio&gt;</div></pre></td></tr></table></figure>
+<p> HTML5 规定了一种通过 video 元素来包含视频的标准方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;videowidth=&quot;320&quot;height=&quot;240&quot;controls&gt;</div><div class="line">&lt;sourcesrc=&quot;movie.mp4&quot;type=&quot;video/mp4&quot;&gt;</div><div class="line">&lt;sourcesrc=&quot;movie.ogg&quot;type=&quot;video/ogg&quot;&gt;</div><div class="line">您的浏览器不支持Video标签。</div><div class="line">&lt;/video&gt;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="3-本地离线存储"><a href="#3-本地离线存储" class="headerlink" title="3.本地离线存储"></a>3.本地离线存储</h2><p> Web Storage DOMAPI为Web应用提供了一个能够替代cookie的Javascript解决方案</p>
+<ul>
+<li>localStorage长期存储数据，浏览器关闭后数据不丢失</li>
+<li>sessionStorage 的数据在浏览器关闭后自动删除<h2 id="4-语意化更好的内容元素"><a href="#4-语意化更好的内容元素" class="headerlink" title="4.语意化更好的内容元素"></a>4.语意化更好的内容元素</h2></li>
+<li><header></header></li>
+<li><nav></nav></li>
+<li><section></section></li>
+<li><article></article></li>
+<li><aside></aside></li>
+<li><figcaption></figcaption></li>
+<li><figure></figure></li>
+<li><footer><h2 id="5-表单控件"><a href="#5-表单控件" class="headerlink" title="5.表单控件"></a>5.表单控件</h2>HTML5 拥有多个新的表单输入类型。这些新特性提供了更好的输入控制和验证。<br>calendar、date、time、email、url、search</footer></li>
+</ul>
+<h2 id="6-HTML5-拖放"><a href="#6-HTML5-拖放" class="headerlink" title="6.HTML5 拖放"></a>6.HTML5 拖放</h2><p>为了使元素可拖动，把 draggable 属性设置为 true</p>
+<h2 id="7-HTML5-离线Web应用（应用程序缓存）"><a href="#7-HTML5-离线Web应用（应用程序缓存）" class="headerlink" title="7.HTML5 离线Web应用（应用程序缓存）"></a>7.HTML5 离线Web应用（应用程序缓存）</h2><p>HTML5 引入了应用程序缓存，这意味着 web 应用可进行缓存，并可在没有因特网连接时进行访问。<br>应用程序缓存为应用带来三个优势：</p>
+<ul>
+<li>离线浏览 - 用户可在应用离线时使用它们</li>
+<li>速度 - 已缓存资源加载得更快</li>
+<li>减少服务器负载 - 浏览器将只从服务器下载更新过或更改过的资源。</li>
+</ul>
+<p>HTML5 Cache Manifest 实例<br>下面的例子展示了带有 cache manifest 的 HTML 文档（供离线浏览）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE HTML&gt;</div><div class="line">&lt;htmlmanifest=&quot;demo.appcache&quot;&gt;</div><div class="line">&lt;body&gt;</div><div class="line">The content of the document......</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p><strong>Manifest 文件</strong></p>
+<p>manifest 文件是简单的文本文件，它告知浏览器被缓存的内容（以及不缓存的内容）。<br>manifest 文件可分为三个部分：</p>
+<ul>
+<li>CACHE MANIFEST - 在此标题下列出的文件将在首次下载后进行缓存</li>
+<li>NETWORK - 在此标题下列出的文件需要与服务器的连接，且不会被缓存</li>
+<li>FALLBACK - 在此标题下列出的文件规定当页面无法访问时的回退页面（比如 404 页面</li>
+</ul>
+<h2 id="8-HTML5-WebSocket"><a href="#8-HTML5-WebSocket" class="headerlink" title="8.HTML5 WebSocket"></a>8.HTML5 WebSocket</h2><p>WebSocket是HTML5开始提供的一种在单个 TCP 连接上进行全双工通讯的协议。在WebSocket API中，浏览器和服务器只需要做一个握手的动作，然后，浏览器和服务器之间就形成了一条快速通道。两者之间就直接可以数据互相传送。</p>
+<p>浏览器通过 JavaScript 向服务器发出建立 WebSocket 连接的请求，连接建立以后，客户端和服务器端就可以通过 TCP 连接直接交换数据。当你获取 Web Socket 连接后，你可以通过 send() 方法来向服务器发送数据，并通过 onmessage 事件来接收服务器返回的数据。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> HTML5&amp;CSS3 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> HTML5 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[CSS3新特性]]></title>
+      <url>https://barryleeweb.github.io/2017/07/26/CSS3%E6%96%B0%E7%89%B9%E6%80%A7/</url>
+      <content type="html"><![CDATA[<h1 id="CSS3新特性"><a href="#CSS3新特性" class="headerlink" title="CSS3新特性"></a>CSS3新特性</h1><h2 id="1-CSS3选择器"><a href="#1-CSS3选择器" class="headerlink" title="1.CSS3选择器"></a>1.CSS3选择器</h2><p><strong>属性选择器：</strong></p>
+<ul>
+<li>E[attr] 只要有属性名</li>
+<li>E[attr=value] 属性名=属性值</li>
+<li>E[attr~=blue] 包含这个blue整个单词就可以</li>
+<li>E[attr^=c] 以这个字母c开头的</li>
+<li>E[attr$=b] 以这个字母b结尾的</li>
+<li>E[attr*=a] 只要包含a这个字母就行</li>
+<li>E[attr|=z] 只要以字母z-开头的或者就是字母z的</li>
+</ul>
+<p><strong>结构性伪类选择器</strong>：</p>
+<ul>
+<li>E:nth-child(n) 第n个子节点</li>
+<li>div:nth-child(odd) 奇数行</li>
+<li>div:nth-child(even) 偶数行</li>
+<li>div:nth-child(2n) 2的倍数</li>
+<li>E:nth-last-child(n) 倒数第n个</li>
+</ul>
+<p><strong>其他</strong>：</p>
+<ul>
+<li>E:empty 空元素</li>
+<li>E:first-child 第一个子节点、和 E:nth-child(1)等价</li>
+<li>E:last-child 倒数第一个、和 E:nth-last-child(1)等价</li>
+<li><ul>
+<li>注意不能有其他兄弟节点</li>
+</ul>
+</li>
+<li></li>
+<li>E:target 锚点元素的样式</li>
+<li>div:target{width:100px;}</li>
+<li><div id="”div1″"></div></li>
+<li>只要锚点有#div1那上面的target样式就会生效</li>
+<li>E:disabled 表单元素设置disabled</li>
+<li>E:enabled 可点击的表单元素</li>
+<li>E:checked 表示已经选中的checkbox或者radio</li>
+<li></li>
+<li>文本新增伪类：</li>
+<li>E:first-line 第一行</li>
+<li>E:first-letter 第一个字</li>
+<li>E::selection 选中文本的时候</li>
+<li>E::before E标签前面添加东西,需要配合content来用</li>
+<li></li>
+<li>E::after E标签后面添加东西</li>
+<li>E:before E:after单引号也能用</li>
+<li>E:not(s) 不包括s</li>
+<li>h1:not(.red) 排除有class为red的h1元素</li>
+<li>E~F E后面的F兄弟节点<a id="more"></a>
+<h2 id="2-CSS3-边框（Borders）"><a href="#2-CSS3-边框（Borders）" class="headerlink" title="2.CSS3 边框（Borders）"></a>2.CSS3 边框（Borders）</h2>用CSS3，你可以创建圆角边框，添加阴影框，并作为边界的形象而不使用设计程序</li>
+<li>border-image    设置所有边框图像的速记属性。</li>
+<li>border-radius    一个用于设置所有四个边框- *-半径属性的速记属性</li>
+<li>box-shadow    附加一个或多个下拉框的阴影</li>
+</ul>
+<h2 id="3-CSS3-背景"><a href="#3-CSS3-背景" class="headerlink" title="3.CSS3 背景"></a>3.CSS3 背景</h2><ul>
+<li>background-clip    规定背景的绘制区域。</li>
+<li>background-origin    规定背景图片的定位区域。</li>
+<li>background-size    规定背景图片的尺寸</li>
+</ul>
+<h2 id="4-CSS3-渐变"><a href="#4-CSS3-渐变" class="headerlink" title="4.CSS3 渐变"></a>4.CSS3 渐变</h2><p>CSS3 定义了两种类型的渐变（gradients）：</p>
+<ul>
+<li>线性渐变（Linear Gradients）- 向下/向上/向左/向右/对角方向</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background: linear-gradient(direction, color-stop1, color-stop2,...);</div></pre></td></tr></table></figure>
+<ul>
+<li>径向渐变（Radial Gradients）- 由它们的中心定义</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background: radial-gradient(center, shape size, start-color,...,last-color);</div></pre></td></tr></table></figure>
+<h2 id="5-CSS3-文本效果"><a href="#5-CSS3-文本效果" class="headerlink" title="5.CSS3 文本效果"></a>5.CSS3 文本效果</h2><ul>
+<li>text-emphasis 向元素的文本应用重点标记以及重点标记的前景色。</li>
+<li>text-justify    规定当 text-align 设置为 “justify” 时所使用的对齐方法。</li>
+<li>text-outline    规定文本的轮廓。</li>
+<li>text-overflow    规定当文本溢出包含元素时发生的事情。</li>
+<li>text-shadow    向文本添加阴影。</li>
+<li>text-wrap    规定文本的换行规则。</li>
+</ul>
+<h2 id="6-CSS3-转换和变形"><a href="#6-CSS3-转换和变形" class="headerlink" title="6.CSS3 转换和变形"></a>6.CSS3 转换和变形</h2><p>  旋转（transform）<br>  transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);//旋转,缩放,定位,倾斜</p>
+<h2 id="7-CSS3-盒模型"><a href="#7-CSS3-盒模型" class="headerlink" title="7.CSS3 盒模型"></a>7.CSS3 盒模型</h2><p> 在 CSS3 中, 增加了一些新的用户界面特性来调整元素尺寸，框尺寸和外边框，主要包括以下用户界面属性：</p>
+<ul>
+<li>resize：none | both | horizontal | vertical | inherit <em>resize属性指定一个元素是否应该由用户去调整大小。</em></li>
+<li>box-sizing: content-box | border-box | inherit box-sizing <em>属性允许您以确切的方式定义适应某个区域的具体内容</em></li>
+<li>outline:outline-color outline-style outline-width outine-offset<br><em>outline-offset属性对轮廓进行偏移，并在超出边框边缘的位置绘制轮廓。</em></li>
+</ul>
+<h2 id="8-CSS3-弹性盒flexbox"><a href="#8-CSS3-弹性盒flexbox" class="headerlink" title="8.CSS3 弹性盒flexbox"></a>8.CSS3 弹性盒flexbox</h2><ul>
+<li>display    指定 HTML 元素盒子类型。</li>
+<li>flex-direction    指定了弹性容器中子元素的排列方式</li>
+<li>justify-content    设置弹性盒子元素在主轴（横轴）方向上的对齐方式</li>
+<li>align-items    设置弹性盒子元素在侧轴（纵轴）方向上的对齐方式</li>
+<li>flex-wrap    设置弹性盒子的子元素超出父容器时是否换行</li>
+<li>align-content    修改 flex-wrap 属性的行为，类似 align-items,但不是设置子元素对齐，而是设置行对齐</li>
+<li>flex-flow    flex-direction 和 flex-wrap 的简写</li>
+<li>order    设置弹性盒子的子元素排列顺序</li>
+<li>align-self    在弹性子元素上使用。覆盖容器的 align-items 属性</li>
+<li>flex    设置弹性盒子的子元素如何分配空间</li>
+</ul>
+<h2 id="9-多媒体查询"><a href="#9-多媒体查询" class="headerlink" title="9.多媒体查询"></a>9.多媒体查询</h2><ol>
+<li>使用媒体类型</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;linkrel=&quot;stylesheet&quot;type=&quot;text/css&quot;href=&quot;site.css&quot;media=&quot;screen&quot;/&gt;</div><div class="line">&lt;linkrel=&quot;stylesheet&quot;type=&quot;text/css&quot;href=&quot;print.css&quot;media=&quot;print&quot;/&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li>媒体查询规则</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@media all and(min-width:800px)&#123;...&#125;</div></pre></td></tr></table></figure>
+<p>@media all 是媒体类型，也就是说，将此 CSS 应用于所有媒体类型。<br>(min-width:800px) 是包含媒体查询的表达式，如果浏览器的最小宽度为 800 像素，则会告诉浏览器只运用下列 CSS。</p>
+<ol>
+<li>and 条件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@media(min-width:800px)and(max-width:1200px)and(orientation:portrait)&#123;...&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>or 关键词</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@media(min-width:800px)or(orientation:portrait)&#123;...&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>使用 not</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@media(not min-width:800px)&#123;...&#125;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> HTML5&amp;CSS3 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> CSS3 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[websocket学习]]></title>
+      <url>https://barryleeweb.github.io/2017/07/26/websocket%E5%AD%A6%E4%B9%A0/</url>
+      <content type="html"><![CDATA[<h1 id="1-WebSocket-前世今生"><a href="#1-WebSocket-前世今生" class="headerlink" title="1.WebSocket 前世今生"></a>1.WebSocket 前世今生</h1><p>众所周知，Web应用的交互过程通常是客户端通过浏览器发出一个请求，服务器端接收请求后进行处理并返回结果给客户端，客户端浏览器将信息呈现。</p>
+<p>这种机制对于信息变化不是特别频繁的应用尚可，但对于实时要求高、海量并发的应用来说显得捉襟见肘，尤其在当前业界移动互联网蓬勃发展的趋势下，高并发与用户实时响应是 Web 应用经常面临的问题，比如金融证券的实时信息，Web 导航应用中的地理位置获取，社交网络的实时消息推送等。</p>
+<p>传统的请求-响应模式的Web开发在处理此类业务场景时，通常采用实时通讯方案，常见的是：</p>
+<ul>
+<li>轮询，原理简单易懂，就是客户端通过一定的时间间隔以频繁请求的方式向服务器发送请求，来保持客户端和服务器端的数据同步。问题很明显，当客户端以固定频率向服务器端发送请求时，服务器端的数据可能并没有更新，带来很多无谓请求，浪费带宽，效率低下。</li>
+<li>基于 Flash，AdobeFlash 通过自己的 Socket 实现完成数据交换，再利用Flash暴露出相应的接口为 JavaScript 调用，从而达到实时传输目的。此方式比轮询要高效，且因为Flash安装率高，应用场景比较广泛，但在移动互联网终端上 Flash的支持并不好。IOS 系统中没有 Flash 的存在，在 Android 中虽然有 Flash 的支持，但实际的使用效果差强人意，且对移动设备的硬件配置要求较高。2012年Adobe官方宣布不再支持 Android4.1+系统，宣告了Flash在移动终端上的死亡。</li>
+</ul>
+<p>从上文可以看出，传统Web模式在处理高并发及实时性需求的时候，会遇到难以逾越的瓶颈，我们需要一种高效节能的双向通信机制来保证数据的实时传输。在此背景下，基于 HTML5 规范的、有 Web TCP 之称的 WebSocket 应运而生。<br><a id="more"></a></p>
+<h1 id="2-WebSocket-机制"><a href="#2-WebSocket-机制" class="headerlink" title="2.WebSocket 机制"></a>2.WebSocket 机制</h1><p>WebSocket 是HTML5一种新的协议。它实现了浏览器与服务器全双工通信，能更好的节省服务器资源和带宽并达到实时通讯，它建立在 TCP 之上，同 HTTP 一样通过 TCP来传输数据，但是它==和HTTP最大不同==是：</p>
+<ul>
+<li>WebSocket 是一种双向通信协议，在建立连接后，WebSocket 服务器和 Browser/Client Agent 都能主动的向对方发送或接收数据，就像 Socket 一样；</li>
+<li>WebSocket 需要类似TCP的客户端和服务器端通过握手连接，连接成功后才能相互通信。<h2 id="连接模式"><a href="#连接模式" class="headerlink" title="连接模式"></a>连接模式</h2>传统 HTTP 请求响应客户端服务器交互图：</li>
+</ul>
+<p><img src="https://www.ibm.com/developerworks/cn/java/j-lo-WebSocket/img001.jpg" alt="image"></p>
+<p>使用 WebSocket 模式客户端与服务器的交互如下图：</p>
+<p><img src="https://www.ibm.com/developerworks/cn/java/j-lo-WebSocket/img002.jpg" alt="image"></p>
+<p>上图对比可以看出，相对于传统HTTP每次请求-应答都需要客户端与服务端建立连接的模式，WebSocket是类似 Socket 的 TCP长连接的通讯模式，一旦WebSocket 连接建立后，后续数据都以帧序列的形式传输。在客户端断开 WebSocket连接或Server端断掉连接前，不需要客户端和服务端重新发起连接请求。在海量并发及客户端与服务器交互负载流量大的情况下，极大的节省了网络带宽资源的消耗，有明显的性能优势，且客户端发送和接受消息是在同一个持久连接上发起，实时性优势明显。</p>
+<h2 id="交互报文"><a href="#交互报文" class="headerlink" title="交互报文"></a>交互报文</h2><p>在客户端，new WebSocket 实例化一个新的 WebSocket 客户端对象，连接类似 ws://yourdomain:port/path 的服务端 WebSocket URL，WebSocket 客户端对象会自动解析并识别为 WebSocket 请求，从而连接服务端端口，执行双方握手过程，客户端发送数据格式类似：</p>
+<p><strong>WebSocket 客户端连接报文：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">GET /webfin/websocket/ HTTP/1.1</div><div class="line">Host: localhost</div><div class="line">Upgrade: websocket</div><div class="line">Connection: Upgrade</div><div class="line">Sec-WebSocket-Key: xqBt3ImNzJbYqRINxEFlkg==</div><div class="line">Origin: &lt;a href=&quot;http://localhost/&quot;&gt;&lt;code&gt;http://localhost&lt;/code&gt;&lt;/a&gt;:8080</div><div class="line">Sec-WebSocket-Version: 13</div></pre></td></tr></table></figure>
+<p>可以看到，客户端发起的 WebSocket 连接报文类似传统 HTTP 报文，”Upgrade：websocket”参数值表明这是 WebSocket 类型请求，“Sec-WebSocket-Key”是 WebSocket 客户端发送的一个 base64 编码的密文，要求服务端必须返回一个对应加密的“Sec-WebSocket-Accept”应答，否则客户端会抛出“Error during WebSocket handshake”错误，并关闭连接。</p>
+<p><strong>WebSocket 服务端响应报文</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 101 Switching Protocols</div><div class="line">Upgrade: websocket</div><div class="line">Connection: Upgrade</div><div class="line">Sec-WebSocket-Accept: K7DJLdLooIwIG/MOpvWFB3y3FE8=</div></pre></td></tr></table></figure>
+<p>“Sec-WebSocket-Accept”的值是服务端采用与客户端一致的密钥计算出来后返回客户端的,“HTTP/1.1 101 Switching Protocols”表示服务端接受 WebSocket 协议的客户端连接，经过这样的请求-响应处理后，客户端服务端的 WebSocket 连接握手成功, 后续就可以进行 TCP 通讯了。读者可以查阅WebSocket 协议栈了解 WebSocket 客户端和服务端更详细的交互数据格式。<br>在开发方面，WebSocket API 也十分简单，我们只需要实例化 WebSocket，创建连接，然后服务端和客户端就可以相互发送和响应消息，在下文 WebSocket 实现及案例分析部分，可以看到详细的 WebSocket API 及代码实现。</p>
+<h1 id="3-WebSocket-实现"><a href="#3-WebSocket-实现" class="headerlink" title="3.WebSocket 实现"></a>3.WebSocket 实现</h1><p>WebSocket 的实现分为客户端和服务端两部分，客户端（通常为浏览器）发出WebSocket连接请求，服务端响应，实现类似TCP握手的动作，从而在浏览器客户端和 WebSocket服务端之间形成一条HTTP长连接快速通道。两者之间后续进行直接的数据互相传送，不再需要发起连接和相应。</p>
+<h2 id="WebSocket-服务端-API"><a href="#WebSocket-服务端-API" class="headerlink" title="WebSocket 服务端 API"></a>WebSocket 服务端 API</h2><h2 id="WebSocket-客户端-API"><a href="#WebSocket-客户端-API" class="headerlink" title="WebSocket 客户端 API"></a>WebSocket 客户端 API</h2><p>客户端 WebSocketAPI基本上已经在各个主流浏览器厂商中实现了统一，因此使用标准 HTML5 定义的 WebSocket 客户端的 JavaScript API 即可，当然也可以使用业界满足 WebSocket 标准规范的开源框架，如 Socket.io。</p>
+<p><strong>WebSocket 客户端 API 示例</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var ws = new WebSocket(“ws://echo.websocket.org”); </div><div class="line"> ws.onopen = function()&#123;ws.send(“Test!”); &#125;; </div><div class="line"> ws.onmessage = function(evt)&#123;console.log(evt.data);ws.close();&#125;; </div><div class="line"> ws.onclose = function(evt)&#123;console.log(“WebSocketClosed!”);&#125;; </div><div class="line"> ws.onerror = function(evt)&#123;console.log(“WebSocketError!”);&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>第一行代码是在申请一个WebSocket对象，参数是需要连接的服务器端的地址，同 HTTP 协议开头一样，WebSocket 协议的 URL 使用 ws://开头，另外安全的 WebSocket 协议使用 wss://开头。</li>
+<li>第二行到第五行为WebSocket对象注册消息的处理函数，WebSocket 对象一共支持四个消息 onopen, onmessage, onclose 和 onerror，有了这 4 个事件，我们就可以很容易很轻松的驾驭 WebSocket。</li>
+<li>当 Browser 和 WebSocketServer 连接成功后，会触发 onopen 消息；如果连接失败，发送、接收数据失败或者处理数据出现错误，browser 会触发 onerror 消息；当 Browser 接收到 WebSocketServer 发送过来的数据时，就会触发 onmessage 消息，参数 evt 中包含 Server 传输过来的数据；当 Browser 接收到 WebSocketServer 端发送的关闭连接请求时，就会触发 onclose 消息。我们可以看出所有的操作都是采用异步回调的方式触发，这样不会阻塞UI，可以获得更快的响应时间，更好的用户体验。</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> HTTP网络 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> websocket </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[观察者模式 (订阅者与发布者)]]></title>
+      <url>https://barryleeweb.github.io/2017/07/26/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%20(%E8%AE%A2%E9%98%85%E8%80%85%E4%B8%8E%E5%8F%91%E5%B8%83%E8%80%85)/</url>
+      <content type="html"><![CDATA[<h2 id="理解观察者模式："><a href="#理解观察者模式：" class="headerlink" title="理解观察者模式："></a>理解观察者模式：</h2><p>什么是观察者模式？</p>
+<p>观察者模式又叫做发布订阅模式，它定义了一种一对多的关系，让多个观察者对象同时监听某一个主题对象，这个主题对象的状态发生改变时就会通知所有观察着对象。它是由两类对象组成，主题和观察者，主题负责发布事件，同时观察者通过订阅这些事件来观察该主体，发布者和订阅者是完全解耦的，彼此不知道对方的存在，两者仅仅共享一个自定义事件的名称。<br><a id="more"></a><br>理解观察者模式：</p>
+<p>JS传统事件就是一个观察者模式，之所以要有观察者模式，是因为有时候和传统事件无关的事件，比如：2个或者更多模块的直接通信问题，比如说我有个index.html页面，我有很多JS文件，比如：</p>
+<p>a.js: function a(){};    b.js: function b(){};  c.js  function c(){};  等等。后面还有许多这样的JS， 那么我要在index.html初始化这些函数的话，我需要这样调用a();b();c()等等，也就是说页面调用的时候 我要这样调用，增加了依赖性，我要知道有多少个函数要这样初始化调用，但是如果我们现在用观察者模式就不需要知道有哪些订阅者，比如一个模块(或者多个模块)订阅了一个主题(或者事件)，另一个模块发布这个主题时候，订阅这个主题模块就可以执行了，观察者主要让订阅者与发布者解耦，发布者不需要知道哪些模块订阅了这个主题，它只管发布这个主题就可以了，同样订阅者也无需知道那个模块会发布这个主题，它只管订阅这个主题就可以了。这样2个模块(或更多模块)就实现了关联了。而不需要和上面代码一样，我要知道哪些模块要初始化，我要怎样初始化。这只是一个简单的列子解释观察者模式要使用在什么地方，我也看过很多博客关于这方面的资料，但是很多人写博客只是讲了如何实现观察者模式及观察者模式的好处，并没有讲我们什么时候该使用观察者模式，所以我列举了上面的列子，就是多个不同业务模块需要相互关联的时候，可以使用观察者模式。就好比requireJS，seaJS，KISSY解决依赖的问题一样(比如A依赖于B，B依赖于C，只要一个解决入口文件，其他都会异步加载出来一样)。也就是说各个模块之间的关联性可以使用观察者模式来设计。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">	&lt;title&gt;PubSub&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;script&gt;</div><div class="line">	function PubSub() &#123;</div><div class="line">	    this.handlers = &#123;&#125;;</div><div class="line">	&#125;</div><div class="line">	PubSub.prototype = &#123;</div><div class="line">	    // 订阅事件</div><div class="line">	    on: function(eventType,handler)&#123;</div><div class="line">	        var self = this;</div><div class="line">	        if(!(eventType in self.handlers)) &#123;</div><div class="line">	             self.handlers[eventType] = [];</div><div class="line">	        &#125;</div><div class="line">	        self.handlers[eventType].push(handler);  // 对象handlers存储key：事件名handlers及value：函数handler</div><div class="line">	        return this;</div><div class="line">	    &#125;,</div><div class="line">        // 触发事件(发布事件)</div><div class="line">        emit: function(eventType)&#123;</div><div class="line">           var self = this;</div><div class="line">           var handlerArgs = Array.prototype.slice.call(arguments,1);  // 取第二个开始的参数</div><div class="line">           for(var i = 0; i &lt; self.handlers[eventType].length; i++) &#123;  // 遍历事件名的所有回调函数</div><div class="line">                 self.handlers[eventType][i].apply(self,handlerArgs);   // 将参数传入回调函数</div><div class="line">           &#125;</div><div class="line">           return self;</div><div class="line">        &#125;</div><div class="line">	&#125;;</div><div class="line">	// 调用方式如下：</div><div class="line"></div><div class="line">	var pubsub = new PubSub();</div><div class="line"></div><div class="line">	pubsub.on(&apos;A&apos;,function(data)&#123;</div><div class="line"></div><div class="line">	console.log(1 + data);  // 执行第一个回调业务函数</div><div class="line"></div><div class="line">	&#125;);</div><div class="line"></div><div class="line">	pubsub.on(&apos;A&apos;,function(data)&#123;</div><div class="line"></div><div class="line">	console.log(2 + data); // 执行第二个业务回调函数</div><div class="line"></div><div class="line">	&#125;);</div><div class="line"></div><div class="line">	// 触发事件A</div><div class="line"></div><div class="line">	pubsub.emit(&apos;A&apos;,&quot;我是参数&quot;);</div><div class="line">	&lt;/script&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> Javascript设计模式 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 观察者模式 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[baidu_ife_小薇学院总结（四）]]></title>
+      <url>https://barryleeweb.github.io/2017/07/25/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E5%9B%9B%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h1 id="Task8-响应式网格（栅格化）"><a href="#Task8-响应式网格（栅格化）" class="headerlink" title="Task8:响应式网格（栅格化）"></a>Task8:响应式网格（栅格化）</h1><h2 id="1-目标："><a href="#1-目标：" class="headerlink" title="1.目标："></a>1.目标：</h2><p><strong>使用 HTML 与 CSS 实现类似 BootStrap 的响应式 12 栏网格布局，根据屏幕宽度，元素占的栏数不同。</strong></p>
+<h2 id="2-参考链接"><a href="#2-参考链接" class="headerlink" title="2.参考链接"></a>2.参考链接</h2><p><a href="http://j4n.co/blog/Creating-your-own-css-grid-system" target="_blank" rel="external">Creating Your Own CSS Grid System</a></p>
+<p><strong>栅格化设计：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div></pre></td><td class="code"><pre><div class="line">&lt;!DOCTYPE html&gt;</div><div class="line">&lt;html&gt;</div><div class="line">  &lt;head&gt;</div><div class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</div><div class="line">    &lt;title&gt;IFE JavaScript Task 07&lt;/title&gt;</div><div class="line">    &lt;style type=&quot;text/css&quot;&gt;</div><div class="line">     *&#123;margin: 0px;padding: 0px;&#125;</div><div class="line">      </div><div class="line">      /*-- http://j4n.co/blog/Creating-your-own-css-grid-system  栅格化设计-- */ </div><div class="line"></div><div class="line">      /*-- The Container -- */ </div><div class="line">      .grid-container&#123;</div><div class="line">          width: 100%; </div><div class="line">          max-width: 1200px;   </div><div class="line">      &#125;</div><div class="line"></div><div class="line">      /*-- The Row -- */ </div><div class="line">      /*-- our cleafix hack -- */ </div><div class="line">      .row:before, </div><div class="line">      .row:after &#123;</div><div class="line">          content:&quot;&quot;;</div><div class="line">          display: table ;</div><div class="line">          clear:both;</div><div class="line">      &#125;</div><div class="line">       </div><div class="line">      /*-- The Column , Column Positioning , Column Widths , Column Gutters -- */ </div><div class="line">      .grid-container *&#123;</div><div class="line">          box-sizing: border-box;  /*-- setting border box on all elements inside the grid --*/</div><div class="line">      &#125;</div><div class="line">      </div><div class="line">      [class*=&apos;col-&apos;] &#123; /* a[src*=&quot;abc&quot;] 选择其 src 属性中包含 &quot;abc&quot; 子串的每个 &lt;a&gt; 元素。*/</div><div class="line">          float: left; </div><div class="line">          min-height: 1px; </div><div class="line">          width: 16.66%; </div><div class="line">          /*-- Column gutter -- */</div><div class="line">          padding: 12px; </div><div class="line">          background-color: #FFDCDC;</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      .col-1&#123; width: 16.66%; &#125;</div><div class="line">      .col-2&#123; width: 33.33%; &#125;</div><div class="line">      .col-3&#123; width: 50%;    &#125;</div><div class="line">      .col-4&#123; width: 66.66%; &#125;</div><div class="line">      .col-5&#123; width: 83.33%; &#125;</div><div class="line">      .col-6&#123; width: 100%;   &#125;</div><div class="line"></div><div class="line">      .outline, .outline *&#123;</div><div class="line">          outline: 1px solid #F6A1A1; </div><div class="line">      &#125;</div><div class="line"></div><div class="line">      /*-- some extra column content styling --*/</div><div class="line">      [class*=&apos;col-&apos;] &gt; p &#123;</div><div class="line">       background-color: #FFC2C2; </div><div class="line">       padding: 0;</div><div class="line">       margin: 0;</div><div class="line">       text-align: center; </div><div class="line">       color: white; </div><div class="line">      &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">  &lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">    &lt;div class=&quot;grid-container outline&quot;&gt;</div><div class="line">        &lt;div class=&quot;row&quot;&gt;</div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-1&quot;&gt;&lt;p&gt;col-1&lt;/p&gt;&lt;/div&gt; </div><div class="line">        &lt;/div&gt; </div><div class="line">        &lt;div class=&quot;row&quot;&gt;</div><div class="line">            &lt;div class=&quot;col-2&quot;&gt;&lt;p&gt;col-2&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-2&quot;&gt;&lt;p&gt;col-2&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-2&quot;&gt;&lt;p&gt;col-2&lt;/p&gt;&lt;/div&gt; </div><div class="line">        &lt;/div&gt; </div><div class="line">        &lt;div class=&quot;row&quot;&gt;</div><div class="line">            &lt;div class=&quot;col-3&quot;&gt;&lt;p&gt;col-3&lt;/p&gt;&lt;/div&gt; </div><div class="line">            &lt;div class=&quot;col-3&quot;&gt;&lt;p&gt;col-3&lt;/p&gt;&lt;/div&gt; </div><div class="line">        &lt;/div&gt; </div><div class="line">    &lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p><strong>移动端响应式</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">/*screens under 800px*/</div><div class="line">@media all and (max-width:800px)&#123;</div><div class="line">    .col-1&#123; width: 33.33%;    &#125;</div><div class="line">    .col-2&#123; width: 50%;        &#125;</div><div class="line">    .col-3&#123; width: 83.33%;    &#125;</div><div class="line">    .col-4&#123; width: 100%;    &#125;</div><div class="line">    .col-5&#123; width: 100%;    &#125;</div><div class="line">    .col-6&#123; width: 100%;      &#125;</div><div class="line"></div><div class="line">    .row .col-2:last-of-type&#123; /* p:last-of-type 选择属于其父元素的最后 &lt;p&gt; 元素的每个 &lt;p&gt; 元素。*/</div><div class="line">        width: 100%; </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    .row .col-5 ~ .col-1&#123;  /*p~ul 选择前面有 &lt;p&gt; 元素的每个 &lt;ul&gt; 元素。相同的父元素,但是 element2 不必直接紧随 element1*/</div><div class="line">        width: 100%; </div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">/*screens under 650px*/</div><div class="line">@media all and (max-width:650px)&#123;</div><div class="line">    .col-1&#123; width: 50%;        &#125;</div><div class="line">    .col-2&#123; width: 100%;    &#125;</div><div class="line">    .col-3&#123; width: 100%;    &#125;</div><div class="line">    .col-4&#123; width: 100%;    &#125;</div><div class="line">    .col-5&#123; width: 100%;    &#125;</div><div class="line">    .col-6&#123; width: 100%;      &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h2 id="3-响应式-12-栏网格布局"><a href="#3-响应式-12-栏网格布局" class="headerlink" title="3.响应式 12 栏网格布局"></a>3.响应式 12 栏网格布局</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">@media all and (min-width:769px)&#123;</div><div class="line">	.col-md-1&#123; width: 8.33%; &#125;</div><div class="line">	.col-md-2&#123; width: 16.66%; &#125;</div><div class="line">	.col-md-3&#123; width: 25%;    &#125;</div><div class="line">	.col-md-4&#123; width: 33.33%; &#125;</div><div class="line">	.col-md-6&#123; width: 50%;   &#125;</div><div class="line">&#125;</div><div class="line">/*screens under 800px*/</div><div class="line">@media all and (max-width:768px)&#123;</div><div class="line">  .col-sm-2&#123; width: 16.66%;   &#125;</div><div class="line">  .col-sm-3&#123; width: 25%;      &#125;</div><div class="line">  .col-sm-6&#123; width: 50%;      &#125;</div><div class="line">  .col-sm-8&#123; width: 66.66%;   &#125;</div><div class="line">  .col-sm-12&#123; width: 100%;    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="Task10-Flexbox-布局练习"><a href="#Task10-Flexbox-布局练习" class="headerlink" title="Task10:Flexbox 布局练习"></a>Task10:Flexbox 布局练习</h1><p><img src="http://7xrp04.com1.z0.glb.clouddn.com/task_1_10_1.png" alt="image"></p>
+<h2 id="1-Flex布局是什么？"><a href="#1-Flex布局是什么？" class="headerlink" title="1.Flex布局是什么？"></a>1.Flex布局是什么？</h2><p>W3C针对布局设计的新标准，相对float和position会更加灵活处理父元素和子元素之间布局关系，让布局更加直观和灵活简单。有效的针对不同屏幕宽度大小的情况下，让元素自动有效合理处理布局结构</p>
+<h2 id="2-Flexbox布局和网格布局的异同"><a href="#2-Flexbox布局和网格布局的异同" class="headerlink" title="2.Flexbox布局和网格布局的异同"></a>2.Flexbox布局和网格布局的异同</h2><p>弹性盒子布局主要适用于应用程序的组件及小规模的布局，而（新兴的）栅格布局则针对大规模的布局。</p>
+<h2 id="3-Flex容器属性"><a href="#3-Flex容器属性" class="headerlink" title="3.Flex容器属性"></a>3.Flex容器属性</h2><ul>
+<li>flex-direction: row | row-reverse | column column-reverse;主轴方向</li>
+<li>flex-wrap: nowrap | wrap | wrap-reverse;是否可以换行</li>
+<li>justify-content: flex-start | flex-end | center | space-between | space-around;主轴上的对齐方式</li>
+<li>align-items: flex-start | flex-end | center | baseline | stretch;交叉轴的对齐方式</li>
+<li>align-content: flex-start | flex-end | center | space-between | space-around | stretch;多行轴线的对齐方式<h2 id="4-Flex项目属性"><a href="#4-Flex项目属性" class="headerlink" title="4.Flex项目属性"></a>4.Flex项目属性</h2></li>
+<li>order<br>根据order的值定义项目排列顺序。数值越小，排列越靠前，默认为0</li>
+<li>align-self<br>定义单个项目在交叉轴的对齐方式，可覆盖align-items属性</li>
+<li>flex-grow<br>定义项目放大比例，默认为0，当容器有剩余空间时不放大.<br>重点在于，每个方块的 flex-grow 和其他方块的是成<strong>比例</strong>的。</li>
+<li>flex-shrink<br>定义项目缩小比例。默认为1，随着容器缩小而等比例缩小。<br>如果设置为0，项目将不缩小。</li>
+<li>flex-basis<br>定义项目占据的主轴空间（main size）,默认是auto.</li>
+<li>flex<br>flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。<h2 id="5-屏幕宽度小于640px"><a href="#5-屏幕宽度小于640px" class="headerlink" title="5.屏幕宽度小于640px"></a>5.屏幕宽度小于640px</h2></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@media all and (max-width:640px)&#123;</div><div class="line">   .container&#123;align-items: flex-start;&#125;</div><div class="line">   .box1,.box2,.box3&#123;order: 1;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="6-Flex属性设置"><a href="#6-Flex属性设置" class="headerlink" title="6.Flex属性设置"></a>6.Flex属性设置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">display: flex;</div><div class="line">justify-content: space-between;</div><div class="line">align-items: center;</div><div class="line">flex-direction: row;</div><div class="line">flex-wrap: wrap;  /*是否可以换行（默认不换行）*/</div></pre></td></tr></table></figure>
+]]></content>
+      
+        <categories>
+            
+            <category> baidu_ife_xiaowei </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> HTML&amp;CSS </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[baidu_ife_小薇学院总结（三）]]></title>
       <url>https://barryleeweb.github.io/2017/07/12/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%89%EF%BC%89/</url>
       <content type="html"><![CDATA[<h1 id="Task5-零基础HTML及CSS编码（二）"><a href="#Task5-零基础HTML及CSS编码（二）" class="headerlink" title="Task5:零基础HTML及CSS编码（二）"></a>Task5:零基础HTML及CSS编码（二）</h1><h2 id="1-两栏布局（左边自适应，右边固定）"><a href="#1-两栏布局（左边自适应，右边固定）" class="headerlink" title="1.两栏布局（左边自适应，右边固定）"></a>1.两栏布局（左边自适应，右边固定）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#parent &#123;</div><div class="line">    position: relative;</div><div class="line">&#125;</div><div class="line">#left &#123;</div><div class="line">    margin-right:220px; </div><div class="line">&#125;</div><div class="line">#right &#123;</div><div class="line">    position: absolute; </div><div class="line">    right:0; </div><div class="line">    top:0;</div><div class="line">    width: 200px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -30,7 +406,7 @@
         
         <tags>
             
-            <tag> HTML_CSS </tag>
+            <tag> HTML&amp;CSS </tag>
             
         </tags>
         
@@ -74,7 +450,7 @@
         
         <tags>
             
-            <tag> HTML_CSS </tag>
+            <tag> HTML&amp;CSS </tag>
             
         </tags>
         
@@ -127,7 +503,7 @@
         
         <tags>
             
-            <tag> HTML_CSS </tag>
+            <tag> HTML&amp;CSS </tag>
             
         </tags>
         

@@ -1,0 +1,942 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="3C0GPfQqnkheXgimbf5ySFQi6NgZ-44EBeJve7cAwmY" />
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS3," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="CSS3新特性1.CSS3选择器属性选择器：
+
+E[attr] 只要有属性名
+E[attr=value] 属性名=属性值
+E[attr~=blue] 包含这个blue整个单词就可以
+E[attr^=c] 以这个字母c开头的
+E[attr$=b] 以这个字母b结尾的
+E[attr*=a] 只要包含a这个字母就行
+E[attr|=z] 只要以字母z-开头的或者就是字母z的
+
+结构性伪类选择器：
+
+E:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS3新特性">
+<meta property="og:url" content="https://barryleeweb.github.io/2017/07/26/CSS3新特性/index.html">
+<meta property="og:site_name" content="Front End">
+<meta property="og:description" content="CSS3新特性1.CSS3选择器属性选择器：
+
+E[attr] 只要有属性名
+E[attr=value] 属性名=属性值
+E[attr~=blue] 包含这个blue整个单词就可以
+E[attr^=c] 以这个字母c开头的
+E[attr$=b] 以这个字母b结尾的
+E[attr*=a] 只要包含a这个字母就行
+E[attr|=z] 只要以字母z-开头的或者就是字母z的
+
+结构性伪类选择器：
+
+E:">
+<meta property="og:updated_time" content="2017-07-25T16:14:34.036Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS3新特性">
+<meta name="twitter:description" content="CSS3新特性1.CSS3选择器属性选择器：
+
+E[attr] 只要有属性名
+E[attr=value] 属性名=属性值
+E[attr~=blue] 包含这个blue整个单词就可以
+E[attr^=c] 以这个字母c开头的
+E[attr$=b] 以这个字母b结尾的
+E[attr*=a] 只要包含a这个字母就行
+E[attr|=z] 只要以字母z-开头的或者就是字母z的
+
+结构性伪类选择器：
+
+E:">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://barryleeweb.github.io/2017/07/26/CSS3新特性/"/>
+
+
+
+
+
+  <title>CSS3新特性 | Front End</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Front End</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端爱好者</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://barryleeweb.github.io/2017/07/26/CSS3新特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Barry Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Front End">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">CSS3新特性</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-26T00:03:17+08:00">
+                2017-07-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HTML5-CSS3/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML5&CSS3</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/07/26/CSS3新特性/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/07/26/CSS3新特性/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="CSS3新特性"><a href="#CSS3新特性" class="headerlink" title="CSS3新特性"></a>CSS3新特性</h1><h2 id="1-CSS3选择器"><a href="#1-CSS3选择器" class="headerlink" title="1.CSS3选择器"></a>1.CSS3选择器</h2><p><strong>属性选择器：</strong></p>
+<ul>
+<li>E[attr] 只要有属性名</li>
+<li>E[attr=value] 属性名=属性值</li>
+<li>E[attr~=blue] 包含这个blue整个单词就可以</li>
+<li>E[attr^=c] 以这个字母c开头的</li>
+<li>E[attr$=b] 以这个字母b结尾的</li>
+<li>E[attr*=a] 只要包含a这个字母就行</li>
+<li>E[attr|=z] 只要以字母z-开头的或者就是字母z的</li>
+</ul>
+<p><strong>结构性伪类选择器</strong>：</p>
+<ul>
+<li>E:nth-child(n) 第n个子节点</li>
+<li>div:nth-child(odd) 奇数行</li>
+<li>div:nth-child(even) 偶数行</li>
+<li>div:nth-child(2n) 2的倍数</li>
+<li>E:nth-last-child(n) 倒数第n个</li>
+</ul>
+<p><strong>其他</strong>：</p>
+<ul>
+<li>E:empty 空元素</li>
+<li>E:first-child 第一个子节点、和 E:nth-child(1)等价</li>
+<li>E:last-child 倒数第一个、和 E:nth-last-child(1)等价</li>
+<li><ul>
+<li>注意不能有其他兄弟节点</li>
+</ul>
+</li>
+<li></li>
+<li>E:target 锚点元素的样式</li>
+<li>div:target{width:100px;}</li>
+<li><div id="”div1″"></div></li>
+<li>只要锚点有#div1那上面的target样式就会生效</li>
+<li>E:disabled 表单元素设置disabled</li>
+<li>E:enabled 可点击的表单元素</li>
+<li>E:checked 表示已经选中的checkbox或者radio</li>
+<li></li>
+<li>文本新增伪类：</li>
+<li>E:first-line 第一行</li>
+<li>E:first-letter 第一个字</li>
+<li>E::selection 选中文本的时候</li>
+<li>E::before E标签前面添加东西,需要配合content来用</li>
+<li></li>
+<li>E::after E标签后面添加东西</li>
+<li>E:before E:after单引号也能用</li>
+<li>E:not(s) 不包括s</li>
+<li>h1:not(.red) 排除有class为red的h1元素</li>
+<li>E~F E后面的F兄弟节点<a id="more"></a>
+<h2 id="2-CSS3-边框（Borders）"><a href="#2-CSS3-边框（Borders）" class="headerlink" title="2.CSS3 边框（Borders）"></a>2.CSS3 边框（Borders）</h2>用CSS3，你可以创建圆角边框，添加阴影框，并作为边界的形象而不使用设计程序</li>
+<li>border-image    设置所有边框图像的速记属性。</li>
+<li>border-radius    一个用于设置所有四个边框- *-半径属性的速记属性</li>
+<li>box-shadow    附加一个或多个下拉框的阴影</li>
+</ul>
+<h2 id="3-CSS3-背景"><a href="#3-CSS3-背景" class="headerlink" title="3.CSS3 背景"></a>3.CSS3 背景</h2><ul>
+<li>background-clip    规定背景的绘制区域。</li>
+<li>background-origin    规定背景图片的定位区域。</li>
+<li>background-size    规定背景图片的尺寸</li>
+</ul>
+<h2 id="4-CSS3-渐变"><a href="#4-CSS3-渐变" class="headerlink" title="4.CSS3 渐变"></a>4.CSS3 渐变</h2><p>CSS3 定义了两种类型的渐变（gradients）：</p>
+<ul>
+<li>线性渐变（Linear Gradients）- 向下/向上/向左/向右/对角方向</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background: linear-gradient(direction, color-stop1, color-stop2,...);</div></pre></td></tr></table></figure>
+<ul>
+<li>径向渐变（Radial Gradients）- 由它们的中心定义</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">background: radial-gradient(center, shape size, start-color,...,last-color);</div></pre></td></tr></table></figure>
+<h2 id="5-CSS3-文本效果"><a href="#5-CSS3-文本效果" class="headerlink" title="5.CSS3 文本效果"></a>5.CSS3 文本效果</h2><ul>
+<li>text-emphasis 向元素的文本应用重点标记以及重点标记的前景色。</li>
+<li>text-justify    规定当 text-align 设置为 “justify” 时所使用的对齐方法。</li>
+<li>text-outline    规定文本的轮廓。</li>
+<li>text-overflow    规定当文本溢出包含元素时发生的事情。</li>
+<li>text-shadow    向文本添加阴影。</li>
+<li>text-wrap    规定文本的换行规则。</li>
+</ul>
+<h2 id="6-CSS3-转换和变形"><a href="#6-CSS3-转换和变形" class="headerlink" title="6.CSS3 转换和变形"></a>6.CSS3 转换和变形</h2><p>  旋转（transform）<br>  transform:rotate(9deg) scale(0.85,0.90) translate(0px,-30px) skew(-9deg,0deg);//旋转,缩放,定位,倾斜</p>
+<h2 id="7-CSS3-盒模型"><a href="#7-CSS3-盒模型" class="headerlink" title="7.CSS3 盒模型"></a>7.CSS3 盒模型</h2><p> 在 CSS3 中, 增加了一些新的用户界面特性来调整元素尺寸，框尺寸和外边框，主要包括以下用户界面属性：</p>
+<ul>
+<li>resize：none | both | horizontal | vertical | inherit <em>resize属性指定一个元素是否应该由用户去调整大小。</em></li>
+<li>box-sizing: content-box | border-box | inherit box-sizing <em>属性允许您以确切的方式定义适应某个区域的具体内容</em></li>
+<li>outline:outline-color outline-style outline-width outine-offset<br><em>outline-offset属性对轮廓进行偏移，并在超出边框边缘的位置绘制轮廓。</em></li>
+</ul>
+<h2 id="8-CSS3-弹性盒flexbox"><a href="#8-CSS3-弹性盒flexbox" class="headerlink" title="8.CSS3 弹性盒flexbox"></a>8.CSS3 弹性盒flexbox</h2><ul>
+<li>display    指定 HTML 元素盒子类型。</li>
+<li>flex-direction    指定了弹性容器中子元素的排列方式</li>
+<li>justify-content    设置弹性盒子元素在主轴（横轴）方向上的对齐方式</li>
+<li>align-items    设置弹性盒子元素在侧轴（纵轴）方向上的对齐方式</li>
+<li>flex-wrap    设置弹性盒子的子元素超出父容器时是否换行</li>
+<li>align-content    修改 flex-wrap 属性的行为，类似 align-items,但不是设置子元素对齐，而是设置行对齐</li>
+<li>flex-flow    flex-direction 和 flex-wrap 的简写</li>
+<li>order    设置弹性盒子的子元素排列顺序</li>
+<li>align-self    在弹性子元素上使用。覆盖容器的 align-items 属性</li>
+<li>flex    设置弹性盒子的子元素如何分配空间</li>
+</ul>
+<h2 id="9-多媒体查询"><a href="#9-多媒体查询" class="headerlink" title="9.多媒体查询"></a>9.多媒体查询</h2><ol>
+<li>使用媒体类型</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;linkrel=&quot;stylesheet&quot;type=&quot;text/css&quot;href=&quot;site.css&quot;media=&quot;screen&quot;/&gt;</div><div class="line">&lt;linkrel=&quot;stylesheet&quot;type=&quot;text/css&quot;href=&quot;print.css&quot;media=&quot;print&quot;/&gt;</div></pre></td></tr></table></figure>
+<ol>
+<li>媒体查询规则</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@media all and(min-width:800px)&#123;...&#125;</div></pre></td></tr></table></figure>
+<p>@media all 是媒体类型，也就是说，将此 CSS 应用于所有媒体类型。<br>(min-width:800px) 是包含媒体查询的表达式，如果浏览器的最小宽度为 800 像素，则会告诉浏览器只运用下列 CSS。</p>
+<ol>
+<li>and 条件</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@media(min-width:800px)and(max-width:1200px)and(orientation:portrait)&#123;...&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>or 关键词</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@media(min-width:800px)or(orientation:portrait)&#123;...&#125;</div></pre></td></tr></table></figure>
+<ol>
+<li>使用 not</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">@media(not min-width:800px)&#123;...&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS3/" rel="tag"># CSS3</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/26/websocket学习/" rel="next" title="websocket学习">
+                <i class="fa fa-chevron-left"></i> websocket学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/26/HTM5新特性/" rel="prev" title="HTML5新特性">
+                HTML5新特性 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Barry Lee" />
+          <p class="site-author-name" itemprop="name">Barry Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Barryleeweb" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CSS3新特性"><span class="nav-number">1.</span> <span class="nav-text">CSS3新特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-CSS3选择器"><span class="nav-number">1.1.</span> <span class="nav-text">1.CSS3选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-CSS3-边框（Borders）"><span class="nav-number">1.2.</span> <span class="nav-text">2.CSS3 边框（Borders）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-CSS3-背景"><span class="nav-number">1.3.</span> <span class="nav-text">3.CSS3 背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-CSS3-渐变"><span class="nav-number">1.4.</span> <span class="nav-text">4.CSS3 渐变</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-CSS3-文本效果"><span class="nav-number">1.5.</span> <span class="nav-text">5.CSS3 文本效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-CSS3-转换和变形"><span class="nav-number">1.6.</span> <span class="nav-text">6.CSS3 转换和变形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-CSS3-盒模型"><span class="nav-number">1.7.</span> <span class="nav-text">7.CSS3 盒模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-CSS3-弹性盒flexbox"><span class="nav-number">1.8.</span> <span class="nav-text">8.CSS3 弹性盒flexbox</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9-多媒体查询"><span class="nav-number">1.9.</span> <span class="nav-text">9.多媒体查询</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Barry Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://barry.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://barryleeweb.github.io/2017/07/26/CSS3新特性/';
+          this.page.identifier = '2017/07/26/CSS3新特性/';
+          this.page.title = 'CSS3新特性';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://barry.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

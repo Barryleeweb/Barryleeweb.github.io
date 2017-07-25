@@ -4,14 +4,14 @@
 
     
   <url>
-    <loc>https://barryleeweb.github.io/2017/07/12/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%89%EF%BC%89/</loc>
-    <lastmod>2017-07-11T16:16:55.361Z</lastmod>
+    <loc>https://barryleeweb.github.io/2017/07/25/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E5%9B%9B%EF%BC%89/</loc>
+    <lastmod>2017-07-25T16:22:19.115Z</lastmod>
     <data>
         <display>
-        <title>baidu_ife_小薇学院总结（三）</title>
-        <pubTime>2017-07-11T16:00:30.243Z</pubTime>
+        <title>baidu_ife_小薇学院总结（四）</title>
+        <pubTime>2017-07-25T15:59:57.355Z</pubTime>
         
-        <tag>HTML_CSS</tag>
+        <tag>HTML&amp;CSS</tag>
          
          
            
@@ -25,13 +25,33 @@
     
   <url>
     <loc>https://barryleeweb.github.io/2017/07/11/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/</loc>
-    <lastmod>2017-07-11T16:15:28.055Z</lastmod>
+    <lastmod>2017-07-25T16:22:07.181Z</lastmod>
     <data>
         <display>
         <title>baidu_ife_小薇学院总结（一）</title>
         <pubTime>2017-07-11T14:22:36.761Z</pubTime>
         
-        <tag>HTML_CSS</tag>
+        <tag>HTML&amp;CSS</tag>
+         
+         
+           
+             
+              <breadCrumb title="baidu_ife_xiaowei" url="https://barryleeweb.github.io/categories/baidu-ife-xiaowei/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://barryleeweb.github.io/2017/07/12/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%89%EF%BC%89/</loc>
+    <lastmod>2017-07-25T16:22:01.098Z</lastmod>
+    <data>
+        <display>
+        <title>baidu_ife_小薇学院总结（三）</title>
+        <pubTime>2017-07-11T16:00:30.243Z</pubTime>
+        
+        <tag>HTML&amp;CSS</tag>
          
          
            
@@ -45,18 +65,142 @@
     
   <url>
     <loc>https://barryleeweb.github.io/2017/07/11/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
-    <lastmod>2017-07-11T16:15:26.959Z</lastmod>
+    <lastmod>2017-07-25T16:21:55.590Z</lastmod>
     <data>
         <display>
         <title>baidu_ife_小薇学院总结（二）</title>
         <pubTime>2017-07-11T15:06:23.090Z</pubTime>
         
-        <tag>HTML_CSS</tag>
+        <tag>HTML&amp;CSS</tag>
          
          
            
              
               <breadCrumb title="baidu_ife_xiaowei" url="https://barryleeweb.github.io/categories/baidu-ife-xiaowei/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://barryleeweb.github.io/2017/07/26/%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E6%95%B0%E7%BB%84%E6%93%8D%E4%BD%9C/</loc>
+    <lastmod>2017-07-25T16:16:05.168Z</lastmod>
+    <data>
+        <display>
+        <title>字符串及数组操作</title>
+        <pubTime>2017-07-25T16:04:03.200Z</pubTime>
+        
+        <tag>字符串</tag>
+         
+        <tag>数组</tag>
+         
+         
+           
+             
+              <breadCrumb title="数据结构&amp;算法" url="https://barryleeweb.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://barryleeweb.github.io/2017/07/26/%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%20(%E8%AE%A2%E9%98%85%E8%80%85%E4%B8%8E%E5%8F%91%E5%B8%83%E8%80%85)/</loc>
+    <lastmod>2017-07-25T16:16:00.401Z</lastmod>
+    <data>
+        <display>
+        <title>观察者模式 (订阅者与发布者)</title>
+        <pubTime>2017-07-25T16:02:53.100Z</pubTime>
+        
+        <tag>观察者模式</tag>
+         
+         
+           
+             
+              <breadCrumb title="Javascript设计模式" url="https://barryleeweb.github.io/categories/Javascript%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://barryleeweb.github.io/2017/07/26/%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E5%8F%8A%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2017-07-25T16:15:44.212Z</lastmod>
+    <data>
+        <display>
+        <title>常见排序及查找算法</title>
+        <pubTime>2017-07-25T16:03:57.544Z</pubTime>
+        
+        <tag>排序</tag>
+         
+        <tag>查找</tag>
+         
+         
+           
+             
+              <breadCrumb title="数据结构&amp;算法" url="https://barryleeweb.github.io/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84-%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://barryleeweb.github.io/2017/07/26/websocket%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2017-07-25T16:15:29.258Z</lastmod>
+    <data>
+        <display>
+        <title>websocket学习</title>
+        <pubTime>2017-07-25T16:03:09.380Z</pubTime>
+        
+        <tag>websocket</tag>
+         
+         
+           
+             
+              <breadCrumb title="HTTP网络" url="https://barryleeweb.github.io/categories/HTTP%E7%BD%91%E7%BB%9C/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://barryleeweb.github.io/2017/07/26/HTM5%E6%96%B0%E7%89%B9%E6%80%A7/</loc>
+    <lastmod>2017-07-25T16:14:53.055Z</lastmod>
+    <data>
+        <display>
+        <title>HTML5新特性</title>
+        <pubTime>2017-07-25T16:03:24.067Z</pubTime>
+        
+        <tag>HTML5</tag>
+         
+         
+           
+             
+              <breadCrumb title="HTML5&amp;CSS3" url="https://barryleeweb.github.io/categories/HTML5-CSS3/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://barryleeweb.github.io/2017/07/26/CSS3%E6%96%B0%E7%89%B9%E6%80%A7/</loc>
+    <lastmod>2017-07-25T16:14:34.036Z</lastmod>
+    <data>
+        <display>
+        <title>CSS3新特性</title>
+        <pubTime>2017-07-25T16:03:17.032Z</pubTime>
+        
+        <tag>CSS3</tag>
+         
+         
+           
+             
+              <breadCrumb title="HTML5&amp;CSS3" url="https://barryleeweb.github.io/categories/HTML5-CSS3/"/>
           
         </display>
     </data>

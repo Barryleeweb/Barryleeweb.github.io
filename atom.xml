@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://barryleeweb.github.io/"/>
-  <updated>2017-08-05T16:18:59.250Z</updated>
+  <updated>2017-08-05T16:25:57.457Z</updated>
   <id>https://barryleeweb.github.io/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="https://barryleeweb.github.io/2017/08/06/IMWeb%E9%9D%A2%E8%AF%95%E9%A2%98%E6%95%B4%E7%90%86/"/>
     <id>https://barryleeweb.github.io/2017/08/06/IMWeb面试题整理/</id>
     <published>2017-08-05T16:13:18.839Z</published>
-    <updated>2017-08-05T16:18:59.250Z</updated>
+    <updated>2017-08-05T16:25:57.457Z</updated>
     
     <content type="html"><![CDATA[<ol>
 <li>什么是盒子模型？</li>
@@ -32,7 +32,7 @@
 <li>ajax是什么?ajax的交互模型?同步和异步的区别?如何解决跨域问题?</li>
 <li>什么叫优雅降级和渐进增强？</li>
 <li>在Javascript中什么是伪数组？如何将伪数组转化为标准数组？</li>
-<li>浏览器本地存储?</li>
+<li>浏览器本地存储?<a id="more"></a></li>
 <li>线程与进程的区别?</li>
 <li>请说出三种减少页面加载时间的方法。</li>
 <li>null和undefined的区别？</li>
@@ -73,7 +73,11 @@
 &lt;li&gt;简述同步和异步的区别?&lt;/li&gt;
 &lt;li&gt;怎样添加、移除、移动、复制、创建和查找节点？&lt;/li&gt;
 &lt;li&gt;一次完整的HTTP事务是怎样的一个过程？&lt;/li&gt;
-&lt;li&gt;你所了解
+&lt;li&gt;你所了解到的Web攻击技术?&lt;/li&gt;
+&lt;li&gt;ajax是什么?ajax的交互模型?同步和异步的区别?如何解决跨域问题?&lt;/li&gt;
+&lt;li&gt;什么叫优雅降级和渐进增强？&lt;/li&gt;
+&lt;li&gt;在Javascript中什么是伪数组？如何将伪数组转化为标准数组？&lt;/li&gt;
+&lt;li&gt;浏览器本地存储?
     
     </summary>
     
@@ -742,7 +746,7 @@
     <link href="https://barryleeweb.github.io/2017/07/25/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E5%9B%9B%EF%BC%89/"/>
     <id>https://barryleeweb.github.io/2017/07/25/baidu_ife_小薇学院总结（四）/</id>
     <published>2017-07-25T15:59:57.355Z</published>
-    <updated>2017-07-25T16:22:19.115Z</updated>
+    <updated>2017-08-05T16:25:08.651Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Task8-响应式网格（栅格化）"><a href="#Task8-响应式网格（栅格化）" class="headerlink" title="Task8:响应式网格（栅格化）"></a>Task8:响应式网格（栅格化）</h1><h2 id="1-目标："><a href="#1-目标：" class="headerlink" title="1.目标："></a>1.目标：</h2><p><strong>使用 HTML 与 CSS 实现类似 BootStrap 的响应式 12 栏网格布局，根据屏幕宽度，元素占的栏数不同。</strong></p>
 <h2 id="2-参考链接"><a href="#2-参考链接" class="headerlink" title="2.参考链接"></a>2.参考链接</h2><p><a href="http://j4n.co/blog/Creating-your-own-css-grid-system" target="_blank" rel="external">Creating Your Own CSS Grid System</a></p>
@@ -778,7 +782,7 @@
     
     </summary>
     
-      <category term="baidu_ife_xiaowei" scheme="https://barryleeweb.github.io/categories/baidu-ife-xiaowei/"/>
+      <category term="Baidu_IFE" scheme="https://barryleeweb.github.io/categories/Baidu-IFE/"/>
     
     
       <category term="HTML&amp;CSS" scheme="https://barryleeweb.github.io/tags/HTML-CSS/"/>
@@ -790,7 +794,7 @@
     <link href="https://barryleeweb.github.io/2017/07/12/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%89%EF%BC%89/"/>
     <id>https://barryleeweb.github.io/2017/07/12/baidu_ife_小薇学院总结（三）/</id>
     <published>2017-07-11T16:00:30.243Z</published>
-    <updated>2017-07-25T16:22:01.098Z</updated>
+    <updated>2017-08-05T16:25:24.521Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Task5-零基础HTML及CSS编码（二）"><a href="#Task5-零基础HTML及CSS编码（二）" class="headerlink" title="Task5:零基础HTML及CSS编码（二）"></a>Task5:零基础HTML及CSS编码（二）</h1><h2 id="1-两栏布局（左边自适应，右边固定）"><a href="#1-两栏布局（左边自适应，右边固定）" class="headerlink" title="1.两栏布局（左边自适应，右边固定）"></a>1.两栏布局（左边自适应，右边固定）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#parent &#123;</div><div class="line">    position: relative;</div><div class="line">&#125;</div><div class="line">#left &#123;</div><div class="line">    margin-right:220px; </div><div class="line">&#125;</div><div class="line">#right &#123;</div><div class="line">    position: absolute; </div><div class="line">    right:0; </div><div class="line">    top:0;</div><div class="line">    width: 200px;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <a id="more"></a>
@@ -813,7 +817,7 @@
     
     </summary>
     
-      <category term="baidu_ife_xiaowei" scheme="https://barryleeweb.github.io/categories/baidu-ife-xiaowei/"/>
+      <category term="Baidu_IFE" scheme="https://barryleeweb.github.io/categories/Baidu-IFE/"/>
     
     
       <category term="HTML&amp;CSS" scheme="https://barryleeweb.github.io/tags/HTML-CSS/"/>
@@ -825,7 +829,7 @@
     <link href="https://barryleeweb.github.io/2017/07/11/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89/"/>
     <id>https://barryleeweb.github.io/2017/07/11/baidu_ife_小薇学院总结（二）/</id>
     <published>2017-07-11T15:06:23.090Z</published>
-    <updated>2017-07-25T16:21:55.590Z</updated>
+    <updated>2017-08-05T16:25:25.224Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Task3-三栏式布局"><a href="#Task3-三栏式布局" class="headerlink" title="Task3:三栏式布局"></a>Task3:三栏式布局</h1><h2 id="1-三栏式布局方法"><a href="#1-三栏式布局方法" class="headerlink" title="1.三栏式布局方法"></a>1.三栏式布局方法</h2><p>方法一：inline-block方法<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">left,center,right&#123; display：inline-block&#125; /* 包裹作用，不会塌陷 */ </div><div class="line">left&#123;width:200px&#125;</div><div class="line">right&#123;width:120px&#125;</div><div class="line">center&#123;width:calc(100%-200px-120px-40px)&#125; /* 动态计算中间盒子的宽度 */</div></pre></td></tr></table></figure></p>
 <p>方法二：float布局<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;left&quot;&gt;</div><div class="line">&lt;div class=&quot;right&quot;&gt;  /* 这里将right提到center前面 */</div><div class="line">&lt;div class=&quot;center&quot;&gt;</div><div class="line"></div><div class="line">.left&#123;float:left&#125;</div><div class="line">.center&#123; margin-left: 220px; margin-right: 140px; &#125;</div><div class="line">.right&#123;float: right;&#125;</div></pre></td></tr></table></figure></p>
@@ -861,7 +865,7 @@
     
     </summary>
     
-      <category term="baidu_ife_xiaowei" scheme="https://barryleeweb.github.io/categories/baidu-ife-xiaowei/"/>
+      <category term="Baidu_IFE" scheme="https://barryleeweb.github.io/categories/Baidu-IFE/"/>
     
     
       <category term="HTML&amp;CSS" scheme="https://barryleeweb.github.io/tags/HTML-CSS/"/>
@@ -873,7 +877,7 @@
     <link href="https://barryleeweb.github.io/2017/07/11/baidu_ife_%E5%B0%8F%E8%96%87%E5%AD%A6%E9%99%A2%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/"/>
     <id>https://barryleeweb.github.io/2017/07/11/baidu_ife_小薇学院总结（一）/</id>
     <published>2017-07-11T14:22:36.761Z</published>
-    <updated>2017-07-25T16:22:07.181Z</updated>
+    <updated>2017-08-05T16:25:23.347Z</updated>
     
     <content type="html"><![CDATA[<h1 id="Task1-零基础HTML编码"><a href="#Task1-零基础HTML编码" class="headerlink" title="Task1:零基础HTML编码"></a>Task1:零基础HTML编码</h1><h2 id="1-新标签"><a href="#1-新标签" class="headerlink" title="1.新标签"></a>1.新标签</h2><p>&emsp;&emsp;在学习html5的过程中，知道了一些新的标签，能够更清晰的表达文档的结构（原来都是用div，可能加上id或者class来划分）。</p>
 <ul>
@@ -924,7 +928,7 @@
     
     </summary>
     
-      <category term="baidu_ife_xiaowei" scheme="https://barryleeweb.github.io/categories/baidu-ife-xiaowei/"/>
+      <category term="Baidu_IFE" scheme="https://barryleeweb.github.io/categories/Baidu-IFE/"/>
     
     
       <category term="HTML&amp;CSS" scheme="https://barryleeweb.github.io/tags/HTML-CSS/"/>

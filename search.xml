@@ -16,7 +16,7 @@
 <li>ajax是什么?ajax的交互模型?同步和异步的区别?如何解决跨域问题?</li>
 <li>什么叫优雅降级和渐进增强？</li>
 <li>在Javascript中什么是伪数组？如何将伪数组转化为标准数组？</li>
-<li>浏览器本地存储?</li>
+<li>浏览器本地存储?<a id="more"></a></li>
 <li>线程与进程的区别?</li>
 <li>请说出三种减少页面加载时间的方法。</li>
 <li>null和undefined的区别？</li>
@@ -659,7 +659,7 @@
       
         <categories>
             
-            <category> baidu_ife_xiaowei </category>
+            <category> Baidu_IFE </category>
             
         </categories>
         
@@ -692,7 +692,7 @@
       
         <categories>
             
-            <category> baidu_ife_xiaowei </category>
+            <category> Baidu_IFE </category>
             
         </categories>
         
@@ -736,7 +736,7 @@
       
         <categories>
             
-            <category> baidu_ife_xiaowei </category>
+            <category> Baidu_IFE </category>
             
         </categories>
         
@@ -789,7 +789,7 @@
       
         <categories>
             
-            <category> baidu_ife_xiaowei </category>
+            <category> Baidu_IFE </category>
             
         </categories>
         

@@ -4,6 +4,146 @@
   
     
     <entry>
+      <title><![CDATA[《图解HTTP》笔记（一）]]></title>
+      <url>https://barryleeweb.github.io/2017/08/05/%E5%9B%BE%E8%A7%A3HTTP%E7%AC%94%E8%AE%B0%EF%BC%88%E4%B8%80%EF%BC%89/</url>
+      <content type="html"><![CDATA[<h1 id="第一章-了解Web及网络基础"><a href="#第一章-了解Web及网络基础" class="headerlink" title="第一章 了解Web及网络基础"></a>第一章 了解Web及网络基础</h1><h2 id="TCP-IP的分层"><a href="#TCP-IP的分层" class="headerlink" title="TCP/IP的分层"></a>TCP/IP的分层</h2><p>应用层，传输层，网络层，数据链路层</p>
+<ul>
+<li>应用层：FTP,DNS,HTTP；</li>
+<li>传输层：TCP,UDP；</li>
+<li>网络层:IP，处理网络上流动的数据包；</li>
+<li>数据链路层：处理连接网络的硬件部分。<br>域名-IP-MAC</li>
+</ul>
+<p>DNS-客户端-HTTP请求报文-TCP将HTTP报文分为多个报文段-IP路由器中转-TCP重组报文-HTTP处理请求-服务器</p>
+<p>URI用字符串标识某一互联网资源，而URL表示资源的地点（互联网上所处的位置）。可见URL是URI的子集。<br><a id="more"></a></p>
+<h1 id="第二章-简单的HTTP协议"><a href="#第二章-简单的HTTP协议" class="headerlink" title="第二章 简单的HTTP协议"></a>第二章 简单的HTTP协议</h1><p>HTTP协议使用URI定位互联网上的资源</p>
+<h2 id="告知服务器意图的HTTP方法："><a href="#告知服务器意图的HTTP方法：" class="headerlink" title="告知服务器意图的HTTP方法："></a>告知服务器意图的HTTP方法：</h2><ul>
+<li>GET(获取资源)</li>
+<li>POST(传输实体主体)</li>
+<li>PUT（传输文件）</li>
+<li>HEAD(获取报文首部)</li>
+<li>DELETE(删除文件)</li>
+<li>OPTIONS(询问支持的方法)</li>
+<li>TRACE(追踪路径，可能会有代理服务器中转)</li>
+<li>CONNECT(要求用隧道协议连接代理)</li>
+</ul>
+<h2 id="持久连接节省通信量"><a href="#持久连接节省通信量" class="headerlink" title="持久连接节省通信量"></a>持久连接节省通信量</h2><p>HTTP初始版本中，每进行一次HTTP通信就要断开一次TCP连接。<br>例如：浏览一个网页，获取HTML文档一次，获取图片一次。。。</p>
+<p>解决办法：</p>
+<ul>
+<li>持久连接：只要任意一端没有明确提出断开连接，则保持TCP连接状态，HTTP/1.1中默认持久连接</li>
+<li>管线化：不用等待响应可直接发送下一个请求</li>
+</ul>
+<h2 id="使用Cookie的状态管理"><a href="#使用Cookie的状态管理" class="headerlink" title="使用Cookie的状态管理"></a>使用Cookie的状态管理</h2><p>HTTP是无状态协议，不对之前发生过的请求和响应状态进行状态。</p>
+<p>Cookie技术通过在请求和响应报文中写入Cookie信息来控制客户端的状态。</p>
+<ul>
+<li>Cookie会根据从服务器端发送的响应报文内的一个叫做Set-Cookie的首部字段信息，通知客户端保存Cookie。</li>
+<li>当下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入Cookie值后发出去。</li>
+<li>服务器发现客户端发送过来的Cookie后，会检查究竟是从哪一个客户端发来的连接请求，然后对比服务器上的记录，最后得到之前的状态信息。</li>
+</ul>
+<h1 id="第三章-HTTP报文内的HTTP信息"><a href="#第三章-HTTP报文内的HTTP信息" class="headerlink" title="第三章 HTTP报文内的HTTP信息"></a>第三章 HTTP报文内的HTTP信息</h1><h2 id="1-HTTP报文"><a href="#1-HTTP报文" class="headerlink" title="1.HTTP报文"></a>1.HTTP报文</h2><ul>
+<li>报文首部：通用首部（请求响应报文都有），请求首部（请求报文），响应首部（响应报文），实体首部（请求响应报文都有），Cookie，其他</li>
+<li>空行（CR+LF）</li>
+<li>报文主体</li>
+</ul>
+<h2 id="2-编码提升传输效率"><a href="#2-编码提升传输效率" class="headerlink" title="2.编码提升传输效率"></a>2.编码提升传输效率</h2><h3 id="报文主体和实体主体："><a href="#报文主体和实体主体：" class="headerlink" title="报文主体和实体主体："></a>报文主体和实体主体：</h3><ul>
+<li>报文：HTTP通信基本单位，8位组字节流组成</li>
+<li>实体：请求或响应的有效载荷数据，分为实体首部，实体主体</li>
+</ul>
+<p>HTTP报文的主体用于传输请求或响应的实体主体。</p>
+<p>通常报文主体等于实体主体，只有当传说中有编码操作时，实体主体内容发生变化，导致它和报文主体产生差异</p>
+<h3 id="内容编码："><a href="#内容编码：" class="headerlink" title="内容编码："></a>内容编码：</h3><ul>
+<li>应用在实体内容上的编码格式，并保持实体信息原样压缩。编码后的实体由客户端接收并解码。</li>
+<li>编码类型：<strong>gzip</strong>，compress，deflate，identity</li>
+</ul>
+<h3 id="分割发送的分块传输编码"><a href="#分割发送的分块传输编码" class="headerlink" title="分割发送的分块传输编码"></a>分割发送的分块传输编码</h3><ul>
+<li>HTTP通信过程中，请求的编码实体资源尚未全部传输完成之前，浏览器无法显示请求页面。</li>
+<li>在传输大容量数据时，通过把数据分割成多块，能够让浏览器逐步显示页面。功能称为分块传输编码（Chunked Transfer Coding）</li>
+</ul>
+<h2 id="3-发送多种数据的多部分对象集合"><a href="#3-发送多种数据的多部分对象集合" class="headerlink" title="3.发送多种数据的多部分对象集合"></a>3.发送多种数据的多部分对象集合</h2><p>发送邮件时，可以添加多份附件，这是采用了MIME机制，允许处理文本，图片，视频等不同类型的数据。</p>
+<p>在MIME扩展中会使用一种称为多部分对象集合（Multipart）的方法，来容纳多份不同类型的数据。</p>
+<h2 id="4-获取部分内容的范围请求"><a href="#4-获取部分内容的范围请求" class="headerlink" title="4.获取部分内容的范围请求"></a>4.获取部分内容的范围请求</h2><ul>
+<li>下载大尺寸的图片过程中如果网络中断，那就必须重头开始。</li>
+<li>为了解决问题，需要恢复机制，即从之前下载中断处恢复下载</li>
+<li>要实现恢复需要指定下载实体范围，指定范围发送的请求叫做范围请求。</li>
+<li>针对范围请求，响应会返回状态码==206 Partial Content==</li>
+<li>5001~10000字节：Range：bytes=5001-10000</li>
+</ul>
+<h2 id="5-内容协商返回最合适的内容"><a href="#5-内容协商返回最合适的内容" class="headerlink" title="5.内容协商返回最合适的内容"></a>5.内容协商返回最合适的内容</h2><ul>
+<li>同一个Web网站有可能存在着多份相同内容的页面。比如英语版和中文版的Web页面。</li>
+<li>内容协商机制是指客户端和服务器就响应的资源内容进行交涉，然后提供给客户端最为适合的资源。</li>
+<li>内容协商会以响应资源的语言、字符集、编码方式等作为判断的基准。</li>
+<li>请求报文中的某些首部字段就是判断的基准。Accept、Accept-Charset、Accept-Encoding、Accept-Language、Content-Language</li>
+<li>服务器驱动协商：服务器端自动处理</li>
+<li>客户端驱动协商：用户手动选择</li>
+<li>透明协商：结合体</li>
+</ul>
+<h1 id="第四章-返回结果的HTTP状态码"><a href="#第四章-返回结果的HTTP状态码" class="headerlink" title="第四章 返回结果的HTTP状态码"></a>第四章 返回结果的HTTP状态码</h1><h2 id="状态码类别："><a href="#状态码类别：" class="headerlink" title="状态码类别："></a>状态码类别：</h2><ul>
+<li>1XX - 信息性状态码</li>
+<li>2XX - 成功状态码</li>
+<li>3XX - 重定向状态码</li>
+<li>4XX - 客户端错误状态码</li>
+<li>5XX - 服务器错误状态码</li>
+</ul>
+<p>实际上经常使用的大概只有14种</p>
+<h2 id="2XX"><a href="#2XX" class="headerlink" title="2XX"></a>2XX</h2><ul>
+<li>200 OK</li>
+<li>204 No Content 返回的响应报文中不含实体的主体部分</li>
+<li>206 Partial Content 客户端进行了范围请求</li>
+</ul>
+<h2 id="3XX"><a href="#3XX" class="headerlink" title="3XX"></a>3XX</h2><ul>
+<li>301 Moved Permanently 永久性重定向，表示请求的资源已被分配了新的URI</li>
+<li>302 Found 临时性重定向，本次能使用新的URI访问，URI还可能改变</li>
+<li>303 See Other 与302功能相同，但必须用GET方法定向获取</li>
+<li>304 Not Modified 服务器端资源未改变，可直接使用客户端未过期的缓存</li>
+<li>307 Temporary Redirect 临时性重定向，与302功能相同，不会从POST变成GET</li>
+</ul>
+<h2 id="4XX"><a href="#4XX" class="headerlink" title="4XX"></a>4XX</h2><ul>
+<li>400 Bad Request 请求报文存在语法错误</li>
+<li>401 Unauthorized 发送的请求需要通过HTTP认证（BASIC认证，DIGEST认证）</li>
+<li>403 Forbidden 请求资源的访问被服务器拒绝了</li>
+<li>404 Not Found 服务器上无法找到请求的资源</li>
+</ul>
+<h2 id="5XX"><a href="#5XX" class="headerlink" title="5XX"></a>5XX</h2><ul>
+<li>500 Internal Server Error 服务器端执行请求时发生错误</li>
+<li>503 Service Unavailable 服务器暂时处于超负载或正在进行停机维护，现在无法处理请求</li>
+</ul>
+<h1 id="第五章-与HTTP协作的Web服务器"><a href="#第五章-与HTTP协作的Web服务器" class="headerlink" title="第五章 与HTTP协作的Web服务器"></a>第五章 与HTTP协作的Web服务器</h1><p>一台Web服务器可搭建多个独立域名的Web网站，也可作为通信路径上的中转服务器提升传输效率。</p>
+<h2 id="用单台虚拟主机实现多个域名"><a href="#用单台虚拟主机实现多个域名" class="headerlink" title="用单台虚拟主机实现多个域名"></a>用单台虚拟主机实现多个域名</h2><ul>
+<li><p>即使物理层面只有一台服务器，但只要使用虚拟主机的功能，则可以假象已具有多台服务器。</p>
+</li>
+<li><p>互联网上，域名通过DNS服务映射到IP地址之后访问目标网站。当请求发送到服务器时，已经是IP地址形式了。</p>
+</li>
+<li><p>在相同的IP地址下，由于虚拟主机可以寄存多个不同主机名和域名的Web网站，因此在发送HTTP请求时，必须在Host首部内完整指定主机名或域名的URI。</p>
+</li>
+</ul>
+<h2 id="通信数据转发程序：代理、网关、隧道"><a href="#通信数据转发程序：代理、网关、隧道" class="headerlink" title="通信数据转发程序：代理、网关、隧道"></a>通信数据转发程序：代理、网关、隧道</h2><p>HTTP通信时，除客户端和服务器外，还有一些用于<strong>通信数据转发</strong>的应用程序，例如代理、网关和隧道。</p>
+<ul>
+<li>代理：有转发功能的<strong>应用程序</strong>，会添加Via首部信息，可分为缓存代理（会预先将资源的副本缓存）和透明代理（不加工报文）</li>
+<li>网关：转发其他服务器通信数据的<strong>服务器</strong>，提高安全性</li>
+<li>隧道：在相隔甚远的客户端和服务器之间中转，并保持通信连接的<strong>应用程序</strong>。隧道是透明的，可以使用SSL加密通信。</li>
+</ul>
+<h2 id="保存资源的缓存"><a href="#保存资源的缓存" class="headerlink" title="保存资源的缓存"></a>保存资源的缓存</h2><p>缓存是指代理服务器或客户端本地磁盘内保存的资源副本。利用缓存可减少对源服务器的访问，因此节省了通信流量和时间。</p>
+<ul>
+<li><strong>缓存有效期限</strong>:<br>即使存在缓存，也会因此客户端的要求、缓存的有效期等因素，向源服务器确认资源的有效性。若判断缓存失效，缓存服务器将会再次从源服务器上获得新资源。</li>
+<li><strong>客户端的缓存</strong>：缓存不仅存在与缓存服务器内，还可以存在客户端浏览器中。和缓存服务器一样，当判定缓存过期后，会向源服务器确认资源的有效性。</li>
+</ul>
+]]></content>
+      
+        <categories>
+            
+            <category> HTTP网络 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> HTTP </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[git使用方法]]></title>
       <url>https://barryleeweb.github.io/2017/08/04/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</url>
       <content type="html"><![CDATA[<h1 id="上传本地代码到GitHub"><a href="#上传本地代码到GitHub" class="headerlink" title="上传本地代码到GitHub"></a>上传本地代码到GitHub</h1><h2 id="1-建立git仓库"><a href="#1-建立git仓库" class="headerlink" title="1.建立git仓库"></a>1.建立git仓库</h2><p>git init</p>

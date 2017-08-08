@@ -1,0 +1,892 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="3C0GPfQqnkheXgimbf5ySFQi6NgZ-44EBeJve7cAwmY" />
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="ES6,箭头函数,Promise," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="1. 一些核心功能1.1 let constES5 通过 var 来申明变量，ES6 新添 let 和 const，且作用域是 块级作用域。
+let 使用和 var 非常类似，let 不存在变量提升，也不允许重复申明，let 的声明只能在它所在的代码块有效
+const 就是申明常量用的，一旦申明即被锁定，后面无法更改。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6重点特性">
+<meta property="og:url" content="https://barryleeweb.github.io/2017/08/09/ES6重点特性/index.html">
+<meta property="og:site_name" content="Front End">
+<meta property="og:description" content="1. 一些核心功能1.1 let constES5 通过 var 来申明变量，ES6 新添 let 和 const，且作用域是 块级作用域。
+let 使用和 var 非常类似，let 不存在变量提升，也不允许重复申明，let 的声明只能在它所在的代码块有效
+const 就是申明常量用的，一旦申明即被锁定，后面无法更改。">
+<meta property="og:updated_time" content="2017-08-08T16:17:49.931Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ES6重点特性">
+<meta name="twitter:description" content="1. 一些核心功能1.1 let constES5 通过 var 来申明变量，ES6 新添 let 和 const，且作用域是 块级作用域。
+let 使用和 var 非常类似，let 不存在变量提升，也不允许重复申明，let 的声明只能在它所在的代码块有效
+const 就是申明常量用的，一旦申明即被锁定，后面无法更改。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://barryleeweb.github.io/2017/08/09/ES6重点特性/"/>
+
+
+
+
+
+  <title>ES6重点特性 | Front End</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Front End</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端爱好者</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://barryleeweb.github.io/2017/08/09/ES6重点特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Barry Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Front End">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ES6重点特性</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T00:04:27+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/javascript-ES6/" itemprop="url" rel="index">
+                    <span itemprop="name">javascript&ES6</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/09/ES6重点特性/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/09/ES6重点特性/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-一些核心功能"><a href="#1-一些核心功能" class="headerlink" title="1. 一些核心功能"></a>1. 一些核心功能</h1><h2 id="1-1-let-const"><a href="#1-1-let-const" class="headerlink" title="1.1 let const"></a>1.1 let const</h2><p>ES5 通过 var 来申明变量，ES6 新添 let 和 const，且作用域是 块级作用域。</p>
+<p>let 使用和 var 非常类似，let 不存在变量提升，也不允许重复申明，let 的声明只能在它所在的代码块有效</p>
+<p>const 就是申明常量用的，一旦申明即被锁定，后面无法更改。<br><a id="more"></a></p>
+<h2 id="1-2-解构赋值-Destructuring"><a href="#1-2-解构赋值-Destructuring" class="headerlink" title="1.2 解构赋值(Destructuring)"></a>1.2 解构赋值(Destructuring)</h2><p>ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。</p>
+<p>ES6 解构赋值基本语法 var [a, b, c] = [1, 2, 3];，从数组中取值，并按照先后次序来赋值。如果解构赋值不成功，就会返回 underfined，解构赋值也允许指定默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var [a, b] = [1];</div><div class="line">b // undefined</div><div class="line"></div><div class="line">// 指定默认值</div><div class="line">var [a, b = 2] = [1];</div><div class="line">b // 2</div></pre></td></tr></table></figure>
+<p>除了数组，对象也可以解构赋值，但是数组是有顺序的，而对象没有顺序，如果想要成功赋值，必须与对象属性同名，才能成功赋值，否则返回 underfined：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var &#123;a, b&#125; = &#123;a: 1, b: 2&#125;;</div><div class="line">a // 1</div><div class="line">b // 2</div><div class="line"></div><div class="line">var &#123;a, c&#125; = &#123;a: 1, b: 2&#125;;</div><div class="line">c // undefined</div></pre></td></tr></table></figure>
+<p>字符串的解构赋值比较有意思，既可以把字符串当作可以迭代的数组，又可以当作对象，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var [a1,a2,a3,a4,a5] = &apos;hello&apos;;</div><div class="line">a2 // e</div><div class="line"></div><div class="line">var &#123;length : len&#125; = &apos;hello&apos;;</div><div class="line">len // 5</div></pre></td></tr></table></figure>
+<h2 id="1-3-字符串模版（template-string）"><a href="#1-3-字符串模版（template-string）" class="headerlink" title="1.3 字符串模版（template string）"></a>1.3 字符串模版（template string）</h2><p>当我们要插入大段的html内容到文档中时，传统的写法非常麻烦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$(&quot;#result&quot;).append(</div><div class="line">  &quot;There are &lt;b&gt;&quot; + basket.count + &quot;&lt;/b&gt; &quot; +</div><div class="line">  &quot;items in your basket, &quot; +</div><div class="line">  &quot;&lt;em&gt;&quot; + basket.onSale +</div><div class="line">  &quot;&lt;/em&gt; are on sale!&quot;</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>我们要用一堆的’+’号来连接文本与变量，而使用ES6的新特性模板字符串``后，我们可以直接这么来写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(&quot;#result&quot;).append(`</div><div class="line">  There are &lt;b&gt;$&#123;basket.count&#125;&lt;/b&gt; items</div><div class="line">   in your basket, &lt;em&gt;$&#123;basket.onSale&#125;&lt;/em&gt;</div><div class="line">  are on sale!</div><div class="line">`);</div></pre></td></tr></table></figure>
+<h2 id="1-4-set-集合和-Map-结构"><a href="#1-4-set-集合和-Map-结构" class="headerlink" title="1.4 set 集合和 Map 结构"></a>1.4 set 集合和 Map 结构</h2><h3 id="set-集合"><a href="#set-集合" class="headerlink" title="set 集合"></a>set 集合</h3><ul>
+<li>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</li>
+<li>Set 方法分为操作和遍历，操作方法有 add-添加成员， delete-删除成员， has-拥有判断返回布尔值， clear-清空集合。</li>
+<li>遍历操作有 keys()，values()，entries()，forEach()，…，for of，map 和 filter 函数也可以用于 Set，不过要进行巧妙操作，先转换成数组，在进行操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let set = new Set([1,2,3]);</div><div class="line">set = new Set([...set].map(a =&gt; a*2));</div><div class="line">// Set &#123;2, 4, 6&#125;</div></pre></td></tr></table></figure>
+<h3 id="Map-结构"><a href="#Map-结构" class="headerlink" title="Map 结构"></a>Map 结构</h3><ul>
+<li>Map 用来解决对象只接受字符串作为键名，Map 类似于对象，也是键值对集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。</li>
+<li>Map 可以通过 [set、 get、 has、 delete] 方法来操作：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var m = new Map();</div><div class="line">var arr = [1, 2];</div><div class="line">m.set(arr, &apos;array&apos;);</div><div class="line">m.get(arr); // &apos;array&apos;</div><div class="line"></div><div class="line">m.has(arr) // true</div><div class="line">m.delete(arr) // true</div><div class="line">m.has(arr) // false</div></pre></td></tr></table></figure>
+<h2 id="1-5-spread操作符（…）"><a href="#1-5-spread操作符（…）" class="headerlink" title="1.5 spread操作符（…）"></a>1.5 spread操作符（…）</h2><p>用于函数调用：myFunction(…iterableObj);</p>
+<p>用于数组字面量：[…iterableObj, 4, 5, 6]</p>
+<h3 id="函数传参"><a href="#函数传参" class="headerlink" title="函数传参"></a>函数传参</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// Math.max()函数, 一般可以加入任意个参数</div><div class="line">Math.max(12, 13, 14, 15); // 15</div><div class="line"></div><div class="line">// 以数组的形式</div><div class="line">var arr = [1, 2, 3, 4];</div><div class="line">Math.max.apply(null, arr); // 4</div><div class="line"></div><div class="line">// 使用 &quot;...&quot;</div><div class="line">Math.max(...arr); // 4</div><div class="line">// 还可以加入其它的一些参数</div><div class="line">Math.max(...arr, 5, 10); // 10</div></pre></td></tr></table></figure>
+<h3 id="数据解构"><a href="#数据解构" class="headerlink" title="数据解构"></a>数据解构</h3><h3 id="数据构造"><a href="#数据构造" class="headerlink" title="数据构造"></a>数据构造</h3><h1 id="2-箭头函数-gt"><a href="#2-箭头函数-gt" class="headerlink" title="2. 箭头函数(=&gt;)"></a>2. 箭头函数(=&gt;)</h1><h2 id="2-1基本用法"><a href="#2-1基本用法" class="headerlink" title="2.1基本用法"></a>2.1基本用法</h2><p>ES6允许使用“箭头”（=&gt;）定义函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var f = v =&gt; v;</div></pre></td></tr></table></figure>
+<p>上面的箭头函数等同于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var f = function(v) &#123;</div><div class="line">  return v;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="2-2使用注意点"><a href="#2-2使用注意点" class="headerlink" title="2.2使用注意点"></a>2.2使用注意点</h2><p>（1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</p>
+<p>（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</p>
+<p>（3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。</p>
+<p>（4）不可以使用yield命令，因此箭头函数不能用作Generator函数。</p>
+<p>this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是<strong>箭头函数根本没有自己的this</strong>，导致内部的this就是外层代码块的this。正是因为它没有this，所以也就不能用作构造函数。</p>
+<h2 id="2-3函数绑定"><a href="#2-3函数绑定" class="headerlink" title="2.3函数绑定"></a>2.3函数绑定</h2><p>箭头函数可以绑定this对象，大大减少了显式绑定this对象的写法（call、apply、bind）。但是，箭头函数并不适用于所有场合，所以ES7提出了“函数绑定”（function bind）运算符，用来取代call、apply、bind调用。</p>
+<p>函数绑定运算符是并排的两个双冒号（::），双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即this对象），绑定到右边的函数上面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">foo::bar;</div><div class="line">// 等同于</div><div class="line">bar.bind(foo);</div><div class="line"></div><div class="line">foo::bar(...arguments);</div><div class="line">// 等同于</div><div class="line">bar.apply(foo, arguments);</div><div class="line"></div><div class="line">const hasOwnProperty = Object.prototype.hasOwnProperty;</div><div class="line">function hasOwn(obj, key) &#123;</div><div class="line">  return obj::hasOwnProperty(key);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-4箭头函数与常规函数对比"><a href="#2-4箭头函数与常规函数对比" class="headerlink" title="2.4箭头函数与常规函数对比"></a>2.4箭头函数与常规函数对比</h2><p>一个箭头函数与一个普通的函数在两个方面不一样：</p>
+<ul>
+<li>下列变量的构造是词法的： arguments ， super ， this ， new.target</li>
+<li>不能被用作构造函数：没有内部方法 [[Construct]] （该方法允许普通的函数通过 new 调用），也没有 prototype 属性。因此， new (() =&gt; {}) 会抛出错误。</li>
+</ul>
+<h1 id="3-Class类"><a href="#3-Class类" class="headerlink" title="3.Class类"></a>3.Class类</h1><p>ES6提供了更接近传统语言的写法，引入了Class（类）这个概念。新的class写法让对象原型的写法更加清晰、更像面向对象编程的语法，也更加通俗易懂。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class Animal &#123;</div><div class="line">    constructor()&#123;</div><div class="line">        this.type = &apos;animal&apos;</div><div class="line">    &#125;</div><div class="line">    says(say)&#123;</div><div class="line">        console.log(this.type + &apos; says &apos; + say)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">let animal = new Animal()</div><div class="line">animal.says(&apos;hello&apos;) //animal says hello</div><div class="line"></div><div class="line">class Cat extends Animal &#123;</div><div class="line">    constructor()&#123;</div><div class="line">        super()</div><div class="line">        this.type = &apos;cat&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">let cat = new Cat()</div><div class="line">cat.says(&apos;hello&apos;) //cat says hello</div></pre></td></tr></table></figure>
+<p>上面代码首先用class定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。简单地说，constructor内定义的方法和属性是实例对象自己的，而constructor外定义的方法和属性则是所有实例对象可以共享的。</p>
+<p>Class之间可以通过extends关键字实现继承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。上面定义了一个Cat类，该类通过extends关键字，继承了Animal类的所有属性和方法。</p>
+<p>super关键字，它指代父类的实例（即父类的this对象）。子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。</p>
+<p>ES6的继承机制，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。</p>
+<h1 id="4-Module模块化"><a href="#4-Module模块化" class="headerlink" title="4.Module模块化"></a>4.Module模块化</h1><p>ES6 之前，JS 一直没有 modules 体系，解决外部包的问题通过 CommonJS 和 AMD 模块加载方案，一个用于服务器，一个用于浏览器。ES6 提出的 modules （import／export）方案完全可以取代 CommonJS 和 AMD 成为浏览器和服务器通用的模块解决方案。</p>
+<p>关于模块，就只有两个命令，import 用于导入其他模块，export 用于输出模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// profile.js</div><div class="line">var firstName = &apos;Michael&apos;;</div><div class="line">var lastName = &apos;Jackson&apos;;</div><div class="line">var year = 1958;</div><div class="line"></div><div class="line">export &#123;firstName, lastName, year&#125;;</div><div class="line"></div><div class="line">// main.js</div><div class="line">import &#123;firstName, lastName, year&#125; from &apos;./profile&apos;;</div><div class="line">console.log(firstName, lastName) // Michael Jackson</div></pre></td></tr></table></figure>
+<p>export 可以输出的内容很多，包括变量、函数、类，貌似都可以输出，还可以借助 export default 来加载默认输出。</p>
+<h2 id="模块加载的实质"><a href="#模块加载的实质" class="headerlink" title="模块加载的实质"></a>模块加载的实质</h2><p>ES6模块加载的机制，与CommonJS模块完全不同。CommonJS模块输出的是一个值的拷贝，而ES6模块输出的是值的引用。</p>
+<h2 id="循环加载"><a href="#循环加载" class="headerlink" title="循环加载"></a>循环加载</h2><p>循环加载也比较有意思，经常能看到 nodejs 中出现加载同一个模块，而循环加载却不常见，nodejs 使用 CommonJS 模块机制，CommonJS 的循环加载采用的是加载多少，输出多少，就像是我们平时打了断点一样，会跳到另外一个文件，执行完在跳回来。</p>
+<h1 id="5-Promise"><a href="#5-Promise" class="headerlink" title="5.Promise"></a>5.Promise</h1><h2 id="5-1为什么产生"><a href="#5-1为什么产生" class="headerlink" title="5.1为什么产生"></a>5.1为什么产生</h2><p>Promise的兴起，是因为异步方法调用中，往往会出现回调函数一环扣一环的情况。这种情况导致了回调金字塔问题的出现。不仅代码写起来费劲又不美观，而且问题复杂的时候，阅读代码的人也难以理解。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">db.save(data, function(data)&#123;</div><div class="line">    // do something...</div><div class="line">    db.save(data1, function(data)&#123;</div><div class="line">        // do something...</div><div class="line">        db.save(data2, function(data)&#123;</div><div class="line">            // do something...</div><div class="line">            done(data3); // 返回数据</div><div class="line">        &#125;)</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>假设有一个数据库保存操作，一次请求需要在三个表中保存三次数据。那么我们的代码就跟上面的代码相似了。这时候假设在第二个db.save出了问题怎么办？基于这个考虑，我们又需要在每一层回调中使用类似try…catch这样的逻辑。这个就是万恶的来源，也是node刚开始广为诟病的一点。</p>
+<p>另外一个缺点就是，假设我们的三次保存之间并没有前后依赖关系，我们仍然需要等待前面的函数执行完毕, 才能执行下一步，而无法三个保存并行，之后返回一个三个保存过后需要的结果。（或者说实现起来需要技巧）</p>
+<h2 id="5-2解决回调深渊Promise"><a href="#5-2解决回调深渊Promise" class="headerlink" title="5.2解决回调深渊Promise"></a>5.2解决回调深渊Promise</h2><p>Promise对象是一个有限状态机。它三个状态：</p>
+<ul>
+<li>Pending（进行中）</li>
+<li>Resolved（已完成，又称 Fulfilled））</li>
+<li>Rejected（已失败）</li>
+</ul>
+<p>状态转换关系为：pending-&gt;fulfilled，pending-&gt;rejected。</p>
+<h3 id="Promise形式"><a href="#Promise形式" class="headerlink" title="Promise形式"></a>Promise形式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var promise = new Promise(function func(resolve, reject)&#123;</div><div class="line">    // do somthing, maybe async</div><div class="line">    if (success)&#123;</div><div class="line">      return resolve(data);</div><div class="line">    &#125; else &#123;</div><div class="line">      return reject(data);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">promise.then(function(data)&#123;</div><div class="line">    // do something... e.g</div><div class="line">    console.log(data);</div><div class="line">&#125;, function(err)&#123;</div><div class="line">    // deal the err.</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="Promise数据流动"><a href="#Promise数据流动" class="headerlink" title="Promise数据流动"></a>Promise数据流动</h3><p>promise的then方法依然能够返回一个Promise对象，这样我们就又能用下一个then来做一样的处理。</p>
+<ul>
+<li>假设第一个then的第一个回调没有返回一个Promise对象，那么第二个then的调用者还是原来的Promise对象，只不过其resolve的值变成了第一个then中第一个回调函数的返回值。</li>
+<li>假设第一个then的第一个回调函数返回了一个Promise对象，那么第二个then的调用者变成了这个新的Promise对象，第二个then等待这个新的Promise对象resolve或者reject之后执行回调。</li>
+<li>如果任意地方遇到了错误，则错误之后交给遇到的第一个带第二个回调函数的then的第二个回调函数来处理。可以理解为错误一直向后reject, 直到被处理为止。</li>
+</ul>
+<h3 id="控制并发的Promise"><a href="#控制并发的Promise" class="headerlink" title="控制并发的Promise"></a>控制并发的Promise</h3><p>Promise有一个”静态方法”——Promise.all(注意并非是promise.prototype)， 这个方法接受一个元素是Promise对象的数组。</p>
+<h3 id="将其他对象变为Promise对象"><a href="#将其他对象变为Promise对象" class="headerlink" title="将其他对象变为Promise对象"></a>将其他对象变为Promise对象</h3><p>Promise.resovle方法，可以将不是Promise对象作为参数，返回一个Promise对象。</p>
+<h1 id="6-Generator"><a href="#6-Generator" class="headerlink" title="6.Generator"></a>6.Generator</h1><h1 id="7-async"><a href="#7-async" class="headerlink" title="7.async"></a>7.async</h1><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。</p>
+<h2 id="7-1async函数对-Generator-函数的改进"><a href="#7-1async函数对-Generator-函数的改进" class="headerlink" title="7.1async函数对 Generator 函数的改进"></a>7.1async函数对 Generator 函数的改进</h2><h3 id="内置执行器"><a href="#内置执行器" class="headerlink" title="内置执行器"></a>内置执行器</h3><p>Generator 函数的执行必须靠执行器，所以才有了co模块，而async函数自带执行器。也就是说，async函数的执行，与普通函数一模一样，只要一行。</p>
+<h3 id="更好的语义"><a href="#更好的语义" class="headerlink" title="更好的语义"></a>更好的语义</h3><p>async和await，比起星号和yield，语义更清楚了。async表示函数里有异步操作，await表示紧跟在后面的表达式需要等待结果。</p>
+<h3 id="更广的适用性"><a href="#更广的适用性" class="headerlink" title="更广的适用性"></a>更广的适用性</h3><p>co模块约定，yield命令后面只能是 Thunk 函数或 Promise 对象，而async函数的await命令后面，可以是Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）。</p>
+<h3 id="返回值是-Promise"><a href="#返回值是-Promise" class="headerlink" title="返回值是 Promise"></a>返回值是 Promise</h3><p>async函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用then方法指定下一步的操作。</p>
+<h2 id="7-2async-函数与-Promise、Generator-函数的比较"><a href="#7-2async-函数与-Promise、Generator-函数的比较" class="headerlink" title="7.2async 函数与 Promise、Generator 函数的比较"></a>7.2async 函数与 Promise、Generator 函数的比较</h2><p>假定某个 DOM元素上面，部署了一系列的动画，前一个动画结束，才能开始后一个。如果当中有一个动画出错，就不再往下执行，返回上一个成功执行的动画的返回值。</p>
+<h3 id="Promise-的写法："><a href="#Promise-的写法：" class="headerlink" title="Promise 的写法："></a>Promise 的写法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">function chainAnimationsPromise(elem, animations) &#123;</div><div class="line"></div><div class="line">  // 变量ret用来保存上一个动画的返回值</div><div class="line">  var ret = null;</div><div class="line"></div><div class="line">  // 新建一个空的Promise</div><div class="line">  var p = Promise.resolve();</div><div class="line"></div><div class="line">  // 使用then方法，添加所有动画</div><div class="line">  for(var anim of animations) &#123;</div><div class="line">    p = p.then(function(val) &#123;</div><div class="line">      ret = val;</div><div class="line">      return anim(elem);</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 返回一个部署了错误捕捉机制的Promise</div><div class="line">  return p.catch(function(e) &#123;</div><div class="line">    /* 忽略错误，继续执行 */</div><div class="line">  &#125;).then(function() &#123;</div><div class="line">    return ret;</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>虽然 Promise的写法比回调函数的写法大大改进，但是一眼看上去，代码完全都是 Promise 的 API（then、catch等等），操作本身的语义反而不容易看出来</p>
+<h3 id="Generator-函数的写法"><a href="#Generator-函数的写法" class="headerlink" title="Generator 函数的写法"></a>Generator 函数的写法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function chainAnimationsGenerator(elem, animations) &#123;</div><div class="line"></div><div class="line">  return spawn(function*() &#123;</div><div class="line">    var ret = null;</div><div class="line">    try &#123;</div><div class="line">      for(var anim of animations) &#123;</div><div class="line">        ret = yield anim(elem);</div><div class="line">      &#125;</div><div class="line">    &#125; catch(e) &#123;</div><div class="line">      /* 忽略错误，继续执行 */</div><div class="line">    &#125;</div><div class="line">    return ret;</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面代码使用 Generator 函数遍历了每个动画，语义比 Promise 写法更清晰，用户定义的操作全部都出现在spawn函数的内部。这个写法的问题在于，必须有一个任务运行器，自动执行 Generator 函数，上面代码的spawn函数就是自动执行器，它返回一个 Promise 对象，而且必须保证yield语句后面的表达式，必须返回一个 Promise。</p>
+<h3 id="async-函数的写法"><a href="#async-函数的写法" class="headerlink" title="async 函数的写法"></a>async 函数的写法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">async function chainAnimationsAsync(elem, animations) &#123;</div><div class="line">  var ret = null;</div><div class="line">  try &#123;</div><div class="line">    for(var anim of animations) &#123;</div><div class="line">      ret = await anim(elem);</div><div class="line">    &#125;</div><div class="line">  &#125; catch(e) &#123;</div><div class="line">    /* 忽略错误，继续执行 */</div><div class="line">  &#125;</div><div class="line">  return ret;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到Async函数的实现最简洁，最符合语义，几乎没有语义不相关的代码。它将Generator写法中的自动执行器，改在语言层面提供，不暴露给用户，因此代码量最少。如果使用Generator写法，自动执行器需要用户自己提供。</p>
+<p><a href="https://segmentfault.com/a/1190000004365693" target="_blank" rel="external">参考链接1</a><br><a href="http://web.jobbole.com/87140/" target="_blank" rel="external">参考链接2</a><br><a href="https://segmentfault.com/a/1190000007817990#articleHeader16" target="_blank" rel="external">参考链接3</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ES6/" rel="tag"># ES6</a>
+          
+            <a href="/tags/箭头函数/" rel="tag"># 箭头函数</a>
+          
+            <a href="/tags/Promise/" rel="tag"># Promise</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/06/IMWeb面试题整理/" rel="next" title="IMWeb面试题整理">
+                <i class="fa fa-chevron-left"></i> IMWeb面试题整理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/09/js面向对象编程：封装/" rel="prev" title="js面向对象编程：封装">
+                js面向对象编程：封装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Barry Lee" />
+          <p class="site-author-name" itemprop="name">Barry Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Barryleeweb" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-一些核心功能"><span class="nav-number">1.</span> <span class="nav-text">1. 一些核心功能</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-let-const"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 let const</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-解构赋值-Destructuring"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 解构赋值(Destructuring)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-字符串模版（template-string）"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 字符串模版（template string）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-set-集合和-Map-结构"><span class="nav-number">1.4.</span> <span class="nav-text">1.4 set 集合和 Map 结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#set-集合"><span class="nav-number">1.4.1.</span> <span class="nav-text">set 集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map-结构"><span class="nav-number">1.4.2.</span> <span class="nav-text">Map 结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-spread操作符（…）"><span class="nav-number">1.5.</span> <span class="nav-text">1.5 spread操作符（…）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数传参"><span class="nav-number">1.5.1.</span> <span class="nav-text">函数传参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据解构"><span class="nav-number">1.5.2.</span> <span class="nav-text">数据解构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据构造"><span class="nav-number">1.5.3.</span> <span class="nav-text">数据构造</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-箭头函数-gt"><span class="nav-number">2.</span> <span class="nav-text">2. 箭头函数(=>)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1基本用法"><span class="nav-number">2.1.</span> <span class="nav-text">2.1基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2使用注意点"><span class="nav-number">2.2.</span> <span class="nav-text">2.2使用注意点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3函数绑定"><span class="nav-number">2.3.</span> <span class="nav-text">2.3函数绑定</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4箭头函数与常规函数对比"><span class="nav-number">2.4.</span> <span class="nav-text">2.4箭头函数与常规函数对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Class类"><span class="nav-number">3.</span> <span class="nav-text">3.Class类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-Module模块化"><span class="nav-number">4.</span> <span class="nav-text">4.Module模块化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模块加载的实质"><span class="nav-number">4.1.</span> <span class="nav-text">模块加载的实质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环加载"><span class="nav-number">4.2.</span> <span class="nav-text">循环加载</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-Promise"><span class="nav-number">5.</span> <span class="nav-text">5.Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1为什么产生"><span class="nav-number">5.1.</span> <span class="nav-text">5.1为什么产生</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2解决回调深渊Promise"><span class="nav-number">5.2.</span> <span class="nav-text">5.2解决回调深渊Promise</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise形式"><span class="nav-number">5.2.1.</span> <span class="nav-text">Promise形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise数据流动"><span class="nav-number">5.2.2.</span> <span class="nav-text">Promise数据流动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#控制并发的Promise"><span class="nav-number">5.2.3.</span> <span class="nav-text">控制并发的Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#将其他对象变为Promise对象"><span class="nav-number">5.2.4.</span> <span class="nav-text">将其他对象变为Promise对象</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-Generator"><span class="nav-number">6.</span> <span class="nav-text">6.Generator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-async"><span class="nav-number">7.</span> <span class="nav-text">7.async</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1async函数对-Generator-函数的改进"><span class="nav-number">7.1.</span> <span class="nav-text">7.1async函数对 Generator 函数的改进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#内置执行器"><span class="nav-number">7.1.1.</span> <span class="nav-text">内置执行器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更好的语义"><span class="nav-number">7.1.2.</span> <span class="nav-text">更好的语义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更广的适用性"><span class="nav-number">7.1.3.</span> <span class="nav-text">更广的适用性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回值是-Promise"><span class="nav-number">7.1.4.</span> <span class="nav-text">返回值是 Promise</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2async-函数与-Promise、Generator-函数的比较"><span class="nav-number">7.2.</span> <span class="nav-text">7.2async 函数与 Promise、Generator 函数的比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Promise-的写法："><span class="nav-number">7.2.1.</span> <span class="nav-text">Promise 的写法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generator-函数的写法"><span class="nav-number">7.2.2.</span> <span class="nav-text">Generator 函数的写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async-函数的写法"><span class="nav-number">7.2.3.</span> <span class="nav-text">async 函数的写法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Barry Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://barry.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://barryleeweb.github.io/2017/08/09/ES6重点特性/';
+          this.page.identifier = '2017/08/09/ES6重点特性/';
+          this.page.title = 'ES6重点特性';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://barry.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

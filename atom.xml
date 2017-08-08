@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://barryleeweb.github.io/"/>
-  <updated>2017-08-05T16:25:57.457Z</updated>
+  <updated>2017-08-08T16:17:35.654Z</updated>
   <id>https://barryleeweb.github.io/</id>
   
   <author>
@@ -14,6 +14,448 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>移动端适配</title>
+    <link href="https://barryleeweb.github.io/2017/08/09/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%B1%8F%E5%B9%95%E9%80%82%E9%85%8D/"/>
+    <id>https://barryleeweb.github.io/2017/08/09/移动端屏幕适配/</id>
+    <published>2017-08-08T16:09:19.951Z</published>
+    <updated>2017-08-08T16:17:35.654Z</updated>
+    
+    <content type="html"><![CDATA[<p>移动端web开发相对于PC端web开发，我们可以庆幸不用兼容那么多浏览器了，但是随之而来的却是各种屏幕尺寸的适配，个人觉得，比PC端还要费精力。在使用了腾讯优测进行软件测试后，问题得到了有效解决。</p>
+<h1 id="1-移动端布局方式"><a href="#1-移动端布局方式" class="headerlink" title="1.移动端布局方式"></a>1.移动端布局方式</h1><h2 id="1-1响应式布局"><a href="#1-1响应式布局" class="headerlink" title="1.1响应式布局"></a>1.1响应式布局</h2><p>简而言之，就是页面元素的位置随着屏幕尺寸的变化而变化，通常会用百分比来定位，而在设计上需要预留一些可被“压缩”的空间。</p>
+<p><img src="http://static.oschina.net/uploads/space/2016/0128/110509_Fkpj_2420477.jpg" alt="image"></p>
+<p>如上图，其实就相当于页面被压矮了。<br><a id="more"></a></p>
+<h2 id="1-2Cover布局"><a href="#1-2Cover布局" class="headerlink" title="1.2Cover布局"></a>1.2Cover布局</h2><p>就跟background-size的cover属性一样，保持页面的宽高比，取宽或高之中的较小者占满屏幕，超出的内容会被隐藏。此布局适用于主要内容集中在中部，边沿无重要内容的设计。</p>
+<p><img src="http://static.oschina.net/uploads/space/2016/0128/110536_8i2h_2420477.jpg" alt="image"></p>
+<p>如上图，第一张是原设计稿，第二张把左右隐藏掉了一部分，第三张则是把上下隐藏掉了一部分。</p>
+<h2 id="1-3Contain布局"><a href="#1-3Contain布局" class="headerlink" title="1.3Contain布局"></a>1.3Contain布局</h2><p>同样，也跟background-size的contain属性那样，保持页面的宽高比，取宽或高之中的较大者占满屏幕，不足的部分会用背景填充。个人比较推荐用这种方式，但在设计上需要背景为单色，或者是可平铺的背景。</p>
+<p><img src="http://static.oschina.net/uploads/space/2016/0128/110556_BSaM_2420477.jpg" alt="image"></p>
+<p>如上图，红框部分为原始宽高比，根据不同屏幕尺寸进行缩放，并加背景填充。 </p>
+<h1 id="2-常用的实现方法"><a href="#2-常用的实现方法" class="headerlink" title="2.常用的实现方法"></a>2.常用的实现方法</h1><h2 id="2-1样式缩放"><a href="#2-1样式缩放" class="headerlink" title="2.1样式缩放"></a>2.1样式缩放</h2><p>最省事的适配方法，直接用px为单位按视觉进行开发，然后通过计算屏幕与网页的宽高比，用transform:scale来对网页进行全局缩放。</p>
+<p>不过此方法会有一个小问题，就是如果网页内有动画的话，缩放后会稍微降低页面性能，在低配的安卓机器上表现的比较明显，iOS上没发现有性能问题。</p>
+<h2 id="2-2Rem缩放"><a href="#2-2Rem缩放" class="headerlink" title="2.2Rem缩放"></a>2.2Rem缩放</h2><p>Rem是个好东西呀，谁用谁知道，这里就不多做解释了。原理跟上面的样式缩放相通，只不过是通过Rem为单位来进行视觉开发，然后通过计算后改变html的front-size来对页面进行缩放。</p>
+<p>关于以Rem为单位进行开发，目前比较流行Font-size=62.5%，而后1rem=10px的这种方法，有试过直接换成px也是可以的，就看个人的计算习惯吧。</p>
+<h1 id="3-Rem缩放"><a href="#3-Rem缩放" class="headerlink" title="3.Rem缩放"></a>3.Rem缩放</h1><ul>
+<li>rem的意思（根元素的font-size值）</li>
+<li>viewport</li>
+<li>DPR(device pixel ratio)</li>
+<li>动态rem<h2 id="3-1-标签中的viewport"><a href="#3-1-标签中的viewport" class="headerlink" title="3.1 标签中的viewport"></a>3.1 <meta>标签中的viewport</h2>简单来讲，viewport就是浏览器上，用来显示网页的那一部分区域了，也就是说，浏览器的实际宽度，是和我们手机的宽度不一样的，无论你的手机 宽度是320px，还是640px，在手机浏览器内部的宽度，始终会是浏览器本身的viewport。</li>
+</ul>
+<p>对viewport的控制:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1 user-scalable=0&quot;&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="3-2-关于我们的设备"><a href="#3-2-关于我们的设备" class="headerlink" title="3.2 关于我们的设备"></a>3.2 关于我们的设备</h2><h3 id="三个概念"><a href="#三个概念" class="headerlink" title="三个概念:"></a>三个概念:</h3><ul>
+<li>PPI: 可以理解为屏幕的显示密度</li>
+<li>DPR: 设备物理像素和逻辑像素的对应关系，即物理像素/逻辑像素</li>
+<li>Resolution: 就是我们常说的分辨率</li>
+</ul>
+<h3 id="物理像素与逻辑像素-DPR"><a href="#物理像素与逻辑像素-DPR" class="headerlink" title="物理像素与逻辑像素(DPR):"></a>物理像素与逻辑像素(DPR):</h3><p>设备物理像素：</p>
+<blockquote>
+<p>通俗的讲设备屏幕有多少个可以闪烁的点 是一个具体的概念 比如iphone6横向就有750个可以改变颜色的点 类似与电视机 如果家里有10年前买的大头电视，你趴在屏幕前仔细看能看到一个个RGB的点 这就是设备的物理像素</p>
+</blockquote>
+<p>设备独立像素</p>
+<blockquote>
+<p>设备独立像素是一个虚拟的概念，如程序中的css 比如我们将一个div宽度设置为10像素 那么在pc上系统会将这个div显示在屏幕的10个点上</p>
+</blockquote>
+<p>以iphone6为例，在不做任何缩放的条件下，iphone6的获取到的’width-device’为375px,为屏幕的逻辑像素。而购买时我们所知的750px，则为屏幕的物理像素。</p>
+<h3 id="CSS的问题"><a href="#CSS的问题" class="headerlink" title="CSS的问题:"></a>CSS的问题:</h3><p>以iphone6为例，我们可以知道，其实我们所写的1px，在iphone6上为2px的物理像素。所以，最后的，给出一个结论。就是我们写的1px，在移动端，是逻辑像素的1px，而非物理像素的1px。</p>
+<h2 id="3-3-rem布局"><a href="#3-3-rem布局" class="headerlink" title="3.3 rem布局"></a>3.3 rem布局</h2><h3 id="3-3-1简介rem"><a href="#3-3-1简介rem" class="headerlink" title="3.3.1简介rem"></a>3.3.1简介rem</h3><p>如今市面上移动设备的分辨率大小不同，常用的px单位不再准确。为此，CSS3出了一个新单位——rem，rem是移动端神器，它完美解决了分辨率的适配问题</p>
+<p>rem就是相对于根元素<html>的font-size来做计算</html></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">html&#123;</div><div class="line">    font-size：10px;</div><div class="line">&#125;</div><div class="line">.box&#123;</div><div class="line">    width:10rem;</div><div class="line">    height:10rem;</div><div class="line">    font-size:1.2rem;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一个宽高各100px的box就出现了,有些像我们以前常用的em，不过rem是相对于根元素(<html>)的字体大小，em相对 于父元素的字体大小。</html></p>
+<p>设计稿的像素/html的font-size=用来代替px的rem</p>
+<h3 id="3-3-2屏幕适配"><a href="#3-3-2屏幕适配" class="headerlink" title="3.3.2屏幕适配"></a>3.3.2屏幕适配</h3><p>虽然很简单，但是移动设备那么多，我们又怎么根据手机屏幕的分辨率不同，去设置<html>的字体大小呢？</html></p>
+<ul>
+<li>通过CSS媒体查询</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">html&#123;</div><div class="line">    font-size:20px;</div><div class="line">&#125;</div><div class="line">@media only screen and (min-width:320px)&#123;</div><div class="line">    html&#123;</div><div class="line">        font-size:10px;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">@media only screen and (min-width:375px)&#123;</div><div class="line">    html&#123;</div><div class="line">        font-size:16px;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">@media only screen and (min-width:414px)&#123;</div><div class="line">    html&#123;</div><div class="line">        font-size:20px;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过媒体查询的方式，只需要把常用的屏幕宽度考虑进去即可，能够满足大部分应用场景，不过这一做法不够严谨</p>
+<ul>
+<li>通过js计算</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">*代码如下</div><div class="line">*其中的参数1080根据自己的实际情况进行修改，这里的1080代表设计页面的原始宽度，可以参考psd的标准宽度，这是后字体使用rem也有了标准，psd上的字号如：40点 对应css中的rem的换算方式为40/100=0.4rem。</div><div class="line">*/</div><div class="line">(function (doc, win) &#123;</div><div class="line">    var docEl = doc.documentElement,</div><div class="line">        resizeEvt = &apos;orientationchange&apos; in window ? &apos;orientationchange&apos; : &apos;resize&apos;,</div><div class="line">        recalc = function () &#123;</div><div class="line">            var clientWidth = docEl.clientWidth;</div><div class="line">            if (!clientWidth) return;</div><div class="line">            docEl.style.fontSize =Math.floor(100*(clientWidth / 1080))+ &apos;px&apos;;</div><div class="line">        &#125;;</div><div class="line">    if (!doc.addEventListener) return;</div><div class="line">    win.addEventListener(resizeEvt, recalc, false);</div><div class="line">    doc.addEventListener(&apos;DOMContentLoaded&apos;, recalc, false);</div><div class="line">&#125;)(document,window);</div></pre></td></tr></table></figure>
+<p>通过js设备的屏幕分辨率，可以计算出相应的字体的大小，这个方法可以适配所有屏幕的大小，这下就完美许多了。</p>
+<p>不过有些时候会很麻烦，因为rem会涉及到换算的问题，比如70px的宽，根目录字体是12px,那换算公式为：70/12 = 5.83333333~，每次写一个单位都要用计算器去算，这工作可以让Less或者Sass等预处理器去完成。</p>
+<h3 id="3-3-3DPR的问题"><a href="#3-3-3DPR的问题" class="headerlink" title="3.3.3DPR的问题"></a>3.3.3DPR的问题</h3><p>1px会出现什么问题？</p>
+<p>我们的设备，是有物理像素和逻辑像素的。而假设我们的设计稿是750的，同时还是以iphone6为例，此时如果我们的viewport是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no&quot;&gt;</div></pre></td></tr></table></figure>
+<p>之前说过，在不做任何缩放的条件下，iphone6获取到的viewport为375px。</p>
+<p>然后我们的页面中有个div，他有一个边框值，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">div&#123;</div><div class="line">	height: 5rem;</div><div class="line">	widht:5rem;</div><div class="line">	border: 1px solid #000</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此时我们写的1px，实际上是逻辑像素，而我们在iphone6上看到的是物理像素，于是这个时候，我们眼睛所看到的其实是2px（参考第二点第三个问题3.2）</p>
+<p>所以此时我们需要在viewport上做文章了，此时先明确，如果要获取到真正的1px，那么我们需要这么做，将viewport改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no&quot;&gt;</div></pre></td></tr></table></figure>
+<p>即对屏幕做0.5倍的缩放。这样，我们就能得到实际的1px。</p>
+<p>我们还要明确一点，viewport的meta标签，我们这里也只能通过js来动态生成。</p>
+<h3 id="3-3-4文字适配问题"><a href="#3-3-4文字适配问题" class="headerlink" title="3.3.4文字适配问题"></a>3.3.4文字适配问题</h3><p>对于一些标题性的文字，我们依然可以用rem。让他随着屏幕来进行缩放，因为标题性文字一般较大，而较大的文字，点阵对其影响就越小。这样，即使出现奇怪的尺寸，也能够让字体得到很好的渲染。</p>
+<p>对于一些正文内容的文字（即站在使用者的角度，你不希望他进行缩放的文字）。我们采用px来进行处理。</p>
+<h2 id="3-4-手淘的解决方案"><a href="#3-4-手淘的解决方案" class="headerlink" title="3.4 手淘的解决方案"></a>3.4 手淘的解决方案</h2><h3 id="3-4-1-rem布局-对比3-2-2JS"><a href="#3-4-1-rem布局-对比3-2-2JS" class="headerlink" title="3.4.1 rem布局(对比3.2.2JS)"></a>3.4.1 rem布局(对比3.2.2JS)</h3><p>用js获取到页面的宽度，然后对其进行宽度/10的处理，再将其写到html的font-size中。手淘的flexible.js里面的这一部分，并为了方便看懂做了些改写。大体就是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function refreshRem()&#123;</div><div class="line"> 	var docEl = window.document.documentElement;</div><div class="line">    var width = docEl.documentElement.getBoundingClientRect().width;</div><div class="line"></div><div class="line">    var rootSize = width/10;</div><div class="line">    docEl.style.fontSize = rootSize + &apos;px&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="3-4-2-dpr的配置"><a href="#3-4-2-dpr的配置" class="headerlink" title="3.4.2 dpr的配置"></a>3.4.2 dpr的配置</h3><h3 id="3-4-3-文字的解决方案"><a href="#3-4-3-文字的解决方案" class="headerlink" title="3.4.3 文字的解决方案"></a>3.4.3 文字的解决方案</h3><p>在html上，加入了一个自定义属性，data-dpr。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;html data-dpr=&apos;dpr&apos;&gt;&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>假如设计稿上某a标签是32px，那么</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">a&#123;</div><div class="line">	font-size: 16px</div><div class="line">&#125;</div><div class="line">/*iphone6*/</div><div class="line">[data-dpr=&apos;2&apos;] a&#123;</div><div class="line">	font-size: 32px</div><div class="line">&#125;</div><div class="line">/*iphone6plus*/</div><div class="line">[data-dpr=&apos;3&apos;] a&#123;</div><div class="line">	font-size: 32px</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-5-另一个解决方案"><a href="#3-5-另一个解决方案" class="headerlink" title="3.5 ==另一个解决方案=="></a>3.5 ==另一个解决方案==</h2><p>通过rem,viewport,以及dpr我们就可以完成我们的终极适配了，告别死板写法 不再这样写死 我们知道了设备的dpr就可以明确的知道缩放多少，而且这样还解决了很难解决的1px横线的问题<br>我们需要这样一段js代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">(function (doc, win) &#123;</div><div class="line">    console.log(&quot;dpr:&quot;+win.devicePixelRatio); </div><div class="line">    var docEle = doc.documentElement,</div><div class="line">    isIos = navigator.userAgent.match(/iphone|ipod|ipad/gi),</div><div class="line">    dpr=Math.min(win.devicePixelRatio, 3);</div><div class="line">    scale = 1 / dpr,</div><div class="line"></div><div class="line">    resizeEvent = &apos;orientationchange&apos; in window ? &apos;orientationchange&apos; : &apos;resize&apos;;</div><div class="line">    docEle.dataset.dpr = dpr;</div><div class="line"></div><div class="line">    var metaEle = doc.createElement(&apos;meta&apos;);</div><div class="line">    metaEle.name = &apos;viewport&apos;;</div><div class="line">    metaEle.content = &apos;initial-scale=&apos; + scale + &apos;,maximum-scale=&apos; + scale;</div><div class="line">    docEle.firstElementChild.appendChild(metaEle);</div><div class="line"> </div><div class="line">    var recalCulate = function  &#123;</div><div class="line">        var width = docEle.clientWidth;</div><div class="line">        if (width / dpr &gt; 640) &#123;</div><div class="line">            width = 640 * dpr;</div><div class="line">        &#125;</div><div class="line">        docEle.style.fontSize = 20 * (width / 750) + &apos;px&apos;;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    recalCulate</div><div class="line">    if (!doc.addEventListener) return;</div><div class="line">    win.addEventListener(resizeEvent, recalCulate, false);</div><div class="line">&#125;)(document, window);</div></pre></td></tr></table></figure>
+<ul>
+<li>获取设备dpr</li>
+<li>算出缩放比例 scale = 1/dpr</li>
+<li>创建meta以及属性</li>
+<li>将scale值赋给initial-scale，maximum-scale</li>
+<li>meta插入到文档中</li>
+<li>创建屏幕大小改变重新计算函数并监听</li>
+</ul>
+<h2 id="3-5-个人总结上面知识点"><a href="#3-5-个人总结上面知识点" class="headerlink" title="3.5 个人总结上面知识点"></a>3.5 个人总结上面知识点</h2><ul>
+<li>了解rem,viewport,以及dpr</li>
+<li>获取DPR,得到缩放scale = 1/dpr，并挂到meta</li>
+<li>设置rem:docEle.style.fontSize</li>
+</ul>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ul>
+<li><a href="http://www.oschina.net/question/2420477_2150404" target="_blank" rel="external">参考链接1</a></li>
+<li><a href="http://www.cnblogs.com/doseoer/p/5331755.html" target="_blank" rel="external">参考链接2</a></li>
+<li><a href="http://www.cnblogs.com/slman86/p/5581865.html" target="_blank" rel="external">参考链接3</a></li>
+</ul>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;移动端web开发相对于PC端web开发，我们可以庆幸不用兼容那么多浏览器了，但是随之而来的却是各种屏幕尺寸的适配，个人觉得，比PC端还要费精力。在使用了腾讯优测进行软件测试后，问题得到了有效解决。&lt;/p&gt;
+&lt;h1 id=&quot;1-移动端布局方式&quot;&gt;&lt;a href=&quot;#1-移动端布局方式&quot; class=&quot;headerlink&quot; title=&quot;1.移动端布局方式&quot;&gt;&lt;/a&gt;1.移动端布局方式&lt;/h1&gt;&lt;h2 id=&quot;1-1响应式布局&quot;&gt;&lt;a href=&quot;#1-1响应式布局&quot; class=&quot;headerlink&quot; title=&quot;1.1响应式布局&quot;&gt;&lt;/a&gt;1.1响应式布局&lt;/h2&gt;&lt;p&gt;简而言之，就是页面元素的位置随着屏幕尺寸的变化而变化，通常会用百分比来定位，而在设计上需要预留一些可被“压缩”的空间。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://static.oschina.net/uploads/space/2016/0128/110509_Fkpj_2420477.jpg&quot; alt=&quot;image&quot;&gt;&lt;/p&gt;
+&lt;p&gt;如上图，其实就相当于页面被压矮了。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="移动端及响应式" scheme="https://barryleeweb.github.io/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E5%8F%8A%E5%93%8D%E5%BA%94%E5%BC%8F/"/>
+    
+    
+      <category term="移动端适配" scheme="https://barryleeweb.github.io/tags/%E7%A7%BB%E5%8A%A8%E7%AB%AF%E9%80%82%E9%85%8D/"/>
+    
+      <category term="rem" scheme="https://barryleeweb.github.io/tags/rem/"/>
+    
+      <category term="dpr" scheme="https://barryleeweb.github.io/tags/dpr/"/>
+    
+      <category term="viewport" scheme="https://barryleeweb.github.io/tags/viewport/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>跨域问题</title>
+    <link href="https://barryleeweb.github.io/2017/08/09/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/"/>
+    <id>https://barryleeweb.github.io/2017/08/09/跨域问题/</id>
+    <published>2017-08-08T16:05:43.577Z</published>
+    <updated>2017-08-08T16:17:25.538Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-同源"><a href="#1-同源" class="headerlink" title="1.同源"></a>1.同源</h1><h2 id="1-1含义"><a href="#1-1含义" class="headerlink" title="1.1含义"></a>1.1含义</h2><p>所谓“同源”指的是”三个相同“。</p>
+<ul>
+<li>协议相同</li>
+<li>域名相同</li>
+<li>端口相同</li>
+</ul>
+<h2 id="1-2目的"><a href="#1-2目的" class="headerlink" title="1.2目的"></a>1.2目的</h2><p>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。</p>
+<h2 id="1-3限制范围"><a href="#1-3限制范围" class="headerlink" title="1.3限制范围"></a>1.3限制范围</h2><ul>
+<li>Cookie、LocalStorage 和 IndexedDB 无法读取。</li>
+<li>DOM 无法获得。</li>
+<li>AJAX 请求无效（可以发送，但浏览器会拒绝接受响应）。<a id="more"></a>
+<h2 id="1-4Cookie"><a href="#1-4Cookie" class="headerlink" title="1.4Cookie"></a>1.4Cookie</h2>Cookie 是服务器写入浏览器的一小段信息，只有同源的网页才能共享。但是，两个网页一级域名相同，只是二级域名不同，浏览器允许通过设置document.domain共享 Cookie。</li>
+</ul>
+<p>举例来说，A网页是<a href="http://w1.example.com/a.html，B网页是http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享Cookie。" target="_blank" rel="external">http://w1.example.com/a.html，B网页是http://w2.example.com/b.html，那么只要设置相同的document.domain，两个网页就可以共享Cookie。</a></p>
+<p>注意，这种方法只适用于 Cookie 和 iframe 窗口，LocalStorage 和 IndexedDB 无法通过这种方法，规避同源政策，而要使用下文介绍的PostMessage API。</p>
+<h2 id="1-5iframe"><a href="#1-5iframe" class="headerlink" title="1.5iframe"></a>1.5iframe</h2><p>iframe元素可以在当前网页之中，嵌入其他网页。每个iframe元素形成自己的窗口，即有自己的window对象。iframe窗口之中的脚本，可以获得父窗口和子窗口。但是，只有在同源的情况下，父窗口和子窗口才能通信；如果跨域，就无法拿到对方的DOM。</p>
+<h2 id="1-6片段识别符"><a href="#1-6片段识别符" class="headerlink" title="1.6片段识别符"></a>1.6片段识别符</h2><p>片段标识符（fragment identifier）指的是，URL的#号后面的部分，比如<a href="http://example.com/x.html#fragment的#fragment。如果只是改变片段标识符，页面不会重新刷新。" target="_blank" rel="external">http://example.com/x.html#fragment的#fragment。如果只是改变片段标识符，页面不会重新刷新。</a></p>
+<h2 id="1-7window-postMessage"><a href="#1-7window-postMessage" class="headerlink" title="1.7window.postMessage"></a>1.7window.postMessage</h2><p>上面两种方法都属于破解，HTML5为了解决这个问题，引入了一个全新的API：跨文档通信 API（Cross-document messaging）。</p>
+<p>这个API为window对象新增了一个window.postMessage方法，允许跨窗口通信，不论这两个窗口是否同源。</p>
+<p>举例来说，父窗口aaa.com向子窗口bbb.com发消息，调用postMessage方法就可以了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var popup = window.open(&apos;http://bbb.com&apos;, &apos;title&apos;);</div><div class="line">popup.postMessage(&apos;Hello World!&apos;, &apos;http://bbb.com&apos;);</div></pre></td></tr></table></figure>
+<h2 id="1-8LocalStorage"><a href="#1-8LocalStorage" class="headerlink" title="1.8LocalStorage"></a>1.8LocalStorage</h2><p>通过window.postMessage，读写其他窗口的 LocalStorage 也成为了可能。</p>
+<h2 id="1-9AJAX"><a href="#1-9AJAX" class="headerlink" title="1.9AJAX"></a>1.9AJAX</h2><p>同源政策规定，AJAX请求只能发给同源的网址，否则就报错。</p>
+<p>除了架设服务器代理（浏览器请求同源服务器，再由后者请求外部服务），有三种方法规避这个限制。</p>
+<ul>
+<li>==JSONP==</li>
+<li>==WebSocket==</li>
+<li>==CORS==</li>
+</ul>
+<h1 id="2-JSONP"><a href="#2-JSONP" class="headerlink" title="2.JSONP"></a>2.JSONP</h1><p>JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。</p>
+<p>它的基本思想是，网页通过添加一个script元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。</p>
+<p>首先，网页动态插入<script>元素，由它向跨源网址发出请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">function addScriptTag(src) &#123;</div><div class="line">  var script = document.createElement(&apos;script&apos;);</div><div class="line">  script.setAttribute(&quot;type&quot;,&quot;text/javascript&quot;);</div><div class="line">  script.src = src;</div><div class="line">  document.body.appendChild(script);</div><div class="line">&#125;</div><div class="line"></div><div class="line">window.onload = function () &#123;</div><div class="line">  addScriptTag(&apos;http://example.com/ip?callback=foo&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">function foo(data) &#123;</div><div class="line">  console.log(&apos;Your public IP address is: &apos; + data.ip);</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>上面代码通过动态添加<script>元素，向服务器example.com发出请求。注意，该请求的查询字符串有一个callback参数，用来指定回调函数的名字，这对于JSONP是必需的。</p>
+<p>服务器收到这个请求以后，会将数据放在回调函数的参数位置返回。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">foo(&#123;</div><div class="line">  &quot;ip&quot;: &quot;8.8.8.8&quot;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>由于script元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了foo函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用JSON.parse的步骤。</p>
+<h1 id="3-WebSocket"><a href="#3-WebSocket" class="headerlink" title="3.WebSocket"></a>3.WebSocket</h1><p>WebSocket是一种通信协议，使用ws://（非加密）和wss://（加密）作为协议前缀。该协议不实行同源政策，只要服务器支持，就可以通过它进行跨源通信。</p>
+<p>下面是一个例子，浏览器发出的WebSocket请求的头信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">GET /chat HTTP/1.1</div><div class="line">Host: server.example.com</div><div class="line">Upgrade: websocket</div><div class="line">Connection: Upgrade</div><div class="line">Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==</div><div class="line">Sec-WebSocket-Protocol: chat, superchat</div><div class="line">Sec-WebSocket-Version: 13</div><div class="line">Origin: http://example.com</div></pre></td></tr></table></figure>
+<p>上面代码中，有一个字段是Origin，表示该请求的请求源（origin），即发自哪个域名。</p>
+<p>正是因为有了Origin这个字段，所以WebSocket才没有实行同源政策。因为服务器可以根据这个字段，判断是否许可本次通信。如果该域名在白名单内，服务器就会做出如下回应。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 101 Switching Protocols</div><div class="line">Upgrade: websocket</div><div class="line">Connection: Upgrade</div><div class="line">Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=</div><div class="line">Sec-WebSocket-Protocol: chat</div></pre></td></tr></table></figure>
+<h1 id="4-CORS"><a href="#4-CORS" class="headerlink" title="4.CORS"></a>4.CORS</h1><p>CORS是一个W3C标准，全称是“跨域资源共享”（Cross-origin resource sharing）。</p>
+<p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
+<p>整个CORS通信过程，都是浏览器自动完成，不需要用户参与。实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。</p>
+<h2 id="4-1两种请求"><a href="#4-1两种请求" class="headerlink" title="4.1两种请求"></a>4.1两种请求</h2><p>浏览器将CORS请求分成两类：简单请求（simple request）和非简单请求（not-so-simple request）。</p>
+<p>只要<strong>同时</strong>满足以下两大条件，就属于简单请求。</p>
+<h3 id="请求方法是以下三种方法之一。"><a href="#请求方法是以下三种方法之一。" class="headerlink" title="请求方法是以下三种方法之一。"></a>请求方法是以下三种方法之一。</h3><ul>
+<li>HEAD</li>
+<li>GET</li>
+<li>POST</li>
+</ul>
+<h3 id="HTTP的头信息不超出以下几种字段。"><a href="#HTTP的头信息不超出以下几种字段。" class="headerlink" title="HTTP的头信息不超出以下几种字段。"></a>HTTP的头信息不超出以下几种字段。</h3><ul>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Last-Event-ID</li>
+<li>Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
+</ul>
+<p>凡是不同时满足上面两个条件，就属于非简单请求。</p>
+<p>浏览器对这两种请求的处理，是不一样的。</p>
+<h2 id="4-2简单请求"><a href="#4-2简单请求" class="headerlink" title="4.2简单请求"></a>4.2简单请求</h2><p>对于简单请求，浏览器直接发出CORS请求。具体来说，就是在头信息之中，增加一个Origin字段。</p>
+<p>下面是一个例子，浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">GET /cors HTTP/1.1</div><div class="line">Origin: http://api.bob.com</div><div class="line">Host: api.alice.com</div><div class="line">Accept-Language: en-US</div><div class="line">Connection: keep-alive</div><div class="line">User-Agent: Mozilla/5.0...</div></pre></td></tr></table></figure>
+<p>如果Origin指定的源，不在许可范围内，服务器会返回一个正常的HTTP回应。浏览器发现，这个回应的头信息没有包含Access-Control-Allow-Origin字段（详见下文），就知道出错了，从而抛出一个错误，被XMLHttpRequest的onerror回调函数捕获。</p>
+<p>如果Origin指定的域名在许可范围内，服务器返回的响应，会多出几个头信息字段。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Access-Control-Allow-Origin: http://api.bob.com</div><div class="line">Access-Control-Allow-Credentials: true</div><div class="line">Access-Control-Expose-Headers: FooBar</div><div class="line">Content-Type: text/html; charset=utf-8</div></pre></td></tr></table></figure>
+<p>（1）Access-Control-Allow-Origin</p>
+<p>该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求。</p>
+<p>（2）Access-Control-Allow-Credentials</p>
+<p>该字段可选。它的值是一个布尔值，表示是否允许发送Cookie。默认情况下，Cookie不包括在CORS请求之中。设为true，即表示服务器明确许可，Cookie可以包含在请求中，一起发给服务器。这个值也只能设为true，如果服务器不要浏览器发送Cookie，删除该字段即可。</p>
+<p>（3）Access-Control-Expose-Headers</p>
+<p>该字段可选。CORS请求时，XMLHttpRequest对象的getResponseHeader()方法只能拿到6个基本字段：Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma。如果想拿到其他字段，就必须在Access-Control-Expose-Headers里面指定。上面的例子指定，getResponseHeader(‘FooBar’)可以返回FooBar字段的值。</p>
+<h2 id="4-3非简单请求"><a href="#4-3非简单请求" class="headerlink" title="4.3非简单请求"></a>4.3非简单请求</h2><h3 id="预检请求"><a href="#预检请求" class="headerlink" title="预检请求"></a>预检请求</h3><p>非简单请求是那种对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json。</p>
+<p>浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。</p>
+<p>下面是一段浏览器的JavaScript脚本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var url = &apos;http://api.alice.com/cors&apos;;</div><div class="line">var xhr = new XMLHttpRequest();</div><div class="line">xhr.open(&apos;PUT&apos;, url, true);</div><div class="line">xhr.setRequestHeader(&apos;X-Custom-Header&apos;, &apos;value&apos;);</div><div class="line">xhr.send();</div></pre></td></tr></table></figure>
+<p>上面代码中，HTTP请求的方法是PUT，并且发送一个自定义头信息X-Custom-Header。</p>
+<p>浏览器发现，这是一个非简单请求，就自动发出一个“预检”请求，要求服务器确认可以这样请求。下面是这个“预检”请求的HTTP头信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">OPTIONS /cors HTTP/1.1</div><div class="line">Origin: http://api.bob.com</div><div class="line">Access-Control-Request-Method: PUT</div><div class="line">Access-Control-Request-Headers: X-Custom-Header</div><div class="line">Host: api.alice.com</div><div class="line">Accept-Language: en-US</div><div class="line">Connection: keep-alive</div><div class="line">User-Agent: Mozilla/5.0...</div></pre></td></tr></table></figure>
+<p>预检”请求用的请求方法是==OPTIONS==，表示这个请求是用来询问的。头信息里面，关键字段是Origin，表示请求来自哪个源。</p>
+<p>除了Origin字段，“预检”请求的头信息包括两个特殊字段。</p>
+<p>（1）Access-Control-Request-Method</p>
+<p>该字段是必须的，用来列出浏览器的CORS请求会用到哪些HTTP方法，上例是PUT。</p>
+<p>（2）Access-Control-Request-Headers</p>
+<p>该字段是一个逗号分隔的字符串，指定浏览器CORS请求会额外发送的头信息字段，上例是X-Custom-Header。</p>
+<h3 id="预检请求的回应"><a href="#预检请求的回应" class="headerlink" title="预检请求的回应"></a>预检请求的回应</h3><p>服务器收到“预检”请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">HTTP/1.1 200 OK</div><div class="line">Date: Mon, 01 Dec 2008 01:15:39 GMT</div><div class="line">Server: Apache/2.0.61 (Unix)</div><div class="line">Access-Control-Allow-Origin: http://api.bob.com</div><div class="line">Access-Control-Allow-Methods: GET, POST, PUT</div><div class="line">Access-Control-Allow-Headers: X-Custom-Header</div><div class="line">Content-Type: text/html; charset=utf-8</div><div class="line">Content-Encoding: gzip</div><div class="line">Content-Length: 0</div><div class="line">Keep-Alive: timeout=2, max=100</div><div class="line">Connection: Keep-Alive</div><div class="line">Content-Type: text/plain</div></pre></td></tr></table></figure>
+<p>一旦服务器通过了“预检”请求，以后每次浏览器正常的CORS请求，就都跟简单请求一样，会有一个Origin头信息字段。服务器的回应，也都会有一个Access-Control-Allow-Origin头信息字段。</p>
+<h2 id="4-4与JSONP的比较"><a href="#4-4与JSONP的比较" class="headerlink" title="4.4与JSONP的比较"></a>4.4与JSONP的比较</h2><p>CORS与JSONP的使用目的相同，但是比JSONP更强大。</p>
+<p>JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。</p>
+<p><a href="http://javascript.ruanyifeng.com/bom/same-origin.html">参考链接</a></p>
+</script></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-同源&quot;&gt;&lt;a href=&quot;#1-同源&quot; class=&quot;headerlink&quot; title=&quot;1.同源&quot;&gt;&lt;/a&gt;1.同源&lt;/h1&gt;&lt;h2 id=&quot;1-1含义&quot;&gt;&lt;a href=&quot;#1-1含义&quot; class=&quot;headerlink&quot; title=&quot;1.1含义&quot;&gt;&lt;/a&gt;1.1含义&lt;/h2&gt;&lt;p&gt;所谓“同源”指的是”三个相同“。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;协议相同&lt;/li&gt;
+&lt;li&gt;域名相同&lt;/li&gt;
+&lt;li&gt;端口相同&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&quot;1-2目的&quot;&gt;&lt;a href=&quot;#1-2目的&quot; class=&quot;headerlink&quot; title=&quot;1.2目的&quot;&gt;&lt;/a&gt;1.2目的&lt;/h2&gt;&lt;p&gt;同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。&lt;/p&gt;
+&lt;h2 id=&quot;1-3限制范围&quot;&gt;&lt;a href=&quot;#1-3限制范围&quot; class=&quot;headerlink&quot; title=&quot;1.3限制范围&quot;&gt;&lt;/a&gt;1.3限制范围&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;Cookie、LocalStorage 和 IndexedDB 无法读取。&lt;/li&gt;
+&lt;li&gt;DOM 无法获得。&lt;/li&gt;
+&lt;li&gt;AJAX 请求无效（可以发送，但浏览器会拒绝接受响应）。
+    
+    </summary>
+    
+      <category term="浏览器&amp;Ajax" scheme="https://barryleeweb.github.io/categories/%E6%B5%8F%E8%A7%88%E5%99%A8-Ajax/"/>
+    
+    
+      <category term="跨域" scheme="https://barryleeweb.github.io/tags/%E8%B7%A8%E5%9F%9F/"/>
+    
+      <category term="同源" scheme="https://barryleeweb.github.io/tags/%E5%90%8C%E6%BA%90/"/>
+    
+      <category term="jsonp" scheme="https://barryleeweb.github.io/tags/jsonp/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>js面向对象编程：封装</title>
+    <link href="https://barryleeweb.github.io/2017/08/09/js%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%BC%96%E7%A8%8B%EF%BC%9A%E5%B0%81%E8%A3%85/"/>
+    <id>https://barryleeweb.github.io/2017/08/09/js面向对象编程：封装/</id>
+    <published>2017-08-08T16:04:52.940Z</published>
+    <updated>2017-08-08T16:18:06.374Z</updated>
+    
+    <content type="html"><![CDATA[<p>Javascript是一种基于对象（object-based）的语言，你遇到的所有东西几乎都是对象。但是，它又不是一种真正的面向对象编程（OOP）语言，因为它的语法中没有class（类）。</p>
+<h2 id="1-生成实例对象的原始模式"><a href="#1-生成实例对象的原始模式" class="headerlink" title="1.生成实例对象的原始模式"></a>1.生成实例对象的原始模式</h2><p>假定我们把猫看成一个对象，它有”名字”和”颜色”两个属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">　var Cat = &#123;</div><div class="line">　　　　name : &apos;&apos;,</div><div class="line">　　　　color : &apos;&apos;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>现在，我们需要根据这个原型对象的规格（schema），生成两个实例对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var cat1 = &#123;&#125;; // 创建一个空对象</div><div class="line">　　　　cat1.name = &quot;大毛&quot;; // 按照原型对象的属性赋值</div><div class="line">　　　　cat1.color = &quot;黄色&quot;;</div><div class="line">　　var cat2 = &#123;&#125;;</div><div class="line">　　　　cat2.name = &quot;二毛&quot;;</div><div class="line">　　　　cat2.color = &quot;黑色&quot;;</div></pre></td></tr></table></figure>
+<p>缺点：</p>
+<p>好了，这就是最简单的封装了，把两个属性封装在一个对象里面。但是，这样的写法有两个缺点，一是如果多生成几个实例，写起来就非常麻烦；二是实例与原型之间，没有任何办法，可以看出有什么联系。<br><a id="more"></a></p>
+<h2 id="2-原始模式的改进"><a href="#2-原始模式的改进" class="headerlink" title="2.原始模式的改进"></a>2.原始模式的改进</h2><p>我们可以写一个函数，解决代码重复的问题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function Cat(name,color) &#123;</div><div class="line">　　　　return &#123;</div><div class="line">　　　　　　name:name,</div><div class="line">　　　　　　color:color</div><div class="line">　　　　&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后生成实例对象，就等于是在调用函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var cat1 = Cat(&quot;大毛&quot;,&quot;黄色&quot;);</div><div class="line">var cat2 = Cat(&quot;二毛&quot;,&quot;黑色&quot;);</div></pre></td></tr></table></figure>
+<p>缺点：</p>
+<p>这种方法的问题依然是，cat1和cat2之间没有内在的联系，不能反映出它们是同一个原型对象的实例。</p>
+<h2 id="3-构造函数模式"><a href="#3-构造函数模式" class="headerlink" title="3.构造函数模式"></a>3.构造函数模式</h2><p>为了解决从原型对象生成实例的问题，Javascript提供了一个构造函数（Constructor）模式。</p>
+<p>所谓”构造函数”，其实就是一个普通函数，但是内部使用了this变量。对构造函数使用new运算符，就能生成实例，并且this变量会绑定在实例对象上。</p>
+<p>比如，猫的原型对象现在可以这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">function Cat(name,color)&#123;</div><div class="line">　　　　this.name=name;</div><div class="line">　　　　this.color=color;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们现在就可以生成实例对象了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var cat1 = new Cat(&quot;大毛&quot;,&quot;黄色&quot;);</div><div class="line">var cat2 = new Cat(&quot;二毛&quot;,&quot;黑色&quot;);</div><div class="line">alert(cat1.name); // 大毛</div><div class="line">alert(cat1.color); // 黄色</div></pre></td></tr></table></figure>
+<p>这时cat1和cat2会自动含有一个==constructor==属性，指向它们的构造函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(cat1.constructor == Cat); //true</div><div class="line">alert(cat2.constructor == Cat); //true</div></pre></td></tr></table></figure>
+<p>Javascript还提供了一个==instanceof==运算符，验证原型对象与实例对象之间的关系。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(cat1 instanceof Cat); //true</div><div class="line">alert(cat2 instanceof Cat); //true</div></pre></td></tr></table></figure>
+<h2 id="4-构造函数模式的问题"><a href="#4-构造函数模式的问题" class="headerlink" title="4.构造函数模式的问题"></a>4.构造函数模式的问题</h2><p>构造函数方法很好用，但是存在一个浪费内存的问题。<br>请看，我们现在为Cat对象添加一个不变的属性type（种类），再添加一个方法eat（吃）。那么，原型对象Cat就变成了下面这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function Cat(name,color)&#123;</div><div class="line">　　　　this.name = name;</div><div class="line">　　　　this.color = color;</div><div class="line">　　　　this.type = &quot;猫科动物&quot;;</div><div class="line">　　　　this.eat = function()&#123;alert(&quot;吃老鼠&quot;);&#125;;</div><div class="line">　　&#125;</div></pre></td></tr></table></figure>
+<p>还是采用同样的方法，生成实例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var cat1 = new Cat(&quot;大毛&quot;,&quot;黄色&quot;);</div><div class="line">　　var cat2 = new Cat (&quot;二毛&quot;,&quot;黑色&quot;);</div><div class="line">　　alert(cat1.type); // 猫科动物</div><div class="line">　　cat1.eat(); // 吃老鼠</div></pre></td></tr></table></figure>
+<p>实际上这样做，有一个很大的弊端。那就是对于每一个实例对象，type属性和eat()方法都是一模一样的内容，每一次生成一个实例，都必须为重复的内容，多占用一些内存。这样既不环保，也缺乏效率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alert(cat1.eat == cat2.eat); //false</div></pre></td></tr></table></figure>
+<h2 id="5-Prototype模式"><a href="#5-Prototype模式" class="headerlink" title="5.Prototype模式"></a>5.Prototype模式</h2><p>Javascript规定，每一个构造函数都有一个prototype属性，指向另一个对象。这个对象的所有属性和方法，都会被构造函数的实例继承。</p>
+<p>这意味着，我们可以把那些不变的属性和方法，直接定义在prototype对象上。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">function Cat(name,color)&#123;</div><div class="line">　　　　this.name = name;</div><div class="line">　　　　this.color = color;</div><div class="line">　　&#125;</div><div class="line">　　Cat.prototype.type = &quot;猫科动物&quot;;</div><div class="line">　　Cat.prototype.eat = function()&#123;alert(&quot;吃老鼠&quot;)&#125;;</div></pre></td></tr></table></figure>
+<p>然后，生成实例。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var cat1 = new Cat(&quot;大毛&quot;,&quot;黄色&quot;);</div><div class="line">　　var cat2 = new Cat(&quot;二毛&quot;,&quot;黑色&quot;);</div><div class="line">　　alert(cat1.type); // 猫科动物</div><div class="line">　　cat1.eat(); // 吃老鼠</div></pre></td></tr></table></figure>
+<p>这时所有实例的type属性和eat()方法，其实都是同一个内存地址，指向prototype对象，因此就提高了运行效率。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alert(cat1.eat == cat2.eat); //true</div></pre></td></tr></table></figure>
+<h2 id="6-Prototype模式的验证方法"><a href="#6-Prototype模式的验证方法" class="headerlink" title="6.Prototype模式的验证方法"></a>6.Prototype模式的验证方法</h2><p>为了配合prototype属性，Javascript定义了一些辅助方法，帮助我们使用它。</p>
+<h3 id="isPrototypeOf-NaN"><a href="#isPrototypeOf-NaN" class="headerlink" title="isPrototypeOf()"></a>isPrototypeOf()</h3><p>这个方法用来判断，某个proptotype对象和某个实例之间的关系。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(Cat.prototype.isPrototypeOf(cat1)); //true</div><div class="line">alert(Cat.prototype.isPrototypeOf(cat2)); //true</div></pre></td></tr></table></figure>
+<h3 id="hasOwnProperty-NaN"><a href="#hasOwnProperty-NaN" class="headerlink" title="hasOwnProperty()"></a>hasOwnProperty()</h3><p>每个实例对象都有一个hasOwnProperty()方法，用来判断某一个属性到底是本地属性，还是继承自prototype对象的属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(cat1.hasOwnProperty(&quot;name&quot;)); // true</div><div class="line">alert(cat1.hasOwnProperty(&quot;type&quot;)); // false</div></pre></td></tr></table></figure>
+<h3 id="in运算符"><a href="#in运算符" class="headerlink" title="in运算符"></a>in运算符</h3><p>in运算符可以用来判断，某个实例是否含有某个属性，不管是不是本地属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">alert(&quot;name&quot; in cat1); // true</div><div class="line">alert(&quot;type&quot; in cat1); // true</div></pre></td></tr></table></figure>
+<p>in运算符还可以用来遍历某个对象的所有属性</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">for(var prop in cat1) &#123; alert(&quot;cat1[&quot;+prop+&quot;]=&quot;+cat1[prop]); &#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Javascript是一种基于对象（object-based）的语言，你遇到的所有东西几乎都是对象。但是，它又不是一种真正的面向对象编程（OOP）语言，因为它的语法中没有class（类）。&lt;/p&gt;
+&lt;h2 id=&quot;1-生成实例对象的原始模式&quot;&gt;&lt;a href=&quot;#1-生成实例对象的原始模式&quot; class=&quot;headerlink&quot; title=&quot;1.生成实例对象的原始模式&quot;&gt;&lt;/a&gt;1.生成实例对象的原始模式&lt;/h2&gt;&lt;p&gt;假定我们把猫看成一个对象，它有”名字”和”颜色”两个属性。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;　var Cat = &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;　　　　name : &amp;apos;&amp;apos;,&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;　　　　color : &amp;apos;&amp;apos;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;　　&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;现在，我们需要根据这个原型对象的规格（schema），生成两个实例对象。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;var cat1 = &amp;#123;&amp;#125;; // 创建一个空对象&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;　　　　cat1.name = &amp;quot;大毛&amp;quot;; // 按照原型对象的属性赋值&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;　　　　cat1.color = &amp;quot;黄色&amp;quot;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;　　var cat2 = &amp;#123;&amp;#125;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;　　　　cat2.name = &amp;quot;二毛&amp;quot;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;　　　　cat2.color = &amp;quot;黑色&amp;quot;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;缺点：&lt;/p&gt;
+&lt;p&gt;好了，这就是最简单的封装了，把两个属性封装在一个对象里面。但是，这样的写法有两个缺点，一是如果多生成几个实例，写起来就非常麻烦；二是实例与原型之间，没有任何办法，可以看出有什么联系。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="javascript&amp;ES6" scheme="https://barryleeweb.github.io/categories/javascript-ES6/"/>
+    
+    
+      <category term="面向对象" scheme="https://barryleeweb.github.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ES6重点特性</title>
+    <link href="https://barryleeweb.github.io/2017/08/09/ES6%E9%87%8D%E7%82%B9%E7%89%B9%E6%80%A7/"/>
+    <id>https://barryleeweb.github.io/2017/08/09/ES6重点特性/</id>
+    <published>2017-08-08T16:04:27.049Z</published>
+    <updated>2017-08-08T16:17:49.931Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-一些核心功能"><a href="#1-一些核心功能" class="headerlink" title="1. 一些核心功能"></a>1. 一些核心功能</h1><h2 id="1-1-let-const"><a href="#1-1-let-const" class="headerlink" title="1.1 let const"></a>1.1 let const</h2><p>ES5 通过 var 来申明变量，ES6 新添 let 和 const，且作用域是 块级作用域。</p>
+<p>let 使用和 var 非常类似，let 不存在变量提升，也不允许重复申明，let 的声明只能在它所在的代码块有效</p>
+<p>const 就是申明常量用的，一旦申明即被锁定，后面无法更改。<br><a id="more"></a></p>
+<h2 id="1-2-解构赋值-Destructuring"><a href="#1-2-解构赋值-Destructuring" class="headerlink" title="1.2 解构赋值(Destructuring)"></a>1.2 解构赋值(Destructuring)</h2><p>ES6允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构（Destructuring）。</p>
+<p>ES6 解构赋值基本语法 var [a, b, c] = [1, 2, 3];，从数组中取值，并按照先后次序来赋值。如果解构赋值不成功，就会返回 underfined，解构赋值也允许指定默认值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var [a, b] = [1];</div><div class="line">b // undefined</div><div class="line"></div><div class="line">// 指定默认值</div><div class="line">var [a, b = 2] = [1];</div><div class="line">b // 2</div></pre></td></tr></table></figure>
+<p>除了数组，对象也可以解构赋值，但是数组是有顺序的，而对象没有顺序，如果想要成功赋值，必须与对象属性同名，才能成功赋值，否则返回 underfined：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">var &#123;a, b&#125; = &#123;a: 1, b: 2&#125;;</div><div class="line">a // 1</div><div class="line">b // 2</div><div class="line"></div><div class="line">var &#123;a, c&#125; = &#123;a: 1, b: 2&#125;;</div><div class="line">c // undefined</div></pre></td></tr></table></figure>
+<p>字符串的解构赋值比较有意思，既可以把字符串当作可以迭代的数组，又可以当作对象，比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var [a1,a2,a3,a4,a5] = &apos;hello&apos;;</div><div class="line">a2 // e</div><div class="line"></div><div class="line">var &#123;length : len&#125; = &apos;hello&apos;;</div><div class="line">len // 5</div></pre></td></tr></table></figure>
+<h2 id="1-3-字符串模版（template-string）"><a href="#1-3-字符串模版（template-string）" class="headerlink" title="1.3 字符串模版（template string）"></a>1.3 字符串模版（template string）</h2><p>当我们要插入大段的html内容到文档中时，传统的写法非常麻烦</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">$(&quot;#result&quot;).append(</div><div class="line">  &quot;There are &lt;b&gt;&quot; + basket.count + &quot;&lt;/b&gt; &quot; +</div><div class="line">  &quot;items in your basket, &quot; +</div><div class="line">  &quot;&lt;em&gt;&quot; + basket.onSale +</div><div class="line">  &quot;&lt;/em&gt; are on sale!&quot;</div><div class="line">);</div></pre></td></tr></table></figure>
+<p>我们要用一堆的’+’号来连接文本与变量，而使用ES6的新特性模板字符串``后，我们可以直接这么来写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$(&quot;#result&quot;).append(`</div><div class="line">  There are &lt;b&gt;$&#123;basket.count&#125;&lt;/b&gt; items</div><div class="line">   in your basket, &lt;em&gt;$&#123;basket.onSale&#125;&lt;/em&gt;</div><div class="line">  are on sale!</div><div class="line">`);</div></pre></td></tr></table></figure>
+<h2 id="1-4-set-集合和-Map-结构"><a href="#1-4-set-集合和-Map-结构" class="headerlink" title="1.4 set 集合和 Map 结构"></a>1.4 set 集合和 Map 结构</h2><h3 id="set-集合"><a href="#set-集合" class="headerlink" title="set 集合"></a>set 集合</h3><ul>
+<li>ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。</li>
+<li>Set 方法分为操作和遍历，操作方法有 add-添加成员， delete-删除成员， has-拥有判断返回布尔值， clear-清空集合。</li>
+<li>遍历操作有 keys()，values()，entries()，forEach()，…，for of，map 和 filter 函数也可以用于 Set，不过要进行巧妙操作，先转换成数组，在进行操作</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">let set = new Set([1,2,3]);</div><div class="line">set = new Set([...set].map(a =&gt; a*2));</div><div class="line">// Set &#123;2, 4, 6&#125;</div></pre></td></tr></table></figure>
+<h3 id="Map-结构"><a href="#Map-结构" class="headerlink" title="Map 结构"></a>Map 结构</h3><ul>
+<li>Map 用来解决对象只接受字符串作为键名，Map 类似于对象，也是键值对集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。</li>
+<li>Map 可以通过 [set、 get、 has、 delete] 方法来操作：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var m = new Map();</div><div class="line">var arr = [1, 2];</div><div class="line">m.set(arr, &apos;array&apos;);</div><div class="line">m.get(arr); // &apos;array&apos;</div><div class="line"></div><div class="line">m.has(arr) // true</div><div class="line">m.delete(arr) // true</div><div class="line">m.has(arr) // false</div></pre></td></tr></table></figure>
+<h2 id="1-5-spread操作符（…）"><a href="#1-5-spread操作符（…）" class="headerlink" title="1.5 spread操作符（…）"></a>1.5 spread操作符（…）</h2><p>用于函数调用：myFunction(…iterableObj);</p>
+<p>用于数组字面量：[…iterableObj, 4, 5, 6]</p>
+<h3 id="函数传参"><a href="#函数传参" class="headerlink" title="函数传参"></a>函数传参</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// Math.max()函数, 一般可以加入任意个参数</div><div class="line">Math.max(12, 13, 14, 15); // 15</div><div class="line"></div><div class="line">// 以数组的形式</div><div class="line">var arr = [1, 2, 3, 4];</div><div class="line">Math.max.apply(null, arr); // 4</div><div class="line"></div><div class="line">// 使用 &quot;...&quot;</div><div class="line">Math.max(...arr); // 4</div><div class="line">// 还可以加入其它的一些参数</div><div class="line">Math.max(...arr, 5, 10); // 10</div></pre></td></tr></table></figure>
+<h3 id="数据解构"><a href="#数据解构" class="headerlink" title="数据解构"></a>数据解构</h3><h3 id="数据构造"><a href="#数据构造" class="headerlink" title="数据构造"></a>数据构造</h3><h1 id="2-箭头函数-gt"><a href="#2-箭头函数-gt" class="headerlink" title="2. 箭头函数(=&gt;)"></a>2. 箭头函数(=&gt;)</h1><h2 id="2-1基本用法"><a href="#2-1基本用法" class="headerlink" title="2.1基本用法"></a>2.1基本用法</h2><p>ES6允许使用“箭头”（=&gt;）定义函数。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var f = v =&gt; v;</div></pre></td></tr></table></figure>
+<p>上面的箭头函数等同于：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var f = function(v) &#123;</div><div class="line">  return v;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="2-2使用注意点"><a href="#2-2使用注意点" class="headerlink" title="2.2使用注意点"></a>2.2使用注意点</h2><p>（1）函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。</p>
+<p>（2）不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</p>
+<p>（3）不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用Rest参数代替。</p>
+<p>（4）不可以使用yield命令，因此箭头函数不能用作Generator函数。</p>
+<p>this指向的固定化，并不是因为箭头函数内部有绑定this的机制，实际原因是<strong>箭头函数根本没有自己的this</strong>，导致内部的this就是外层代码块的this。正是因为它没有this，所以也就不能用作构造函数。</p>
+<h2 id="2-3函数绑定"><a href="#2-3函数绑定" class="headerlink" title="2.3函数绑定"></a>2.3函数绑定</h2><p>箭头函数可以绑定this对象，大大减少了显式绑定this对象的写法（call、apply、bind）。但是，箭头函数并不适用于所有场合，所以ES7提出了“函数绑定”（function bind）运算符，用来取代call、apply、bind调用。</p>
+<p>函数绑定运算符是并排的两个双冒号（::），双冒号左边是一个对象，右边是一个函数。该运算符会自动将左边的对象，作为上下文环境（即this对象），绑定到右边的函数上面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">foo::bar;</div><div class="line">// 等同于</div><div class="line">bar.bind(foo);</div><div class="line"></div><div class="line">foo::bar(...arguments);</div><div class="line">// 等同于</div><div class="line">bar.apply(foo, arguments);</div><div class="line"></div><div class="line">const hasOwnProperty = Object.prototype.hasOwnProperty;</div><div class="line">function hasOwn(obj, key) &#123;</div><div class="line">  return obj::hasOwnProperty(key);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-4箭头函数与常规函数对比"><a href="#2-4箭头函数与常规函数对比" class="headerlink" title="2.4箭头函数与常规函数对比"></a>2.4箭头函数与常规函数对比</h2><p>一个箭头函数与一个普通的函数在两个方面不一样：</p>
+<ul>
+<li>下列变量的构造是词法的： arguments ， super ， this ， new.target</li>
+<li>不能被用作构造函数：没有内部方法 [[Construct]] （该方法允许普通的函数通过 new 调用），也没有 prototype 属性。因此， new (() =&gt; {}) 会抛出错误。</li>
+</ul>
+<h1 id="3-Class类"><a href="#3-Class类" class="headerlink" title="3.Class类"></a>3.Class类</h1><p>ES6提供了更接近传统语言的写法，引入了Class（类）这个概念。新的class写法让对象原型的写法更加清晰、更像面向对象编程的语法，也更加通俗易懂。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class Animal &#123;</div><div class="line">    constructor()&#123;</div><div class="line">        this.type = &apos;animal&apos;</div><div class="line">    &#125;</div><div class="line">    says(say)&#123;</div><div class="line">        console.log(this.type + &apos; says &apos; + say)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">let animal = new Animal()</div><div class="line">animal.says(&apos;hello&apos;) //animal says hello</div><div class="line"></div><div class="line">class Cat extends Animal &#123;</div><div class="line">    constructor()&#123;</div><div class="line">        super()</div><div class="line">        this.type = &apos;cat&apos;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">let cat = new Cat()</div><div class="line">cat.says(&apos;hello&apos;) //cat says hello</div></pre></td></tr></table></figure>
+<p>上面代码首先用class定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。简单地说，constructor内定义的方法和属性是实例对象自己的，而constructor外定义的方法和属性则是所有实例对象可以共享的。</p>
+<p>Class之间可以通过extends关键字实现继承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。上面定义了一个Cat类，该类通过extends关键字，继承了Animal类的所有属性和方法。</p>
+<p>super关键字，它指代父类的实例（即父类的this对象）。子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。</p>
+<p>ES6的继承机制，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。</p>
+<h1 id="4-Module模块化"><a href="#4-Module模块化" class="headerlink" title="4.Module模块化"></a>4.Module模块化</h1><p>ES6 之前，JS 一直没有 modules 体系，解决外部包的问题通过 CommonJS 和 AMD 模块加载方案，一个用于服务器，一个用于浏览器。ES6 提出的 modules （import／export）方案完全可以取代 CommonJS 和 AMD 成为浏览器和服务器通用的模块解决方案。</p>
+<p>关于模块，就只有两个命令，import 用于导入其他模块，export 用于输出模块。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">// profile.js</div><div class="line">var firstName = &apos;Michael&apos;;</div><div class="line">var lastName = &apos;Jackson&apos;;</div><div class="line">var year = 1958;</div><div class="line"></div><div class="line">export &#123;firstName, lastName, year&#125;;</div><div class="line"></div><div class="line">// main.js</div><div class="line">import &#123;firstName, lastName, year&#125; from &apos;./profile&apos;;</div><div class="line">console.log(firstName, lastName) // Michael Jackson</div></pre></td></tr></table></figure>
+<p>export 可以输出的内容很多，包括变量、函数、类，貌似都可以输出，还可以借助 export default 来加载默认输出。</p>
+<h2 id="模块加载的实质"><a href="#模块加载的实质" class="headerlink" title="模块加载的实质"></a>模块加载的实质</h2><p>ES6模块加载的机制，与CommonJS模块完全不同。CommonJS模块输出的是一个值的拷贝，而ES6模块输出的是值的引用。</p>
+<h2 id="循环加载"><a href="#循环加载" class="headerlink" title="循环加载"></a>循环加载</h2><p>循环加载也比较有意思，经常能看到 nodejs 中出现加载同一个模块，而循环加载却不常见，nodejs 使用 CommonJS 模块机制，CommonJS 的循环加载采用的是加载多少，输出多少，就像是我们平时打了断点一样，会跳到另外一个文件，执行完在跳回来。</p>
+<h1 id="5-Promise"><a href="#5-Promise" class="headerlink" title="5.Promise"></a>5.Promise</h1><h2 id="5-1为什么产生"><a href="#5-1为什么产生" class="headerlink" title="5.1为什么产生"></a>5.1为什么产生</h2><p>Promise的兴起，是因为异步方法调用中，往往会出现回调函数一环扣一环的情况。这种情况导致了回调金字塔问题的出现。不仅代码写起来费劲又不美观，而且问题复杂的时候，阅读代码的人也难以理解。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">db.save(data, function(data)&#123;</div><div class="line">    // do something...</div><div class="line">    db.save(data1, function(data)&#123;</div><div class="line">        // do something...</div><div class="line">        db.save(data2, function(data)&#123;</div><div class="line">            // do something...</div><div class="line">            done(data3); // 返回数据</div><div class="line">        &#125;)</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>假设有一个数据库保存操作，一次请求需要在三个表中保存三次数据。那么我们的代码就跟上面的代码相似了。这时候假设在第二个db.save出了问题怎么办？基于这个考虑，我们又需要在每一层回调中使用类似try…catch这样的逻辑。这个就是万恶的来源，也是node刚开始广为诟病的一点。</p>
+<p>另外一个缺点就是，假设我们的三次保存之间并没有前后依赖关系，我们仍然需要等待前面的函数执行完毕, 才能执行下一步，而无法三个保存并行，之后返回一个三个保存过后需要的结果。（或者说实现起来需要技巧）</p>
+<h2 id="5-2解决回调深渊Promise"><a href="#5-2解决回调深渊Promise" class="headerlink" title="5.2解决回调深渊Promise"></a>5.2解决回调深渊Promise</h2><p>Promise对象是一个有限状态机。它三个状态：</p>
+<ul>
+<li>Pending（进行中）</li>
+<li>Resolved（已完成，又称 Fulfilled））</li>
+<li>Rejected（已失败）</li>
+</ul>
+<p>状态转换关系为：pending-&gt;fulfilled，pending-&gt;rejected。</p>
+<h3 id="Promise形式"><a href="#Promise形式" class="headerlink" title="Promise形式"></a>Promise形式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">var promise = new Promise(function func(resolve, reject)&#123;</div><div class="line">    // do somthing, maybe async</div><div class="line">    if (success)&#123;</div><div class="line">      return resolve(data);</div><div class="line">    &#125; else &#123;</div><div class="line">      return reject(data);</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">promise.then(function(data)&#123;</div><div class="line">    // do something... e.g</div><div class="line">    console.log(data);</div><div class="line">&#125;, function(err)&#123;</div><div class="line">    // deal the err.</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="Promise数据流动"><a href="#Promise数据流动" class="headerlink" title="Promise数据流动"></a>Promise数据流动</h3><p>promise的then方法依然能够返回一个Promise对象，这样我们就又能用下一个then来做一样的处理。</p>
+<ul>
+<li>假设第一个then的第一个回调没有返回一个Promise对象，那么第二个then的调用者还是原来的Promise对象，只不过其resolve的值变成了第一个then中第一个回调函数的返回值。</li>
+<li>假设第一个then的第一个回调函数返回了一个Promise对象，那么第二个then的调用者变成了这个新的Promise对象，第二个then等待这个新的Promise对象resolve或者reject之后执行回调。</li>
+<li>如果任意地方遇到了错误，则错误之后交给遇到的第一个带第二个回调函数的then的第二个回调函数来处理。可以理解为错误一直向后reject, 直到被处理为止。</li>
+</ul>
+<h3 id="控制并发的Promise"><a href="#控制并发的Promise" class="headerlink" title="控制并发的Promise"></a>控制并发的Promise</h3><p>Promise有一个”静态方法”——Promise.all(注意并非是promise.prototype)， 这个方法接受一个元素是Promise对象的数组。</p>
+<h3 id="将其他对象变为Promise对象"><a href="#将其他对象变为Promise对象" class="headerlink" title="将其他对象变为Promise对象"></a>将其他对象变为Promise对象</h3><p>Promise.resovle方法，可以将不是Promise对象作为参数，返回一个Promise对象。</p>
+<h1 id="6-Generator"><a href="#6-Generator" class="headerlink" title="6.Generator"></a>6.Generator</h1><h1 id="7-async"><a href="#7-async" class="headerlink" title="7.async"></a>7.async</h1><p>async 函数是什么？一句话，它就是 Generator 函数的语法糖。</p>
+<h2 id="7-1async函数对-Generator-函数的改进"><a href="#7-1async函数对-Generator-函数的改进" class="headerlink" title="7.1async函数对 Generator 函数的改进"></a>7.1async函数对 Generator 函数的改进</h2><h3 id="内置执行器"><a href="#内置执行器" class="headerlink" title="内置执行器"></a>内置执行器</h3><p>Generator 函数的执行必须靠执行器，所以才有了co模块，而async函数自带执行器。也就是说，async函数的执行，与普通函数一模一样，只要一行。</p>
+<h3 id="更好的语义"><a href="#更好的语义" class="headerlink" title="更好的语义"></a>更好的语义</h3><p>async和await，比起星号和yield，语义更清楚了。async表示函数里有异步操作，await表示紧跟在后面的表达式需要等待结果。</p>
+<h3 id="更广的适用性"><a href="#更广的适用性" class="headerlink" title="更广的适用性"></a>更广的适用性</h3><p>co模块约定，yield命令后面只能是 Thunk 函数或 Promise 对象，而async函数的await命令后面，可以是Promise 对象和原始类型的值（数值、字符串和布尔值，但这时等同于同步操作）。</p>
+<h3 id="返回值是-Promise"><a href="#返回值是-Promise" class="headerlink" title="返回值是 Promise"></a>返回值是 Promise</h3><p>async函数的返回值是 Promise 对象，这比 Generator 函数的返回值是 Iterator 对象方便多了。你可以用then方法指定下一步的操作。</p>
+<h2 id="7-2async-函数与-Promise、Generator-函数的比较"><a href="#7-2async-函数与-Promise、Generator-函数的比较" class="headerlink" title="7.2async 函数与 Promise、Generator 函数的比较"></a>7.2async 函数与 Promise、Generator 函数的比较</h2><p>假定某个 DOM元素上面，部署了一系列的动画，前一个动画结束，才能开始后一个。如果当中有一个动画出错，就不再往下执行，返回上一个成功执行的动画的返回值。</p>
+<h3 id="Promise-的写法："><a href="#Promise-的写法：" class="headerlink" title="Promise 的写法："></a>Promise 的写法：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">function chainAnimationsPromise(elem, animations) &#123;</div><div class="line"></div><div class="line">  // 变量ret用来保存上一个动画的返回值</div><div class="line">  var ret = null;</div><div class="line"></div><div class="line">  // 新建一个空的Promise</div><div class="line">  var p = Promise.resolve();</div><div class="line"></div><div class="line">  // 使用then方法，添加所有动画</div><div class="line">  for(var anim of animations) &#123;</div><div class="line">    p = p.then(function(val) &#123;</div><div class="line">      ret = val;</div><div class="line">      return anim(elem);</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  // 返回一个部署了错误捕捉机制的Promise</div><div class="line">  return p.catch(function(e) &#123;</div><div class="line">    /* 忽略错误，继续执行 */</div><div class="line">  &#125;).then(function() &#123;</div><div class="line">    return ret;</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>虽然 Promise的写法比回调函数的写法大大改进，但是一眼看上去，代码完全都是 Promise 的 API（then、catch等等），操作本身的语义反而不容易看出来</p>
+<h3 id="Generator-函数的写法"><a href="#Generator-函数的写法" class="headerlink" title="Generator 函数的写法"></a>Generator 函数的写法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function chainAnimationsGenerator(elem, animations) &#123;</div><div class="line"></div><div class="line">  return spawn(function*() &#123;</div><div class="line">    var ret = null;</div><div class="line">    try &#123;</div><div class="line">      for(var anim of animations) &#123;</div><div class="line">        ret = yield anim(elem);</div><div class="line">      &#125;</div><div class="line">    &#125; catch(e) &#123;</div><div class="line">      /* 忽略错误，继续执行 */</div><div class="line">    &#125;</div><div class="line">    return ret;</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面代码使用 Generator 函数遍历了每个动画，语义比 Promise 写法更清晰，用户定义的操作全部都出现在spawn函数的内部。这个写法的问题在于，必须有一个任务运行器，自动执行 Generator 函数，上面代码的spawn函数就是自动执行器，它返回一个 Promise 对象，而且必须保证yield语句后面的表达式，必须返回一个 Promise。</p>
+<h3 id="async-函数的写法"><a href="#async-函数的写法" class="headerlink" title="async 函数的写法"></a>async 函数的写法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">async function chainAnimationsAsync(elem, animations) &#123;</div><div class="line">  var ret = null;</div><div class="line">  try &#123;</div><div class="line">    for(var anim of animations) &#123;</div><div class="line">      ret = await anim(elem);</div><div class="line">    &#125;</div><div class="line">  &#125; catch(e) &#123;</div><div class="line">    /* 忽略错误，继续执行 */</div><div class="line">  &#125;</div><div class="line">  return ret;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到Async函数的实现最简洁，最符合语义，几乎没有语义不相关的代码。它将Generator写法中的自动执行器，改在语言层面提供，不暴露给用户，因此代码量最少。如果使用Generator写法，自动执行器需要用户自己提供。</p>
+<p><a href="https://segmentfault.com/a/1190000004365693" target="_blank" rel="external">参考链接1</a><br><a href="http://web.jobbole.com/87140/" target="_blank" rel="external">参考链接2</a><br><a href="https://segmentfault.com/a/1190000007817990#articleHeader16" target="_blank" rel="external">参考链接3</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;1-一些核心功能&quot;&gt;&lt;a href=&quot;#1-一些核心功能&quot; class=&quot;headerlink&quot; title=&quot;1. 一些核心功能&quot;&gt;&lt;/a&gt;1. 一些核心功能&lt;/h1&gt;&lt;h2 id=&quot;1-1-let-const&quot;&gt;&lt;a href=&quot;#1-1-let-const&quot; class=&quot;headerlink&quot; title=&quot;1.1 let const&quot;&gt;&lt;/a&gt;1.1 let const&lt;/h2&gt;&lt;p&gt;ES5 通过 var 来申明变量，ES6 新添 let 和 const，且作用域是 块级作用域。&lt;/p&gt;
+&lt;p&gt;let 使用和 var 非常类似，let 不存在变量提升，也不允许重复申明，let 的声明只能在它所在的代码块有效&lt;/p&gt;
+&lt;p&gt;const 就是申明常量用的，一旦申明即被锁定，后面无法更改。&lt;br&gt;
+    
+    </summary>
+    
+      <category term="javascript&amp;ES6" scheme="https://barryleeweb.github.io/categories/javascript-ES6/"/>
+    
+    
+      <category term="ES6" scheme="https://barryleeweb.github.io/tags/ES6/"/>
+    
+      <category term="箭头函数" scheme="https://barryleeweb.github.io/tags/%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0/"/>
+    
+      <category term="Promise" scheme="https://barryleeweb.github.io/tags/Promise/"/>
+    
+  </entry>
   
   <entry>
     <title>IMWeb面试题整理</title>
@@ -243,16 +685,22 @@
     <link href="https://barryleeweb.github.io/2017/08/04/git%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"/>
     <id>https://barryleeweb.github.io/2017/08/04/git使用方法/</id>
     <published>2017-08-03T16:30:31.109Z</published>
-    <updated>2017-08-03T16:38:18.145Z</updated>
+    <updated>2017-08-08T15:57:37.151Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="上传本地代码到GitHub"><a href="#上传本地代码到GitHub" class="headerlink" title="上传本地代码到GitHub"></a>上传本地代码到GitHub</h1><h2 id="1-建立git仓库"><a href="#1-建立git仓库" class="headerlink" title="1.建立git仓库"></a>1.建立git仓库</h2><p>git init</p>
-<h2 id="2-将项目的所有文件添加到仓库中"><a href="#2-将项目的所有文件添加到仓库中" class="headerlink" title="2.将项目的所有文件添加到仓库中"></a>2.将项目的所有文件添加到仓库中</h2><p>git add .</p>
-<h2 id="3-将add的文件commit到仓库"><a href="#3-将add的文件commit到仓库" class="headerlink" title="3.将add的文件commit到仓库"></a>3.将add的文件commit到仓库</h2><p>git commit -m “创建仓库”</p>
-<h2 id="4-去github上创建自己的Repository"><a href="#4-去github上创建自己的Repository" class="headerlink" title="4.去github上创建自己的Repository"></a>4.去github上创建自己的Repository</h2><p>复制仓库的https地址</p>
-<h2 id="5-将本地的仓库关联到github上"><a href="#5-将本地的仓库关联到github上" class="headerlink" title="5.将本地的仓库关联到github上"></a>5.将本地的仓库关联到github上</h2><p>git remote add origin <a href="https://github.com/。。。" target="_blank" rel="external">https://github.com/。。。</a></p>
-<h2 id="6-上传github之前，要先pull一下"><a href="#6-上传github之前，要先pull一下" class="headerlink" title="6.上传github之前，要先pull一下"></a>6.上传github之前，要先pull一下</h2><p>git pull origin master</p>
-<h2 id="7-上传代码到github远程仓库"><a href="#7-上传代码到github远程仓库" class="headerlink" title="7.上传代码到github远程仓库"></a>7.上传代码到github远程仓库</h2><p>git push -u origin master</p>
-<h1 id="拷贝代码"><a href="#拷贝代码" class="headerlink" title="拷贝代码"></a>拷贝代码</h1><p>git clone <a href="https://github.com/" target="_blank" rel="external">https://github.com/</a>…<br><a id="more"></a></p>
+    <content type="html"><![CDATA[<h1 id="上传本地代码到GitHub"><a href="#上传本地代码到GitHub" class="headerlink" title="上传本地代码到GitHub"></a>上传本地代码到GitHub</h1><h3 id="1-建立git仓库"><a href="#1-建立git仓库" class="headerlink" title="1.建立git仓库"></a>1.建立git仓库</h3><p>git init</p>
+<h3 id="2-将项目的所有文件添加到仓库中"><a href="#2-将项目的所有文件添加到仓库中" class="headerlink" title="2.将项目的所有文件添加到仓库中"></a>2.将项目的所有文件添加到仓库中</h3><p>git add .</p>
+<h3 id="3-将add的文件commit到仓库"><a href="#3-将add的文件commit到仓库" class="headerlink" title="3.将add的文件commit到仓库"></a>3.将add的文件commit到仓库</h3><p>git commit -m “创建仓库”</p>
+<h3 id="4-去github上创建自己的Repository"><a href="#4-去github上创建自己的Repository" class="headerlink" title="4.去github上创建自己的Repository"></a>4.去github上创建自己的Repository</h3><p>复制仓库的https地址</p>
+<h3 id="5-将本地的仓库关联到github上"><a href="#5-将本地的仓库关联到github上" class="headerlink" title="5.将本地的仓库关联到github上"></a>5.将本地的仓库关联到github上</h3><p>git remote add origin <a href="https://github.com/。。。" target="_blank" rel="external">https://github.com/。。。</a></p>
+<h3 id="6-上传github之前，要先pull一下"><a href="#6-上传github之前，要先pull一下" class="headerlink" title="6.上传github之前，要先pull一下"></a>6.上传github之前，要先pull一下</h3><p>git pull origin master</p>
+<h3 id="7-上传代码到github远程仓库"><a href="#7-上传代码到github远程仓库" class="headerlink" title="7.上传代码到github远程仓库"></a>7.上传代码到github远程仓库</h3><p>git push -u origin master<br><a id="more"></a></p>
+<h1 id="拷贝代码"><a href="#拷贝代码" class="headerlink" title="拷贝代码"></a>拷贝代码</h1><p>git clone <a href="https://github.com/" target="_blank" rel="external">https://github.com/</a>…</p>
+<h1 id="创建-gitignore-文件"><a href="#创建-gitignore-文件" class="headerlink" title="创建 .gitignore 文件"></a>创建 .gitignore 文件</h1><ul>
+<li>输入 touch .gitignore ，生成“.gitignore”文件。</li>
+<li>在”.gitignore” 文件里输入你要忽略的文件夹及其文件就可以了</li>
+<li>格式：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">.deploy_git/</div><div class="line">node_modules/</div><div class="line">public/</div></pre></td></tr></table></figure>
 <h1 id="关于分支Branch"><a href="#关于分支Branch" class="headerlink" title="关于分支Branch"></a>关于分支Branch</h1><h2 id="1-什么是分支Branch？"><a href="#1-什么是分支Branch？" class="headerlink" title="1. 什么是分支Branch？"></a>1. 什么是分支Branch？</h2><p>GitHub仓库默认有一个master的分支，当我们在master分支开发过程中接到一个新的功能需求，我们就可以新建一个分支同步开发而互不影响，开发完成后，在合并merge到主分支master上。</p>
 <h2 id="2-分支操作"><a href="#2-分支操作" class="headerlink" title="2.分支操作"></a>2.分支操作</h2><p>现在我们需要合并两个分支：”master” 和 “gh-pages”</p>
 <ul>
@@ -321,14 +769,13 @@
     
     <summary type="html">
     
-      &lt;h1 id=&quot;上传本地代码到GitHub&quot;&gt;&lt;a href=&quot;#上传本地代码到GitHub&quot; class=&quot;headerlink&quot; title=&quot;上传本地代码到GitHub&quot;&gt;&lt;/a&gt;上传本地代码到GitHub&lt;/h1&gt;&lt;h2 id=&quot;1-建立git仓库&quot;&gt;&lt;a href=&quot;#1-建立git仓库&quot; class=&quot;headerlink&quot; title=&quot;1.建立git仓库&quot;&gt;&lt;/a&gt;1.建立git仓库&lt;/h2&gt;&lt;p&gt;git init&lt;/p&gt;
-&lt;h2 id=&quot;2-将项目的所有文件添加到仓库中&quot;&gt;&lt;a href=&quot;#2-将项目的所有文件添加到仓库中&quot; class=&quot;headerlink&quot; title=&quot;2.将项目的所有文件添加到仓库中&quot;&gt;&lt;/a&gt;2.将项目的所有文件添加到仓库中&lt;/h2&gt;&lt;p&gt;git add .&lt;/p&gt;
-&lt;h2 id=&quot;3-将add的文件commit到仓库&quot;&gt;&lt;a href=&quot;#3-将add的文件commit到仓库&quot; class=&quot;headerlink&quot; title=&quot;3.将add的文件commit到仓库&quot;&gt;&lt;/a&gt;3.将add的文件commit到仓库&lt;/h2&gt;&lt;p&gt;git commit -m “创建仓库”&lt;/p&gt;
-&lt;h2 id=&quot;4-去github上创建自己的Repository&quot;&gt;&lt;a href=&quot;#4-去github上创建自己的Repository&quot; class=&quot;headerlink&quot; title=&quot;4.去github上创建自己的Repository&quot;&gt;&lt;/a&gt;4.去github上创建自己的Repository&lt;/h2&gt;&lt;p&gt;复制仓库的https地址&lt;/p&gt;
-&lt;h2 id=&quot;5-将本地的仓库关联到github上&quot;&gt;&lt;a href=&quot;#5-将本地的仓库关联到github上&quot; class=&quot;headerlink&quot; title=&quot;5.将本地的仓库关联到github上&quot;&gt;&lt;/a&gt;5.将本地的仓库关联到github上&lt;/h2&gt;&lt;p&gt;git remote add origin &lt;a href=&quot;https://github.com/。。。&quot;&gt;https://github.com/。。。&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&quot;6-上传github之前，要先pull一下&quot;&gt;&lt;a href=&quot;#6-上传github之前，要先pull一下&quot; class=&quot;headerlink&quot; title=&quot;6.上传github之前，要先pull一下&quot;&gt;&lt;/a&gt;6.上传github之前，要先pull一下&lt;/h2&gt;&lt;p&gt;git pull origin master&lt;/p&gt;
-&lt;h2 id=&quot;7-上传代码到github远程仓库&quot;&gt;&lt;a href=&quot;#7-上传代码到github远程仓库&quot; class=&quot;headerlink&quot; title=&quot;7.上传代码到github远程仓库&quot;&gt;&lt;/a&gt;7.上传代码到github远程仓库&lt;/h2&gt;&lt;p&gt;git push -u origin master&lt;/p&gt;
-&lt;h1 id=&quot;拷贝代码&quot;&gt;&lt;a href=&quot;#拷贝代码&quot; class=&quot;headerlink&quot; title=&quot;拷贝代码&quot;&gt;&lt;/a&gt;拷贝代码&lt;/h1&gt;&lt;p&gt;git clone &lt;a href=&quot;https://github.com/&quot;&gt;https://github.com/&lt;/a&gt;…&lt;br&gt;
+      &lt;h1 id=&quot;上传本地代码到GitHub&quot;&gt;&lt;a href=&quot;#上传本地代码到GitHub&quot; class=&quot;headerlink&quot; title=&quot;上传本地代码到GitHub&quot;&gt;&lt;/a&gt;上传本地代码到GitHub&lt;/h1&gt;&lt;h3 id=&quot;1-建立git仓库&quot;&gt;&lt;a href=&quot;#1-建立git仓库&quot; class=&quot;headerlink&quot; title=&quot;1.建立git仓库&quot;&gt;&lt;/a&gt;1.建立git仓库&lt;/h3&gt;&lt;p&gt;git init&lt;/p&gt;
+&lt;h3 id=&quot;2-将项目的所有文件添加到仓库中&quot;&gt;&lt;a href=&quot;#2-将项目的所有文件添加到仓库中&quot; class=&quot;headerlink&quot; title=&quot;2.将项目的所有文件添加到仓库中&quot;&gt;&lt;/a&gt;2.将项目的所有文件添加到仓库中&lt;/h3&gt;&lt;p&gt;git add .&lt;/p&gt;
+&lt;h3 id=&quot;3-将add的文件commit到仓库&quot;&gt;&lt;a href=&quot;#3-将add的文件commit到仓库&quot; class=&quot;headerlink&quot; title=&quot;3.将add的文件commit到仓库&quot;&gt;&lt;/a&gt;3.将add的文件commit到仓库&lt;/h3&gt;&lt;p&gt;git commit -m “创建仓库”&lt;/p&gt;
+&lt;h3 id=&quot;4-去github上创建自己的Repository&quot;&gt;&lt;a href=&quot;#4-去github上创建自己的Repository&quot; class=&quot;headerlink&quot; title=&quot;4.去github上创建自己的Repository&quot;&gt;&lt;/a&gt;4.去github上创建自己的Repository&lt;/h3&gt;&lt;p&gt;复制仓库的https地址&lt;/p&gt;
+&lt;h3 id=&quot;5-将本地的仓库关联到github上&quot;&gt;&lt;a href=&quot;#5-将本地的仓库关联到github上&quot; class=&quot;headerlink&quot; title=&quot;5.将本地的仓库关联到github上&quot;&gt;&lt;/a&gt;5.将本地的仓库关联到github上&lt;/h3&gt;&lt;p&gt;git remote add origin &lt;a href=&quot;https://github.com/。。。&quot;&gt;https://github.com/。。。&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;6-上传github之前，要先pull一下&quot;&gt;&lt;a href=&quot;#6-上传github之前，要先pull一下&quot; class=&quot;headerlink&quot; title=&quot;6.上传github之前，要先pull一下&quot;&gt;&lt;/a&gt;6.上传github之前，要先pull一下&lt;/h3&gt;&lt;p&gt;git pull origin master&lt;/p&gt;
+&lt;h3 id=&quot;7-上传代码到github远程仓库&quot;&gt;&lt;a href=&quot;#7-上传代码到github远程仓库&quot; class=&quot;headerlink&quot; title=&quot;7.上传代码到github远程仓库&quot;&gt;&lt;/a&gt;7.上传代码到github远程仓库&lt;/h3&gt;&lt;p&gt;git push -u origin master&lt;br&gt;
     
     </summary>
     
@@ -379,21 +826,135 @@
     <link href="https://barryleeweb.github.io/2017/07/26/%E5%B8%B8%E8%A7%81%E6%8E%92%E5%BA%8F%E5%8F%8A%E6%9F%A5%E6%89%BE%E7%AE%97%E6%B3%95/"/>
     <id>https://barryleeweb.github.io/2017/07/26/常见排序及查找算法/</id>
     <published>2017-07-25T16:03:57.544Z</published>
-    <updated>2017-07-25T16:15:44.212Z</updated>
+    <updated>2017-08-08T16:03:25.304Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="1-冒泡排序"><a href="#1-冒泡排序" class="headerlink" title="1.冒泡排序"></a>1.冒泡排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function bubbleSort(arr)&#123;</div><div class="line">	var i = j = 0;</div><div class="line">	for(i=1;i&lt;arr.length;i++)&#123;</div><div class="line">		for(j=0;j&lt;=arr.length-i;j++)&#123;</div><div class="line">			var temp = 0;</div><div class="line">			if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">				temp = arr[j];</div><div class="line">				arr[j] = arr[j+1];</div><div class="line">				arr[j+1] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="2-快速排序"><a href="#2-快速排序" class="headerlink" title="2.快速排序"></a>2.快速排序</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">function quickSort(arr,l,r)&#123;</div><div class="line">	if(l &lt; r)&#123;</div><div class="line">		var i = l, j = r, x = arr[i];</div><div class="line">		while(i&lt;j)&#123;</div><div class="line">			while(i&lt;j &amp;&amp; arr[j]&gt;x)</div><div class="line">				j--;</div><div class="line">			</div><div class="line">			if(i&lt;j)</div><div class="line">				//这里用i++，被换过来的必然比x小，赋值后直接让i自加，不用再比较，可以提高效率</div><div class="line">				arr[i++] = arr[j];</div><div class="line">			</div><div class="line">			while(i&lt;j &amp;&amp; arr[i]&lt;x)</div><div class="line">				i++;</div><div class="line">			</div><div class="line">			if(i&lt;j)</div><div class="line">				//这里用j--，被换过来的必然比x大，赋值后直接让j自减，不用再比较，可以提高效率</div><div class="line">				arr[j--] = arr[i];</div><div class="line">		&#125;</div><div class="line">		arr[i] = x;</div><div class="line">		</div><div class="line">		quickSort(arr, l, i-1);</div><div class="line">		quickSort(arr, i+1, r);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="3-二路归并"><a href="#3-二路归并" class="headerlink" title="3.二路归并"></a>3.二路归并</h2><p>将两个按值有序序列合并成一个按值有序序列，则称之为二路归并排序。</p>
+    <content type="html"><![CDATA[<h1 id="Javascript实现八大排序"><a href="#Javascript实现八大排序" class="headerlink" title="Javascript实现八大排序"></a>Javascript实现八大排序</h1><p><a href="http://www.jb51.net/article/88392.htm" target="_blank" rel="external">参考链接1</a><br><a href="http://www.qdfuns.com/notes/36539/24a66634ecba54ab3d8f7407168754f2.html" target="_blank" rel="external">参考链接2</a><br><a href="http://blog.csdn.net/hguisu/article/details/7776068/" target="_blank" rel="external">参考链接3</a></p>
+<p>排序算法，分为内部排序和外部排序。内部排序要使用内存，而外部排序是因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。这里只探讨内部排序。</p>
+<ol>
+<li>交换排序：冒泡排序和快速排序</li>
+<li>插入排序：直接插入排序和希尔排序</li>
+<li>选择排序：简单选择排序和堆排序</li>
+<li>归并排序</li>
+<li>基数排序</li>
+</ol>
+<p>当n较大，则应采用时间复杂度为O(nlog2n)的排序方法：快速排序、堆排序或归并排序序。</p>
+<p><strong>快速排序</strong>：是目前基于比较的内部排序中被认为是最好的方法，当待排序的关键字是随机分布时，快速排序的平均时间最短。<br><a id="more"></a></p>
+<h2 id="1-冒泡排序"><a href="#1-冒泡排序" class="headerlink" title="1.冒泡排序"></a>1.冒泡排序</h2><ul>
+<li>原理：临近的数字两两进行比较,按照从小到大或者从大到小的顺序进行交换,这样一趟过去后,最大或最小的数字被交换到了最后一位,然后再从头开始进行两两比较交换,直到倒数第二位时结束</li>
+<li>时间复杂度：平均情况：O（n2）  最好情况：O（n） 最坏情况：O（n2）</li>
+<li>空间复杂度：O（1）</li>
+<li>稳定性：稳定<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function bubbleSort(arr)&#123;</div><div class="line">	var i = j = 0;</div><div class="line">	for(i=1;i&lt;arr.length;i++)&#123;</div><div class="line">		for(j=0;j&lt;=arr.length-i;j++)&#123;</div><div class="line">			var temp = 0;</div><div class="line">			if(arr[j]&gt;arr[j+1])&#123;</div><div class="line">				temp = arr[j];</div><div class="line">				arr[j] = arr[j+1];</div><div class="line">				arr[j+1] = temp;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="2-快速排序"><a href="#2-快速排序" class="headerlink" title="2.快速排序"></a>2.快速排序</h2><ul>
+<li>原理：通过一趟排序将要排序的数据分割成独立的两部分，其中一部分的所有数据都比另外一部分的所有数据都要小，然后再按此方法对这两部分数据分别进行快速排序，整个排序过程可以递归进行，以此达到整个数据变成有序序列。</li>
+<li>时间复杂度:平均情况：O（nlog2n）  最好情况：O（nlog2n） 最坏情况：O（n2）</li>
+<li>空间复杂度：O（nlog2n）</li>
+<li>稳定性：不稳定</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">function quickSort(arr,l,r)&#123;</div><div class="line">	if(l &lt; r)&#123;</div><div class="line">		var i = l, j = r, x = arr[i];</div><div class="line">		while(i&lt;j)&#123;</div><div class="line">			while(i&lt;j &amp;&amp; arr[j]&gt;x)</div><div class="line">				j--;</div><div class="line">			</div><div class="line">			if(i&lt;j)</div><div class="line">				//这里用i++，被换过来的必然比x小，赋值后直接让i自加，不用再比较，可以提高效率</div><div class="line">				arr[i++] = arr[j];</div><div class="line">			</div><div class="line">			while(i&lt;j &amp;&amp; arr[i]&lt;x)</div><div class="line">				i++;</div><div class="line">			</div><div class="line">			if(i&lt;j)</div><div class="line">				//这里用j--，被换过来的必然比x大，赋值后直接让j自减，不用再比较，可以提高效率</div><div class="line">				arr[j--] = arr[i];</div><div class="line">		&#125;</div><div class="line">		arr[i] = x;</div><div class="line">		</div><div class="line">		quickSort(arr, l, i-1);</div><div class="line">		quickSort(arr, i+1, r);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-直接插入排序"><a href="#3-直接插入排序" class="headerlink" title="3.直接插入排序"></a>3.直接插入排序</h2><ul>
+<li>原理：将一个记录插入到已排序好的有序表中，从而得到一个新，记录数增1的有序表。即：先将序列的第1个记录看成是一个有序的子序列，然后从第2个记录逐个进行插入，直至整个序列有序为止。             比冒泡法和选择排序的性能要更好一些</li>
+<li>时间复杂度：平均情况：O（n2）  最好情况：O（n） 最坏情况：O（n2）</li>
+<li>空间复杂度：O（1）</li>
+<li>稳定性：稳定</li>
+</ul>
+<p>要点：设立哨兵，作为临时存储和判断数组边界之用。</p>
+<p><img src="http://my.csdn.net/uploads/201207/17/1342520948_8667.jpg" alt="image"></p>
+<p>如果碰见一个和插入元素相等的，那么插入元素把想插入的元素放在相等元素的后面。所以，相等元素的前后顺序没有改变，从原无序序列出去的顺序就是排好序后的顺序，所以插入排序是稳定的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">var array = [23,0,32,45,56,75,43,0,34];</div><div class="line">for(var j = 0;j &lt; array.length;j++) &#123;</div><div class="line"> var key = array[j];</div><div class="line"> var i = j - 1;</div><div class="line"> while (i &gt; -1 &amp;&amp; array[i] &gt; key)</div><div class="line"> &#123;</div><div class="line">  array[i + 1] = array[i];</div><div class="line">  i = i - 1;</div><div class="line"> &#125;</div><div class="line"> array[i + 1] = key;</div><div class="line">&#125;</div><div class="line">console.log(array);</div></pre></td></tr></table></figure></p>
+<h2 id="4-希尔排序"><a href="#4-希尔排序" class="headerlink" title="4.希尔排序"></a>4.希尔排序</h2><ul>
+<li>原理：先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，待整个序列中的记录“基本有序”时，再对全体记录进行依次直接插入排序。。</li>
+<li>时间复杂度:平均情况：O(n√n)  最好情况：O（nlog2n） 最坏情况：O（n2）</li>
+<li>空间复杂度：O（1）</li>
+<li>稳定性：不稳定 </li>
+</ul>
+<p><strong>操作方法</strong>：</p>
+<ol>
+<li>选择一个增量序列t1，t2，…，tk，其中ti&gt;tj，tk=1；</li>
+<li>按增量序列个数k，对序列进行k 趟排序；</li>
+<li>每趟排序，根据对应的增量ti，将待排序列分割成若干长度为m 的子序列，分别对各子表进行直接插入排序。仅增量因子为1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。</li>
+</ol>
+<p><img src="http://my.csdn.net/uploads/201207/18/1342577299_5077.jpg" alt="image"><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> array = [<span class="number">23</span>,<span class="number">0</span>,<span class="number">32</span>,<span class="number">45</span>,<span class="number">56</span>,<span class="number">75</span>,<span class="number">43</span>,<span class="number">0</span>,<span class="number">34</span>];</div><div class="line"><span class="keyword">var</span> shellSort = <span class="function"><span class="keyword">function</span> (<span class="params">arr</span>)</span></div><div class="line">&#123;</div><div class="line">  <span class="keyword">var</span> length=arr.length;</div><div class="line">  <span class="keyword">var</span> h=<span class="number">1</span>;</div><div class="line">  <span class="keyword">while</span>(h&lt;length/<span class="number">3</span>)</div><div class="line">  &#123;</div><div class="line">    h=<span class="number">3</span>*h+<span class="number">1</span>;<span class="comment">//设置间隔</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">while</span>(h&gt;=<span class="number">1</span>)</div><div class="line">  &#123;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i=h; i&lt;length; i++)</div><div class="line">    &#123;</div><div class="line">      <span class="keyword">for</span>(<span class="keyword">var</span> j=i; j&gt;=h &amp;&amp; arr[j]&lt;arr[j-h]; j-=h)</div><div class="line">      &#123;</div><div class="line">        <span class="keyword">var</span> temp =arr[j-h];</div><div class="line">        arr[j-h]=arr[j];</div><div class="line">        arr[j]=temp;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    h=(h<span class="number">-1</span>)/<span class="number">3</span>;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> arr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> newArray = shellSort(array);</div><div class="line"><span class="built_in">console</span>.log(newArray);</div></pre></td></tr></table></figure></p>
+<h2 id="5-简单选择排序"><a href="#5-简单选择排序" class="headerlink" title="5.简单选择排序"></a>5.简单选择排序</h2><ul>
+<li>原理：通过n-i次关键字之间的比较,从n-i+1 个记录中选择关键字最小的记录,并和第i(1&lt;=i&lt;=n)个记录交换         简单选择排序的性能要略优于冒泡排序</li>
+<li>时间复杂度:平均情况：O（n2）  最好情况：O（n） 最坏情况：O（n2）</li>
+<li>空间复杂度：O（1）</li>
+<li>稳定性：不稳定</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">var array = [23,0,32,45,56,75,43,0,34];</div><div class="line"> </div><div class="line">for(var i = 0; i &lt; array.length - 1; i++)</div><div class="line">&#123;</div><div class="line"> var pos = i;</div><div class="line"> for(var j = i + 1; j &lt; array.length;j++)</div><div class="line"> &#123;</div><div class="line">  if(array[j] &lt; array[pos])</div><div class="line">  &#123;</div><div class="line">   pos=j;</div><div class="line">  &#125;</div><div class="line"> &#125;</div><div class="line"> var temp=array[i];</div><div class="line"> array[i]=array[pos];</div><div class="line"> array[pos]=temp;</div><div class="line">&#125;</div><div class="line">console.log(array);</div></pre></td></tr></table></figure>
+<h2 id="6-堆排序"><a href="#6-堆排序" class="headerlink" title="6.堆排序"></a>6.堆排序</h2><ul>
+<li>原理：堆排序就是利用堆进行排序的方法.基本思想是:将待排序的序列构造成一个大顶堆.此时,整个序列的最大值就是堆顶 的根结点.将它移走(其实就是将其与堆数组的末尾元素交换, 此时末尾元素就是最大值),然后将剩余的n-1个序列重新构造成一个堆,这样就会得到n个元素的次大值.如此反复执行,便能得到一个有序序列了</li>
+<li>时间复杂度：平均情况：O(nlog2n)  最好情况：O（nlog2n） 最坏情况：O（nlog2n）</li>
+<li>空间复杂度：O（1）</li>
+<li>稳定性：不稳定 </li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">var array = [23,0,32,45,56,75,43,0,34];</div><div class="line">function heapSort(array)</div><div class="line">&#123;</div><div class="line">  for (var i = Math.floor(array.length / 2); i &gt;= 0; i--)</div><div class="line">  &#123;</div><div class="line">    heapAdjust(array, i, array.length - 1); //将数组array构建成一个大顶堆</div><div class="line">  &#125;</div><div class="line">  for (i = array.length - 1; i &gt;= 0; i--)</div><div class="line">  &#123;</div><div class="line">    /*把根节点交换出去*/</div><div class="line">    var temp = array[i];</div><div class="line">    array[i] = array[0];</div><div class="line">    array[0] = temp;</div><div class="line">    /*余下的数组继续构建成大顶堆*/</div><div class="line">    heapAdjust(array, 0, i - 1);</div><div class="line">  &#125;</div><div class="line">  return array;</div><div class="line">&#125;</div><div class="line"> </div><div class="line">function heapAdjust(array, start, max)</div><div class="line">&#123;</div><div class="line">  var temp = array[start];//temp是根节点的值</div><div class="line">  for (var j = 2 * start; j &lt; max; j *= 2)</div><div class="line">  &#123;</div><div class="line">    if (j &lt; max &amp;&amp; array[j] &lt; array[j + 1])</div><div class="line">    &#123; //取得较大孩子的下标</div><div class="line">      ++j;</div><div class="line">    &#125;</div><div class="line">    if (temp &gt;= array[j])</div><div class="line">      break;</div><div class="line">    array[start] = array[j];</div><div class="line">    start = j;</div><div class="line">  &#125;</div><div class="line">  array[start] = temp;</div><div class="line">&#125;</div><div class="line">var newArray = heapSort(array);</div><div class="line">console.log(newArray);</div></pre></td></tr></table></figure>
+<h2 id="7-二路归并"><a href="#7-二路归并" class="headerlink" title="7.二路归并"></a>7.二路归并</h2><ul>
+<li>原理：假设初始序列含有n个记录,则可以看成n个有序的子序列,每个子序列的长度为1,然后两两归并,得到(不小于n/2的最小整数)个长度为2或1的有序子序列,再两两归并,…如此重复,直至得到一个长度为n的有序序列为止　　　</li>
+<li>时间复杂度:平均情况：O(nlog2n)  最好情况：O（nlog2n） 最坏情况：O（nlog2n）</li>
+<li>空间复杂度：O（1）</li>
+<li>稳定性：稳定</li>
+</ul>
+<p>将两个按值有序序列合并成一个按值有序序列，则称之为二路归并排序。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">function merge(left, right) &#123;</div><div class="line">    var result = [],</div><div class="line">        il = 0,</div><div class="line">        ir = 0;</div><div class="line"></div><div class="line">    while (il &lt; left.length &amp;&amp; ir &lt; right.length) &#123;</div><div class="line">        if (left[il] &lt; right[ir]) &#123;</div><div class="line">            result.push(left[il++]);</div><div class="line">        &#125; else &#123;</div><div class="line">            result.push(right[ir++]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    while(left[il])&#123;</div><div class="line">        result.push(left[il++]);</div><div class="line">	&#125;</div><div class="line">    while(right[ir])&#123;</div><div class="line">        result.push(right[ir++]);</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="4-二分查找"><a href="#4-二分查找" class="headerlink" title="4.二分查找"></a>4.二分查找</h2><p>二分查找又称折半查找，是在有序数组查找中用到的较为频繁的一种算法，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。</p>
+<h2 id="8-基数排序"><a href="#8-基数排序" class="headerlink" title="8.基数排序"></a>8.基数排序</h2><ul>
+<li>原理：将整数按位数切割成不同的数字，然后按每个位数分别比较。由于整数也可以表达字符串（比如名字或日期）和特定格式的浮点数，所以基数排序也不是只能使用于整数。　　</li>
+<li>时间复杂度：平均情况：O(d(r+n))  最好情况：O（d(n+rd)） 最坏情况：O（d(r+n)）   r:关键字的基数   d:长度  n:关键字个数</li>
+<li>空间复杂度：O（rd+n）</li>
+<li>稳定性：稳定 </li>
+</ul>
+<h2 id="9-排序总结"><a href="#9-排序总结" class="headerlink" title="9.排序总结"></a>9.排序总结</h2><p><img src="http://my.csdn.net/uploads/201207/19/1342700879_2982.jpg" alt="image"></p>
+<p><img src="http://my.csdn.net/uploads/201207/21/1342856655_3698.jpg" alt="image"><br><strong>说明：</strong></p>
+<ul>
+<li>当原表有序或基本有序时，直接插入排序和冒泡排序将大大减少比较次数和移动记录的次数，时间复杂度可降至O（n）；</li>
+<li>而快速排序则相反，当原表基本有序时，将蜕化为冒泡排序，时间复杂度提高为O（n2）；</li>
+<li>原表是否有序，对简单选择排序、堆排序、归并排序和基数排序的时间复杂度影响不大。</li>
+<li><strong>稳定性：</strong></li>
+<li>排序算法的稳定性: 若待排序的序列中，存在多个具有相同关键字的记录，经过排序， 这些记录的相对次序保持不变，则称该算法是稳定的；若经排序后，记录的相对 次序发生了改变，则称该算法是不稳定的。</li>
+<li>稳定性的好处：排序算法如果是稳定的，那么从一个键上排序，然后再从另一个键上排序，第一个键排序的结果可以为第二个键排序所用。基数排序就是这样，先按低位排序，逐次按高位排序，低位相同的元素其顺序再高位也相同时是不会改变的。另外，如果排序算法稳定，可以避免多余的比较； </li>
+<li>稳定的排序算法：冒泡排序、插入排序、归并排序和基数排序</li>
+<li>不是稳定的排序算法：选择排序、快速排序、希尔排序、堆排序</li>
+</ul>
+<h2 id="10-选择排序算法准则"><a href="#10-选择排序算法准则" class="headerlink" title="10.选择排序算法准则"></a>10.选择排序算法准则</h2><p>每种排序算法都各有优缺点。因此，在实用时需根据不同情况适当选用，甚至可以将多种方法结合起来使用。<br>一般而言，需要考虑的因素有以下四点：</p>
+<ol>
+<li>待排序的记录数目n的大小；</li>
+<li>记录本身数据量的大小，也就是记录中除关键字外的其他信息量的大小；</li>
+<li>关键字的结构及其分布情况；</li>
+<li>对排序稳定性的要求。</li>
+</ol>
+<p><strong>设待排序元素的个数为n</strong>:</p>
+<ol>
+<li>当n较大，则应采用时间复杂度为O(nlog2n)的排序方法：快速排序、堆排序或归并排序序。</li>
+</ol>
+<ul>
+<li>快速排序：是目前基于比较的内部排序中被认为是最好的方法，当待排序的关键字是随机分布时，快速排序的平均时间最短；</li>
+<li>堆排序 ：  如果内存空间允许且要求稳定性的，</li>
+<li>归并排序：它有一定数量的数据移动，所以我们可能过与插入排序组合，先获得一定长度的序列，然后再合并，在效率上将有所提高。</li>
+</ul>
+<ol>
+<li>当n较大，内存空间允许，且要求稳定性 =》归并排序</li>
+<li>当n较小，可采用直接插入或直接选择排序。<br> 直接插入排序：当元素分布有序，直接插入排序将大大减少比较次数和移动记录的次数。<br> 直接选择排序 ：元素分布有序，如果不要求稳定性，选择直接选择排序</li>
+<li>一般不使用或不直接使用传统的冒泡排序。</li>
+<li>基数排序</li>
+</ol>
+<h1 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h1><h2 id="1-二分查找"><a href="#1-二分查找" class="headerlink" title="1.二分查找"></a>1.二分查找</h2><p>二分查找又称折半查找，是在有序数组查找中用到的较为频繁的一种算法，优点是比较次数少，查找速度快，平均性能好；其缺点是要求待查表为有序表，且插入删除困难。</p>
 <h3 id="非递归实现"><a href="#非递归实现" class="headerlink" title="非递归实现"></a>非递归实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">function binary_search(arr, key) &#123;</div><div class="line">    var low = 0,</div><div class="line">        high = arr.length - 1;</div><div class="line">    while(low &lt;= high)&#123;</div><div class="line">        var mid = parseInt((high + low) / 2);</div><div class="line">        if(key == arr[mid])&#123;</div><div class="line">            return  mid;</div><div class="line">        &#125;else if(key &gt; arr[mid])&#123;</div><div class="line">            low = mid + 1;</div><div class="line">        &#125;else if(key &lt; arr[mid])&#123;</div><div class="line">            high = mid -1;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return -1;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <h3 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function binary_search2(arr, low, high, key) &#123;</div><div class="line">	if(low &gt; high)</div><div class="line">	    return -1;</div><div class="line">	var mid = parseInt((low + high)/2);</div><div class="line">	if(key == arr[mid])</div><div class="line">	    return mid;</div><div class="line">	else if(key &gt; arr[mid])</div><div class="line">	    return binary_search2(arr, mid+1, high, key);</div><div class="line">	else if(key &lt; arr[mid])</div><div class="line">        return binary_search2(arr, low, mid-1, key);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 ]]></content>
     
     <summary type="html">
     
-      &lt;h2 id=&quot;1-冒泡排序&quot;&gt;&lt;a href=&quot;#1-冒泡排序&quot; class=&quot;headerlink&quot; title=&quot;1.冒泡排序&quot;&gt;&lt;/a&gt;1.冒泡排序&lt;/h2&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;function bubbleSort(arr)&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	var i = j = 0;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	for(i=1;i&amp;lt;arr.length;i++)&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;		for(j=0;j&amp;lt;=arr.length-i;j++)&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;			var temp = 0;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;			if(arr[j]&amp;gt;arr[j+1])&amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;				temp = arr[j];&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;				arr[j] = arr[j+1];&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;				arr[j+1] = temp;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;			&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;		&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+      &lt;h1 id=&quot;Javascript实现八大排序&quot;&gt;&lt;a href=&quot;#Javascript实现八大排序&quot; class=&quot;headerlink&quot; title=&quot;Javascript实现八大排序&quot;&gt;&lt;/a&gt;Javascript实现八大排序&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://www.jb51.net/article/88392.htm&quot;&gt;参考链接1&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://www.qdfuns.com/notes/36539/24a66634ecba54ab3d8f7407168754f2.html&quot;&gt;参考链接2&lt;/a&gt;&lt;br&gt;&lt;a href=&quot;http://blog.csdn.net/hguisu/article/details/7776068/&quot;&gt;参考链接3&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;排序算法，分为内部排序和外部排序。内部排序要使用内存，而外部排序是因排序的数据很大，一次不能容纳全部的排序记录，在排序过程中需要访问外存。这里只探讨内部排序。&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;交换排序：冒泡排序和快速排序&lt;/li&gt;
+&lt;li&gt;插入排序：直接插入排序和希尔排序&lt;/li&gt;
+&lt;li&gt;选择排序：简单选择排序和堆排序&lt;/li&gt;
+&lt;li&gt;归并排序&lt;/li&gt;
+&lt;li&gt;基数排序&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;当n较大，则应采用时间复杂度为O(nlog2n)的排序方法：快速排序、堆排序或归并排序序。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;快速排序&lt;/strong&gt;：是目前基于比较的内部排序中被认为是最好的方法，当待排序的关键字是随机分布时，快速排序的平均时间最短。&lt;br&gt;
     
     </summary>
     

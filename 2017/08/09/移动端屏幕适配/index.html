@@ -1,0 +1,898 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="google-site-verification" content="3C0GPfQqnkheXgimbf5ySFQi6NgZ-44EBeJve7cAwmY" />
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="移动端适配,rem,dpr,viewport," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="移动端web开发相对于PC端web开发，我们可以庆幸不用兼容那么多浏览器了，但是随之而来的却是各种屏幕尺寸的适配，个人觉得，比PC端还要费精力。在使用了腾讯优测进行软件测试后，问题得到了有效解决。
+1.移动端布局方式1.1响应式布局简而言之，就是页面元素的位置随着屏幕尺寸的变化而变化，通常会用百分比来定位，而在设计上需要预留一些可被“压缩”的空间。
+
+如上图，其实就相当于页面被压矮了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="移动端适配">
+<meta property="og:url" content="https://barryleeweb.github.io/2017/08/09/移动端屏幕适配/index.html">
+<meta property="og:site_name" content="Front End">
+<meta property="og:description" content="移动端web开发相对于PC端web开发，我们可以庆幸不用兼容那么多浏览器了，但是随之而来的却是各种屏幕尺寸的适配，个人觉得，比PC端还要费精力。在使用了腾讯优测进行软件测试后，问题得到了有效解决。
+1.移动端布局方式1.1响应式布局简而言之，就是页面元素的位置随着屏幕尺寸的变化而变化，通常会用百分比来定位，而在设计上需要预留一些可被“压缩”的空间。
+
+如上图，其实就相当于页面被压矮了。">
+<meta property="og:image" content="http://static.oschina.net/uploads/space/2016/0128/110509_Fkpj_2420477.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/space/2016/0128/110536_8i2h_2420477.jpg">
+<meta property="og:image" content="http://static.oschina.net/uploads/space/2016/0128/110556_BSaM_2420477.jpg">
+<meta property="og:updated_time" content="2017-08-08T16:17:35.654Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="移动端适配">
+<meta name="twitter:description" content="移动端web开发相对于PC端web开发，我们可以庆幸不用兼容那么多浏览器了，但是随之而来的却是各种屏幕尺寸的适配，个人觉得，比PC端还要费精力。在使用了腾讯优测进行软件测试后，问题得到了有效解决。
+1.移动端布局方式1.1响应式布局简而言之，就是页面元素的位置随着屏幕尺寸的变化而变化，通常会用百分比来定位，而在设计上需要预留一些可被“压缩”的空间。
+
+如上图，其实就相当于页面被压矮了。">
+<meta name="twitter:image" content="http://static.oschina.net/uploads/space/2016/0128/110509_Fkpj_2420477.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://barryleeweb.github.io/2017/08/09/移动端屏幕适配/"/>
+
+
+
+
+
+  <title>移动端适配 | Front End</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Front End</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">前端爱好者</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://barryleeweb.github.io/2017/08/09/移动端屏幕适配/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Barry Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Front End">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">移动端适配</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T00:09:19+08:00">
+                2017-08-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/移动端及响应式/" itemprop="url" rel="index">
+                    <span itemprop="name">移动端及响应式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/08/09/移动端屏幕适配/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/08/09/移动端屏幕适配/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>移动端web开发相对于PC端web开发，我们可以庆幸不用兼容那么多浏览器了，但是随之而来的却是各种屏幕尺寸的适配，个人觉得，比PC端还要费精力。在使用了腾讯优测进行软件测试后，问题得到了有效解决。</p>
+<h1 id="1-移动端布局方式"><a href="#1-移动端布局方式" class="headerlink" title="1.移动端布局方式"></a>1.移动端布局方式</h1><h2 id="1-1响应式布局"><a href="#1-1响应式布局" class="headerlink" title="1.1响应式布局"></a>1.1响应式布局</h2><p>简而言之，就是页面元素的位置随着屏幕尺寸的变化而变化，通常会用百分比来定位，而在设计上需要预留一些可被“压缩”的空间。</p>
+<p><img src="http://static.oschina.net/uploads/space/2016/0128/110509_Fkpj_2420477.jpg" alt="image"></p>
+<p>如上图，其实就相当于页面被压矮了。<br><a id="more"></a></p>
+<h2 id="1-2Cover布局"><a href="#1-2Cover布局" class="headerlink" title="1.2Cover布局"></a>1.2Cover布局</h2><p>就跟background-size的cover属性一样，保持页面的宽高比，取宽或高之中的较小者占满屏幕，超出的内容会被隐藏。此布局适用于主要内容集中在中部，边沿无重要内容的设计。</p>
+<p><img src="http://static.oschina.net/uploads/space/2016/0128/110536_8i2h_2420477.jpg" alt="image"></p>
+<p>如上图，第一张是原设计稿，第二张把左右隐藏掉了一部分，第三张则是把上下隐藏掉了一部分。</p>
+<h2 id="1-3Contain布局"><a href="#1-3Contain布局" class="headerlink" title="1.3Contain布局"></a>1.3Contain布局</h2><p>同样，也跟background-size的contain属性那样，保持页面的宽高比，取宽或高之中的较大者占满屏幕，不足的部分会用背景填充。个人比较推荐用这种方式，但在设计上需要背景为单色，或者是可平铺的背景。</p>
+<p><img src="http://static.oschina.net/uploads/space/2016/0128/110556_BSaM_2420477.jpg" alt="image"></p>
+<p>如上图，红框部分为原始宽高比，根据不同屏幕尺寸进行缩放，并加背景填充。 </p>
+<h1 id="2-常用的实现方法"><a href="#2-常用的实现方法" class="headerlink" title="2.常用的实现方法"></a>2.常用的实现方法</h1><h2 id="2-1样式缩放"><a href="#2-1样式缩放" class="headerlink" title="2.1样式缩放"></a>2.1样式缩放</h2><p>最省事的适配方法，直接用px为单位按视觉进行开发，然后通过计算屏幕与网页的宽高比，用transform:scale来对网页进行全局缩放。</p>
+<p>不过此方法会有一个小问题，就是如果网页内有动画的话，缩放后会稍微降低页面性能，在低配的安卓机器上表现的比较明显，iOS上没发现有性能问题。</p>
+<h2 id="2-2Rem缩放"><a href="#2-2Rem缩放" class="headerlink" title="2.2Rem缩放"></a>2.2Rem缩放</h2><p>Rem是个好东西呀，谁用谁知道，这里就不多做解释了。原理跟上面的样式缩放相通，只不过是通过Rem为单位来进行视觉开发，然后通过计算后改变html的front-size来对页面进行缩放。</p>
+<p>关于以Rem为单位进行开发，目前比较流行Font-size=62.5%，而后1rem=10px的这种方法，有试过直接换成px也是可以的，就看个人的计算习惯吧。</p>
+<h1 id="3-Rem缩放"><a href="#3-Rem缩放" class="headerlink" title="3.Rem缩放"></a>3.Rem缩放</h1><ul>
+<li>rem的意思（根元素的font-size值）</li>
+<li>viewport</li>
+<li>DPR(device pixel ratio)</li>
+<li>动态rem<h2 id="3-1-标签中的viewport"><a href="#3-1-标签中的viewport" class="headerlink" title="3.1 标签中的viewport"></a>3.1 <meta>标签中的viewport</h2>简单来讲，viewport就是浏览器上，用来显示网页的那一部分区域了，也就是说，浏览器的实际宽度，是和我们手机的宽度不一样的，无论你的手机 宽度是320px，还是640px，在手机浏览器内部的宽度，始终会是浏览器本身的viewport。</li>
+</ul>
+<p>对viewport的控制:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1 user-scalable=0&quot;&gt;</div></pre></td></tr></table></figure></p>
+<h2 id="3-2-关于我们的设备"><a href="#3-2-关于我们的设备" class="headerlink" title="3.2 关于我们的设备"></a>3.2 关于我们的设备</h2><h3 id="三个概念"><a href="#三个概念" class="headerlink" title="三个概念:"></a>三个概念:</h3><ul>
+<li>PPI: 可以理解为屏幕的显示密度</li>
+<li>DPR: 设备物理像素和逻辑像素的对应关系，即物理像素/逻辑像素</li>
+<li>Resolution: 就是我们常说的分辨率</li>
+</ul>
+<h3 id="物理像素与逻辑像素-DPR"><a href="#物理像素与逻辑像素-DPR" class="headerlink" title="物理像素与逻辑像素(DPR):"></a>物理像素与逻辑像素(DPR):</h3><p>设备物理像素：</p>
+<blockquote>
+<p>通俗的讲设备屏幕有多少个可以闪烁的点 是一个具体的概念 比如iphone6横向就有750个可以改变颜色的点 类似与电视机 如果家里有10年前买的大头电视，你趴在屏幕前仔细看能看到一个个RGB的点 这就是设备的物理像素</p>
+</blockquote>
+<p>设备独立像素</p>
+<blockquote>
+<p>设备独立像素是一个虚拟的概念，如程序中的css 比如我们将一个div宽度设置为10像素 那么在pc上系统会将这个div显示在屏幕的10个点上</p>
+</blockquote>
+<p>以iphone6为例，在不做任何缩放的条件下，iphone6的获取到的’width-device’为375px,为屏幕的逻辑像素。而购买时我们所知的750px，则为屏幕的物理像素。</p>
+<h3 id="CSS的问题"><a href="#CSS的问题" class="headerlink" title="CSS的问题:"></a>CSS的问题:</h3><p>以iphone6为例，我们可以知道，其实我们所写的1px，在iphone6上为2px的物理像素。所以，最后的，给出一个结论。就是我们写的1px，在移动端，是逻辑像素的1px，而非物理像素的1px。</p>
+<h2 id="3-3-rem布局"><a href="#3-3-rem布局" class="headerlink" title="3.3 rem布局"></a>3.3 rem布局</h2><h3 id="3-3-1简介rem"><a href="#3-3-1简介rem" class="headerlink" title="3.3.1简介rem"></a>3.3.1简介rem</h3><p>如今市面上移动设备的分辨率大小不同，常用的px单位不再准确。为此，CSS3出了一个新单位——rem，rem是移动端神器，它完美解决了分辨率的适配问题</p>
+<p>rem就是相对于根元素<html>的font-size来做计算</html></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">html&#123;</div><div class="line">    font-size：10px;</div><div class="line">&#125;</div><div class="line">.box&#123;</div><div class="line">    width:10rem;</div><div class="line">    height:10rem;</div><div class="line">    font-size:1.2rem;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>一个宽高各100px的box就出现了,有些像我们以前常用的em，不过rem是相对于根元素(<html>)的字体大小，em相对 于父元素的字体大小。</html></p>
+<p>设计稿的像素/html的font-size=用来代替px的rem</p>
+<h3 id="3-3-2屏幕适配"><a href="#3-3-2屏幕适配" class="headerlink" title="3.3.2屏幕适配"></a>3.3.2屏幕适配</h3><p>虽然很简单，但是移动设备那么多，我们又怎么根据手机屏幕的分辨率不同，去设置<html>的字体大小呢？</html></p>
+<ul>
+<li>通过CSS媒体查询</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">html&#123;</div><div class="line">    font-size:20px;</div><div class="line">&#125;</div><div class="line">@media only screen and (min-width:320px)&#123;</div><div class="line">    html&#123;</div><div class="line">        font-size:10px;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">@media only screen and (min-width:375px)&#123;</div><div class="line">    html&#123;</div><div class="line">        font-size:16px;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">@media only screen and (min-width:414px)&#123;</div><div class="line">    html&#123;</div><div class="line">        font-size:20px;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过媒体查询的方式，只需要把常用的屏幕宽度考虑进去即可，能够满足大部分应用场景，不过这一做法不够严谨</p>
+<ul>
+<li>通过js计算</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line">*代码如下</div><div class="line">*其中的参数1080根据自己的实际情况进行修改，这里的1080代表设计页面的原始宽度，可以参考psd的标准宽度，这是后字体使用rem也有了标准，psd上的字号如：40点 对应css中的rem的换算方式为40/100=0.4rem。</div><div class="line">*/</div><div class="line">(function (doc, win) &#123;</div><div class="line">    var docEl = doc.documentElement,</div><div class="line">        resizeEvt = &apos;orientationchange&apos; in window ? &apos;orientationchange&apos; : &apos;resize&apos;,</div><div class="line">        recalc = function () &#123;</div><div class="line">            var clientWidth = docEl.clientWidth;</div><div class="line">            if (!clientWidth) return;</div><div class="line">            docEl.style.fontSize =Math.floor(100*(clientWidth / 1080))+ &apos;px&apos;;</div><div class="line">        &#125;;</div><div class="line">    if (!doc.addEventListener) return;</div><div class="line">    win.addEventListener(resizeEvt, recalc, false);</div><div class="line">    doc.addEventListener(&apos;DOMContentLoaded&apos;, recalc, false);</div><div class="line">&#125;)(document,window);</div></pre></td></tr></table></figure>
+<p>通过js设备的屏幕分辨率，可以计算出相应的字体的大小，这个方法可以适配所有屏幕的大小，这下就完美许多了。</p>
+<p>不过有些时候会很麻烦，因为rem会涉及到换算的问题，比如70px的宽，根目录字体是12px,那换算公式为：70/12 = 5.83333333~，每次写一个单位都要用计算器去算，这工作可以让Less或者Sass等预处理器去完成。</p>
+<h3 id="3-3-3DPR的问题"><a href="#3-3-3DPR的问题" class="headerlink" title="3.3.3DPR的问题"></a>3.3.3DPR的问题</h3><p>1px会出现什么问题？</p>
+<p>我们的设备，是有物理像素和逻辑像素的。而假设我们的设计稿是750的，同时还是以iphone6为例，此时如果我们的viewport是这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no&quot;&gt;</div></pre></td></tr></table></figure>
+<p>之前说过，在不做任何缩放的条件下，iphone6获取到的viewport为375px。</p>
+<p>然后我们的页面中有个div，他有一个边框值，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">div&#123;</div><div class="line">	height: 5rem;</div><div class="line">	widht:5rem;</div><div class="line">	border: 1px solid #000</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此时我们写的1px，实际上是逻辑像素，而我们在iphone6上看到的是物理像素，于是这个时候，我们眼睛所看到的其实是2px（参考第二点第三个问题3.2）</p>
+<p>所以此时我们需要在viewport上做文章了，此时先明确，如果要获取到真正的1px，那么我们需要这么做，将viewport改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;viewport&quot; content=&quot;initial-scale=0.5, maximum-scale=0.5, minimum-scale=0.5, user-scalable=no&quot;&gt;</div></pre></td></tr></table></figure>
+<p>即对屏幕做0.5倍的缩放。这样，我们就能得到实际的1px。</p>
+<p>我们还要明确一点，viewport的meta标签，我们这里也只能通过js来动态生成。</p>
+<h3 id="3-3-4文字适配问题"><a href="#3-3-4文字适配问题" class="headerlink" title="3.3.4文字适配问题"></a>3.3.4文字适配问题</h3><p>对于一些标题性的文字，我们依然可以用rem。让他随着屏幕来进行缩放，因为标题性文字一般较大，而较大的文字，点阵对其影响就越小。这样，即使出现奇怪的尺寸，也能够让字体得到很好的渲染。</p>
+<p>对于一些正文内容的文字（即站在使用者的角度，你不希望他进行缩放的文字）。我们采用px来进行处理。</p>
+<h2 id="3-4-手淘的解决方案"><a href="#3-4-手淘的解决方案" class="headerlink" title="3.4 手淘的解决方案"></a>3.4 手淘的解决方案</h2><h3 id="3-4-1-rem布局-对比3-2-2JS"><a href="#3-4-1-rem布局-对比3-2-2JS" class="headerlink" title="3.4.1 rem布局(对比3.2.2JS)"></a>3.4.1 rem布局(对比3.2.2JS)</h3><p>用js获取到页面的宽度，然后对其进行宽度/10的处理，再将其写到html的font-size中。手淘的flexible.js里面的这一部分，并为了方便看懂做了些改写。大体就是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">function refreshRem()&#123;</div><div class="line"> 	var docEl = window.document.documentElement;</div><div class="line">    var width = docEl.documentElement.getBoundingClientRect().width;</div><div class="line"></div><div class="line">    var rootSize = width/10;</div><div class="line">    docEl.style.fontSize = rootSize + &apos;px&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="3-4-2-dpr的配置"><a href="#3-4-2-dpr的配置" class="headerlink" title="3.4.2 dpr的配置"></a>3.4.2 dpr的配置</h3><h3 id="3-4-3-文字的解决方案"><a href="#3-4-3-文字的解决方案" class="headerlink" title="3.4.3 文字的解决方案"></a>3.4.3 文字的解决方案</h3><p>在html上，加入了一个自定义属性，data-dpr。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;html data-dpr=&apos;dpr&apos;&gt;&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>假如设计稿上某a标签是32px，那么</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">a&#123;</div><div class="line">	font-size: 16px</div><div class="line">&#125;</div><div class="line">/*iphone6*/</div><div class="line">[data-dpr=&apos;2&apos;] a&#123;</div><div class="line">	font-size: 32px</div><div class="line">&#125;</div><div class="line">/*iphone6plus*/</div><div class="line">[data-dpr=&apos;3&apos;] a&#123;</div><div class="line">	font-size: 32px</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-5-另一个解决方案"><a href="#3-5-另一个解决方案" class="headerlink" title="3.5 ==另一个解决方案=="></a>3.5 ==另一个解决方案==</h2><p>通过rem,viewport,以及dpr我们就可以完成我们的终极适配了，告别死板写法 不再这样写死 我们知道了设备的dpr就可以明确的知道缩放多少，而且这样还解决了很难解决的1px横线的问题<br>我们需要这样一段js代码</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">(function (doc, win) &#123;</div><div class="line">    console.log(&quot;dpr:&quot;+win.devicePixelRatio); </div><div class="line">    var docEle = doc.documentElement,</div><div class="line">    isIos = navigator.userAgent.match(/iphone|ipod|ipad/gi),</div><div class="line">    dpr=Math.min(win.devicePixelRatio, 3);</div><div class="line">    scale = 1 / dpr,</div><div class="line"></div><div class="line">    resizeEvent = &apos;orientationchange&apos; in window ? &apos;orientationchange&apos; : &apos;resize&apos;;</div><div class="line">    docEle.dataset.dpr = dpr;</div><div class="line"></div><div class="line">    var metaEle = doc.createElement(&apos;meta&apos;);</div><div class="line">    metaEle.name = &apos;viewport&apos;;</div><div class="line">    metaEle.content = &apos;initial-scale=&apos; + scale + &apos;,maximum-scale=&apos; + scale;</div><div class="line">    docEle.firstElementChild.appendChild(metaEle);</div><div class="line"> </div><div class="line">    var recalCulate = function  &#123;</div><div class="line">        var width = docEle.clientWidth;</div><div class="line">        if (width / dpr &gt; 640) &#123;</div><div class="line">            width = 640 * dpr;</div><div class="line">        &#125;</div><div class="line">        docEle.style.fontSize = 20 * (width / 750) + &apos;px&apos;;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    recalCulate</div><div class="line">    if (!doc.addEventListener) return;</div><div class="line">    win.addEventListener(resizeEvent, recalCulate, false);</div><div class="line">&#125;)(document, window);</div></pre></td></tr></table></figure>
+<ul>
+<li>获取设备dpr</li>
+<li>算出缩放比例 scale = 1/dpr</li>
+<li>创建meta以及属性</li>
+<li>将scale值赋给initial-scale，maximum-scale</li>
+<li>meta插入到文档中</li>
+<li>创建屏幕大小改变重新计算函数并监听</li>
+</ul>
+<h2 id="3-5-个人总结上面知识点"><a href="#3-5-个人总结上面知识点" class="headerlink" title="3.5 个人总结上面知识点"></a>3.5 个人总结上面知识点</h2><ul>
+<li>了解rem,viewport,以及dpr</li>
+<li>获取DPR,得到缩放scale = 1/dpr，并挂到meta</li>
+<li>设置rem:docEle.style.fontSize</li>
+</ul>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ul>
+<li><a href="http://www.oschina.net/question/2420477_2150404" target="_blank" rel="external">参考链接1</a></li>
+<li><a href="http://www.cnblogs.com/doseoer/p/5331755.html" target="_blank" rel="external">参考链接2</a></li>
+<li><a href="http://www.cnblogs.com/slman86/p/5581865.html" target="_blank" rel="external">参考链接3</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/移动端适配/" rel="tag"># 移动端适配</a>
+          
+            <a href="/tags/rem/" rel="tag"># rem</a>
+          
+            <a href="/tags/dpr/" rel="tag"># dpr</a>
+          
+            <a href="/tags/viewport/" rel="tag"># viewport</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/09/跨域问题/" rel="next" title="跨域问题">
+                <i class="fa fa-chevron-left"></i> 跨域问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Barry Lee" />
+          <p class="site-author-name" itemprop="name">Barry Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Barryleeweb" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              Links
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://ife.baidu.com/" title="百度前端技术学院" target="_blank">百度前端技术学院</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-移动端布局方式"><span class="nav-number">1.</span> <span class="nav-text">1.移动端布局方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1响应式布局"><span class="nav-number">1.1.</span> <span class="nav-text">1.1响应式布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2Cover布局"><span class="nav-number">1.2.</span> <span class="nav-text">1.2Cover布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3Contain布局"><span class="nav-number">1.3.</span> <span class="nav-text">1.3Contain布局</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-常用的实现方法"><span class="nav-number">2.</span> <span class="nav-text">2.常用的实现方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1样式缩放"><span class="nav-number">2.1.</span> <span class="nav-text">2.1样式缩放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2Rem缩放"><span class="nav-number">2.2.</span> <span class="nav-text">2.2Rem缩放</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Rem缩放"><span class="nav-number">3.</span> <span class="nav-text">3.Rem缩放</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-标签中的viewport"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 标签中的viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-关于我们的设备"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 关于我们的设备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三个概念"><span class="nav-number">3.2.1.</span> <span class="nav-text">三个概念:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理像素与逻辑像素-DPR"><span class="nav-number">3.2.2.</span> <span class="nav-text">物理像素与逻辑像素(DPR):</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSS的问题"><span class="nav-number">3.2.3.</span> <span class="nav-text">CSS的问题:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-rem布局"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 rem布局</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1简介rem"><span class="nav-number">3.3.1.</span> <span class="nav-text">3.3.1简介rem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2屏幕适配"><span class="nav-number">3.3.2.</span> <span class="nav-text">3.3.2屏幕适配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-3DPR的问题"><span class="nav-number">3.3.3.</span> <span class="nav-text">3.3.3DPR的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-4文字适配问题"><span class="nav-number">3.3.4.</span> <span class="nav-text">3.3.4文字适配问题</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-手淘的解决方案"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 手淘的解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-1-rem布局-对比3-2-2JS"><span class="nav-number">3.4.1.</span> <span class="nav-text">3.4.1 rem布局(对比3.2.2JS)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-2-dpr的配置"><span class="nav-number">3.4.2.</span> <span class="nav-text">3.4.2 dpr的配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-3-文字的解决方案"><span class="nav-number">3.4.3.</span> <span class="nav-text">3.4.3 文字的解决方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-另一个解决方案"><span class="nav-number">3.5.</span> <span class="nav-text">3.5 ==另一个解决方案==</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-5-个人总结上面知识点"><span class="nav-number">3.6.</span> <span class="nav-text">3.5 个人总结上面知识点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考链接"><span class="nav-number">4.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Barry Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://barry.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'https://barryleeweb.github.io/2017/08/09/移动端屏幕适配/';
+          this.page.identifier = '2017/08/09/移动端屏幕适配/';
+          this.page.title = '移动端适配';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://barry.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
